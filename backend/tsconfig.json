@@ -1,0 +1,50 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "declaration": true,
+    "removeComments": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "allowJs": true,
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+
+    "target": "ES2021",
+    "moduleResolution": "node",
+    "module": "commonjs",
+
+    "resolveJsonModule": true,
+
+    "strict": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": false,
+
+    "noImplicitAny": true,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+
+    "paths": {
+      "@src/*": ["src/*"],
+      "@app/*": ["src/app/*"],
+      "@infra/*": ["src/infra/*"],
+      "@config/*": ["src/config/*"],
+      "@utils/*": ["src/utils/*"],
+      "@tests/*": ["tests/*"]
+    }
+  },
+  "include": [
+    "ormconfig.ts",
+    "src/**/*",
+    "tests/**/*",
+    "templates/**/*",
+    "./*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

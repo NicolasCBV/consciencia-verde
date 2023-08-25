@@ -1,0 +1,98 @@
+# Follow the .env.example to see all environment variables
+# used here
+
+version: "3"
+
+services:
+  db:
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile
+    hostname: mysql_db
+    restart: always 
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    networks:
+      - internal_network    
+      - external_network
+    volumes:
+      - db:/var/lib/mysql
+  
+  redis_db:
+    image: redis:7.0.5-bullseye
+    restart: always
+    hostname: redis
+    ports:
+      - "6379:6379"
+    command: redis-server --loglevel warning --requirepass password 
+    networks:
+      - internal_network 
+      - external_network
+    volumes:
+      - cache:/data
+  
+  app:
+    image: nicolascbv/user-manager-service:latest 
+    hostname: app
+    environment:
+      - LANG=English
+      - PORT=3030
+      - PROJECT_NAME=User-service
+      - 'CLIENT_URL=http://localhost:3000'
+      - 'DATABASE_URL=mysql://root:password@mysql_db/db'
+      - CACHE_HOSTNAME=redis
+      - CACHE_PASSWORD=password
+      - NODE_ENV=production
+      - COOKIE_SECRET=secret
+      - TOKEN_SECRET=secret1
+      - TOKEN_EXPIRES=900000
+      - REFRESH_TOKEN_KEY=secret2
+      - REFRESH_TOKEN_EXPIRES=86400000
+      - FORGOT_TOKEN_KEY=secret3
+      - FORGOT_TOKEN_EXPIRES=120000
+      - OTP_TIME=120000
+      - 'FIREBASE={ "type": "service_account", "project_id": "tests-546a", "private_key_id": "8ad6a33b14c8f5918a066132965caaae02424c7a", "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQClX2mFu3Jl5mOd\n4C+VyNMb65NMT2ab+eNEJTZLFN0V3jRynNibgmwHVH3eRYVnKbqEx1fYnQpvVhcS\nbj3dCzhbIQcuY6gDa5PaV29bLQbnx+sa0W3RhwTj9X3CK1sTm95iE0msSzF/HGx4\n9CMDnwUHyXXBfrl1n5uMHDW0px/jdfRRn5Kp5pk/pVJtBJQJ8PMe24jz8SrylKDG\npqgzH4T3CVM1VJ8pGO7ybxNeW41pggoKYoVhSAq/7s1bcCawyb8DmNSvVAXds+78\n87bweGGjTH/DryWfs3bx9s7fHgzb5c3cYiV0zhnbJUU1ZdCJjKzUSsChZEt0pGel\nqaQIC8gFAgMBAAECggEABSLjAKPTSEXxFyC06aaMpAPbldWrfrGytNWhC5Dw0vKN\nV3f2pFHXMB0YMbSgEZWytNgKKvCpt86JNenVow1rqSzr761ptP184J2xmDfcTIuh\nijox+n2Ckd/4kXTORdwj+pDVy3OkbGnCFrmicsTYH6dKsIFSmkwkRSRFKMC+FU7y\nPNfFmFETUoxWJAIdHsbuy6HVOxR9gCe7+yqnFAEfVRYbXHwVbyKXZn7RfmcKle04\nGznW41awDKPZisFKqvg3nMYxrjP6iSQ8Ps6tl++g0NGua1AyFiglUTUa0nysYA8V\n8FFy563/u0X/Cq7w8BxWz0SZcpbsPLIrT6RcVWDvsQKBgQDgaduXNDxsyv+SZwYc\nN5bqNOOhd8BvrMzpFA/VxV1TjgwsKCzORWsyVhZ1Tyd907mSekCEt0h5bN6Vg/H2\no9Vi7mhgwkDo8/eqwdmQkZ2IsLrnu6Oy50hff2pKadS3VfV4tZZIpI3VSSKs7TKG\nnhZSggABLJ7n4+ANM8c5CGKGLQKBgQC8pi0x184QFFoz8BQVfDG3mNUFXan2HRCV\nL9Y9sFPKIO6B2BaordjOxfKfCapIsAe5WK0WVioncyWTYy3E3R1JaEh660s89/nY\nELpj619P3hGogfZE1XEBhPvRapjGDla1L+26lqlbnUzyXzfNFsEhtmoZi30IDfr/\nmfuTFqSIOQKBgQCrOZnGoKCKEck2l0zeMrv/LyOPi6NUkfA21ovOe6xdmEBJYM3v\nBKBp4613DFIBe45X6NdZa87sdtjOE8KGgTLLLUSOryh/lcYej5HE8JXWOaIiNdUN\nJ9LcqocbB+y5heiplUN5YbSmTAsdDk5C0FQP2AjQ3I7SN9g3uo4DQhaKcQKBgQC0\nqgSARmcumP8l3FavmMfYR0JCqEe7zmvyI+TuIS6tVcp0iShyFEOdCo9nZY8xm3ta\nMqVYzd4C99BVjVbowMVqZrd7GFluoyEfni2SwXf++fI5SXU6yJo31U6AaLC0hEjf\nrm3iEqVQep2VREEhZRhCm/qSSjbMfu8Q2DvIypd5aQKBgGOUwRLghY9dMq1CysLr\n8cVXl6/IiLslftEBswXm9l2A0cHxnp7/dzDgKwDl3n5AvkXXLiiygpb/PUxrXjlB\n+1L+mfNJe3yHB0i/49qwQ+FjoyIZUjEUXAIC4mCXgSoPw73lPklMcfC+qxM9j7Nq\nmxTsGGCvqeg0eiawdbIPgb3H\n-----END PRIVATE KEY-----\n", "client_email": "firebase-adminsdk-7a6ur@tests-546a.iam.gserviceaccount.com", "client_id": "110141711517492614573", "auth_uri": "https://accounts.google.com/o/oauth2/auth", "token_uri": "https://oauth2.googleapis.com/token", "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs", "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-7a6ur%40tests-546a.iam.gserviceaccount.com", "universe_domain": "googleapis.com"}'
+      - 'FIREBASE_TEMPLATE_IMAGE_LINK=https://firebasestorage.googleapis.com/v0/b/tests-546a.appspot.com/o'
+      - 'FIREBASE_BUCKET=gs://tests-546a.appspot.com/'
+      - HOST_SENDER=sandbox.smtp.mailtrap.io
+      - HOST_PORT_SENDER=2525
+      - EMAIL_SENDER=8e7bc947fd66f9
+      - PASS_SENDER=27afd8c40b7d0d
+    restart: always
+    ports:
+      - "3030:3030"
+    networks:
+      - internal_network
+      - external_network
+    depends_on:
+      - db
+      - redis_db
+  
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx:/etc/nginx
+    networks:
+      - external_network
+    depends_on:
+      - app
+      - redis_db
+      - db
+
+volumes:
+  db:
+    driver: local
+  cache:
+    driver: local
+
+networks:
+  external_network:
+  internal_network:
+    internal: true

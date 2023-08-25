@@ -1,0 +1,15 @@
+service: admin-serverless
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  stage: ${opt:stage, "dev"}
+  region: ${opt:region, "us-east-1"}
+  memorySize: 128
+  timeour: 3
+
+functions:
+  start:
+    handler: dist/main.handler
+    description: Function to start server
+    events: 

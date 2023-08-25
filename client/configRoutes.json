@@ -1,0 +1,32 @@
+{
+  "post": {
+    "defaultName": "posts/",
+    "authName": "posts-auth/",
+    "create": "create",
+    "delete": "delete/",
+    "update": "update/",
+    "get": "get/",
+    "getGroup": "get-group",
+    "searchFor": "searchFor/",
+    "seadPostForUsers": "send-post-for-users",
+    "insertPostPhoto": "sendPostPhoto/"
+  },
+  "user": {
+    "defaultName": "users/",
+    "authName": "users-auth/",
+    "create": "sigin",
+    "delete": "delete",
+    "cancel": "/cancel",
+    "login": "login",
+    "getToken": "get-token",
+    "remakeToken": "remake-token",
+    "parseToken": "parse-token",
+    "validateAccount": "validate",
+    "change2FA": "modify2FA",
+    "updateUserPhoto": "update-user-photo/",
+    "updateNameOrDesc": "update-name-or-desc",
+    "searchForUser": "search-for-user",
+    "updatePassword": "/try-update-password/",
+    "confirmUpdatePassword": "/confirm-update-password"
+  }
+}
