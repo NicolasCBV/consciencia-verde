@@ -3,7 +3,9 @@ import { PostGateway } from "@/@core/domain/gateways/post.gateway";
 import { PostGatewayTypes } from "@/@core/domain/gateways/types/post.gateway-types";
 import { HttpError } from "@/@core/errors/HttpError";
 import { collection, doc, getDoc } from "firebase/firestore";
+import { injectable } from "inversify";
 
+@injectable()
 export class ExistentPostGateway implements PostGateway.ExistentPostGateway {
   private formatData(input: string) {
     const name = encodeURIComponent(input);

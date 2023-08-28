@@ -81,7 +81,7 @@ export function EditingMode({
             }))
           }}
           placeholder="Insira seu nome"
-          icon={Tag}
+          icon={{ content: Tag }}
         />
         <textarea
           className="w-full h-[40vh] max-h-[8rem] border-[1px] border-zinc-600 rounded-lg p-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500"

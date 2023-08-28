@@ -9,8 +9,6 @@ import {
 import { animated, useSpring } from "react-spring";
 
 import { IFormProps } from "@/pages/login";
-import Link from "next/link";
-import { Button } from "../common/Button";
 import { FormOptions } from "./Options";
 import { FormInputs } from "./Inputs";
 import { Application } from "@/@core/application/container";
@@ -46,6 +44,9 @@ export function Form({
     opacity: "1",
     visibility: "visible"
   }) as CSSProperties);
+  const [boxStyle, setBoxStyle] = useSpring(() => ({
+    height: "21.5rem",
+  }) as CSSProperties)
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
@@ -75,9 +76,12 @@ export function Form({
   }
 
   return (
-    <div className="grid place-items-center place-self-center bg-primaryColor-640 py-8 px-4 text-center relative rounded-md shadow-2xl duration-200 h-[19.5rem] w-[70vw] max-w-[20rem]">
+    <animated.div 
+      style={boxStyle} 
+      className="grid place-items-center place-self-center bg-primaryColor-550 py-8 px-4 text-center relative rounded-md shadow-2xl duration-200 w-[70vw] max-w-[20rem] prose prose-slate"
+    >
       <h1 className="text-2xl text-white mb-4">
-        {isOnSigin ? "Sigin" : "Login"}
+        {isOnSigin ? "Cadastro" : "Login"}
       </h1>
       <animated.form
         method="POST"
@@ -103,7 +107,7 @@ export function Form({
             form.password.length < 6 ||
             form.password.length > 256
           }
-          switchName={isOnSigin ? "Cadastro" : "Login"}
+          switchName={!isOnSigin ? "Cadastro" : "Login"}
           submitOption={
             (event: FormEvent) => {
               handleSubmit(event)
@@ -126,31 +130,27 @@ export function Form({
                   opacity: "0",
                   visibility: "hidden",
                 });
+                setBoxStyle.start({
+                  height: "17rem"
+                })
                 return setIsOnSigin(false);
               }
 
+              setBoxStyle.start({
+                height: "21.5rem"
+              })
               setInputStyle.start({
+                delay: 300,
                 display: "grid",
                 opacity: "1",
                 visibility: "visible",
               });
-              setFormStyle.start({ top: "0" });
+              setFormStyle.start({ delay: 300, top: "0" });
               return setIsOnSigin(true);
             }
           }
-        />
-        {
-          !isOnSigin &&
-            <Link 
-              href="/redefine-password"
-            >
-              <Button
-                name="Esqueci a senha"
-                className="text-white bg-none hover:bg-none hover:text-zinc-200 duration-200"
-              />
-            </Link>
-        }
+        /> 
       </animated.form>
-    </div>
+    </animated.div>
   );
 }

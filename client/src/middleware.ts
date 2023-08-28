@@ -8,7 +8,6 @@ export async function middleware(req: NextRequest) {
 
   const authCookie = req.cookies.get("refresh-cookie");
 
-  console.log(authCookie)
   if(!authCookie) 
     return NextResponse.redirect(newUrl);
   

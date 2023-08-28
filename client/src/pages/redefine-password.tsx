@@ -6,7 +6,6 @@ import { NotificationBalloon } from "../components/common/NotificationBalloon";
 import { Button } from "../components/common/Button";
 
 import { Envelope, Check } from "phosphor-react";
-import Link from "next/link";
 import { Application } from "@/@core/application/container";
 
 function Reset() {
@@ -23,9 +22,11 @@ function Reset() {
       .forgotPasswordFlow
       .start
       .exec({ email })
+      .then(() => {
+        setTime(30);
+      })
       .catch(() => setIsError(true));
 
-    setTime(30);
     setIsLoading(false);
   }
 
@@ -50,62 +51,53 @@ function Reset() {
         className="mt-16"
       />
       <Header/>
-      <main className="flex flex-col gap-2 text-center place-content-center h-screen">
+      <main className="flex flex-col text-center place-content-center min-h-screen prose prose-slate">
         {
           time > 0 &&
           <p className="place-self-center w-[70vw] max-w-[20rem]">
-            Aguarde {time} segundos para reenviar um email novamente.
+            Um email foi enviado para você. Aguarde {time} segundos para reenviar um email novamente.
           </p>
         }
-        <form className="grid">
-          <div className="grid place-items-center place-self-center bg-primaryColor-640 py-8 px-4 text-center relative rounded-md shadow-2xl duration-200 h-[60vh] max-h-[19.5rem] w-[70vw] max-w-[20rem] mini:h-[18rem] gap-2">
-            <h1 
-              className="text-2xl text-white mb-4"
-            >
-             Redefinição de senha 
-            </h1>
-            <p className="text-white">
-              Insira seu email para verificarmos a sua identidade. Ao receber nossa mensagem por ele, não esqueça de verificar a caixa de spam.
-            </p>
-            <Input
-              isActiveClasses="bg-primaryColor-520"
-              name="email"
-              type="text"
-              placeholder="Insira seu email"
-              onChange={(event) => setEmail(event.target.value)}
-              value={email}
-              minLength={1}
-              icon={Envelope}
-            />
+        <form className="grid place-items-center place-self-center bg-primaryColor-550 py-8 px-4 text-center relative rounded-md shadow-2xl duration-200 h-[13rem] w-[70vw] max-w-[20rem] mini:h-[15.5rem] mini:w-full">
+          <h1 className="text-2xl text-white mb-4">
+            Redefinição de senha 
+          </h1>
+          <Input
+            isActiveClasses="bg-primaryColor-750"
+            name="email"
+            type="text"
+            placeholder="Insira seu email"
+            onChange={(event) => setEmail(event.target.value)}
+            value={email}
+            minLength={1}
+            icon={{ content: Envelope }}
+          />
 
-            <div className="flex w-full justify-between mini:grid mini:gap-2 mini:place-content-center">
+          <div className="flex mt-4 w-full justify-between mini:grid mini:gap-2 mini:place-content-center">
+            <Button
+              name="Enviar"
+              type="submit"
+              color="green"
+              iconData={{
+                Icon: Check,
+                pos: "right",
+                loading: isLoading
+              }}
+              disabled={
+                isError ||
+                email.length < 5 ||
+                email.length > 256 ||
+                isLoading ||
+                time > 0
+              }
+              onClick={ handleSubmit }
+            />
               <Button
-                name="Enviar"
-                type="submit"
-                color="green"
-                iconData={{
-                  Icon: Check,
-                  pos: "right",
-                  loading: isLoading
-                }}
-                disabled={
-                  isError ||
-                  email.length < 5 ||
-                  email.length > 256 ||
-                  isLoading ||
-                  time > 0
-                }
-                onClick={ handleSubmit }
-              />
-              <Link href="/login">
-                <button
-                  type="button"
-                  className="flex transition-colors place-items-center place-content-center h-[5vh] w-[18vh] max-w-[8rem] rounded-[5px] gap-2 text-white"
-                >
-                  Voltar
-                </button>   
-              </Link>
-            </div>
+                name="Voltar"
+                href="/login"
+                type="button"
+                className="not-prose grid text-slate-900 place-self-center h-[1.2rem] place-content-center rounded-md hover:border-green-500 hover:bg-none hover:text-slate-700 duration-200"
+              /> 
           </div>
         </form>
       </main>

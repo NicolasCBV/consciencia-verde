@@ -23,6 +23,7 @@ import { CreateNewsMainFlow, ICreatePostForm } from '@/components/createNews/Cre
 import { NotificationBalloon } from '@/components/common/NotificationBalloon'
 import { Footer } from '@/components/common/Footer'
 import { useRouter } from 'next/router'
+import { useStoreHook } from '@/hooks'
 
 lowlight.registerLanguage("css", css);
 lowlight.registerLanguage("html", html);
@@ -47,6 +48,8 @@ export default function CreateNews({
 >) {
   const router = useRouter();
   const [ isLoading, setIsLoading ] = useState(false);
+
+  const accessToken = useStoreHook(({ accessToken }) => accessToken)
 
   const [ defaultError, setDefaultError ] = useState(false);
   const [ alreadyExistError, setAlreadyExistError ] = useState(false);
@@ -73,26 +76,6 @@ export default function CreateNews({
     }
   });
 
-  async function handlePreSubmit(form: ICreatePostForm) {
-    setIsLoading(true);
-
-    const res = await Application
-      .postFlow
-      .exist
-      .exec({ name: form.name })
-      .catch(() => {
-        setIsLoading(false);
-        return setDefaultError(true);
-      });
-
-    if(res) {
-      setIsLoading(false);
-      return setAlreadyExistError(true);
-    }
-
-    await handleSubmit(form);
-  }
-
   async function handleSubmit(form: ICreatePostForm) {
     const content = editor?.getJSON()?.content?.map((item) => {
       return JSON.stringify(item);
@@ -114,13 +97,13 @@ export default function CreateNews({
     await Application
       .postFlow
       .create
-      .exec({ post })
+      .exec({ access_token: String(accessToken.rawToken), post })
+      .then((data) => {
+        router.push(`/post/${data.id}`);
+      })
       .catch(() => setDefaultError(true))
       .finally(() => {
         setIsLoading(false);
-
-        const postName = encodeURIComponent(post.name);
-        router.push(`/post/${postName}`);
       });
   }
 
@@ -177,7 +160,7 @@ export default function CreateNews({
                 editor={editor}
                 image={image}
                 setImage={setImage}
-                handleSubmit={handlePreSubmit}
+                handleSubmit={handleSubmit}
               /> 
             </main>
           : <div className="grid w-screen h-screen place-content-center place-items-center place-self-center prose prose-zinc">

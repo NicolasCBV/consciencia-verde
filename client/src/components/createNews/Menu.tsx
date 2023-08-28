@@ -11,7 +11,7 @@ export function OptionsMenu({ editor }: IProps) {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
-        <button className="h-[8vh] max-h-[2rem] fixed z-[2] left-[85%]">
+        <button className="h-[8vh] max-h-[2rem] fixed z-[2] left-[85%] outline-none">
           <Gear 
             className="bg-green-500 circle p-2"
             width={40}
@@ -22,7 +22,7 @@ export function OptionsMenu({ editor }: IProps) {
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content className="py-2 mt-4 mr-2 px-1 max-w-[26rem] bg-zinc-700 shadow-xl border-zinc-600 shadow-black/20 rounded-lg overflow-hidden flex flex-col">
-          <DropdownMenu.Item className="DropdownMenuItem">          
+          <DropdownMenu.Item className="outline-none">          
             <MenuOption 
               name="Texto"
               description="Comece a escrever textos."
@@ -33,7 +33,7 @@ export function OptionsMenu({ editor }: IProps) {
             />
           </DropdownMenu.Item>
 
-          <DropdownMenu.Item>
+          <DropdownMenu.Item className="outline-none">
             <MenuOption
               name="Título 1"
               description="Catégoria de título 1."
@@ -44,7 +44,7 @@ export function OptionsMenu({ editor }: IProps) {
             />
           </DropdownMenu.Item>
 
-          <DropdownMenu.Item>
+          <DropdownMenu.Item className="outline-none">
             <MenuOption
               name="Título 2"
               description="Catégoria de título 2."
@@ -55,7 +55,7 @@ export function OptionsMenu({ editor }: IProps) {
             />
           </DropdownMenu.Item>
 
-          <DropdownMenu.Item>
+          <DropdownMenu.Item className="outline-none">
             <MenuOption
               name="Título 3"
               description="Catégoria de título 3."
@@ -66,7 +66,7 @@ export function OptionsMenu({ editor }: IProps) {
             />
           </DropdownMenu.Item>
 
-          <DropdownMenu.Item>
+          <DropdownMenu.Item className="outline-none">
             <MenuOption
               name="Lista ordenada"
               description="Adicionar lista ordenada."
@@ -77,7 +77,7 @@ export function OptionsMenu({ editor }: IProps) {
             />
           </DropdownMenu.Item>
 
-          <DropdownMenu.Item>
+          <DropdownMenu.Item className="outline-none">
             <MenuOption
               name="Lista de marcadores"
               description="Adicionar lista de marcadores."
@@ -88,7 +88,7 @@ export function OptionsMenu({ editor }: IProps) {
             />
           </DropdownMenu.Item> 
 
-          <DropdownMenu.Item>
+          <DropdownMenu.Item className="outline-none">
             <MenuOption
               name="Citação"
               description="Adicionar uma citação."
@@ -99,7 +99,7 @@ export function OptionsMenu({ editor }: IProps) {
             />
           </DropdownMenu.Item>
 
-          <DropdownMenu.Item>
+          <DropdownMenu.Item className="outline-none">
             <MenuOption
               name="Código"
               description="Adicione código."

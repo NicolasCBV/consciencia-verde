@@ -13,7 +13,7 @@ export async function refreshTokenServerOnly({
   cookie,
   headers
 }: IProps): Promise<IRefreshTokenServerOnlyResponse> {
-  const serverUrl = process.env.SERVER_URI;
+  const serverUrl = process.env.SERVER_URL;
   return await fetch(
     `${serverUrl}/users/refresh-token`, 
     {

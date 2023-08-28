@@ -17,6 +17,7 @@ export class ErrorMiddleware {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     next: NextFunction,
   ) {
+    console.log(err)
     if (err instanceof HttpError || err instanceof StorageError) {
       return res.status(err.code ?? 500).json({
         name: err.name,

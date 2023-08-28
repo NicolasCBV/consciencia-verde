@@ -46,7 +46,7 @@ export function DeleteModal({ setError, setStages }: IProps) {
           isActiveClasses="bg-primaryColor-520"
           name="Confirmation"
           placeholder="Insira a frase aqui"
-          icon={Warning}
+          icon={{ content: Warning }}
           onChange={(event) => {
             setInput(event.target.value)
           }}

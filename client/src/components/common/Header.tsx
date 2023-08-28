@@ -6,7 +6,7 @@ import {
 import Link from "next/link";
 import { useRouter } from 'next/router';
 
-import { List, X } from "phosphor-react";
+import { Leaf, List, X } from "phosphor-react";
 
 import { useSpring, animated, useTransition } from "react-spring";
 import { useStoreHook } from "../../hooks";
@@ -32,13 +32,23 @@ export function Header(){
     <animated.header 
       id="header"
       style={headerStyle}
-      className={"grid grid- grid-rows-[5vh,1fr] items-center pt-4 pb-2 bg-primaryColor-640 fixed w-[100vw] z-[100]"}
+      className={"grid grid- grid-rows-[5vh,1fr] items-center pt-4 pb-2 bg-primaryColor-600 fixed w-[100vw] z-[100]"}
     >
       <div 
         id="menu"
-        className={"flex justify-between px-8 py-2 bg-primaryColor-640 w-[100vw] mini:px-2"}
+        className={"flex justify-between px-8 py-2 bg-primaryColor-600 w-[100vw] mini:px-2"}
       >
-        <h1 id="logo" className="text-3xl text-white micro:text-xl">TheBestFood</h1>
+        <div className="flex gap-2">
+          <h1 className="bigTitle font-bold text-3xl text-white micro:text-xl">
+            ConSciência
+          </h1>
+          <Leaf
+            className="text-white"
+            weight="bold"
+            width={30}
+            height={30}
+          />
+        </div>
         {
           !isMenuActive
           ? <button

@@ -12,7 +12,7 @@ export function ProgressBar({ verificationStage }: IProps) {
         height={40}
         className={`${
           !verificationStage
-            ? "text-zinc-700 bg-green-500 circle p-2"
+            ? "text-zinc-700 bg-green-500 circle p-2 animate-pulse"
             : "text-zinc-700"
         }`}
       />
@@ -22,7 +22,7 @@ export function ProgressBar({ verificationStage }: IProps) {
         height={40}
         className={`${
           verificationStage
-            ? "text-zinc-700 bg-green-500 circle p-2"
+            ? "text-zinc-700 bg-green-500 circle p-2 animate-pulse"
             : "text-zinc-700"
         }`}
       />

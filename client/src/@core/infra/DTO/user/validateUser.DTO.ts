@@ -6,7 +6,7 @@ export class ValidateUserDTO {
   async exec(body: any): Promise<UserGatewaysTypes.IBundleTokens> {
 	const expectedBody = z.object({
 	  access_token: z.string()
-	});
+	}).strict();
 
 	await expectedBody.parseAsync(body)
 	  .catch(() => {

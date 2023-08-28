@@ -4,10 +4,12 @@ import {
   ElementType
 } from "react";
 
-
 interface IProps extends ComponentProps<"input"> {
   name: string;
-  icon: ElementType;
+  icon: {
+    content: ElementType;
+    onClick?: () => void;
+  };
   isActiveClasses: ComponentProps<"div">["className"];
   divClasses?: ComponentProps<"div">["className"];
 };
@@ -36,7 +38,16 @@ export function Input({
         onBlur={() => setActive(false)}
         {...props}
       />
-      <Icon width={35} />
+      {
+        !Icon.onClick
+          ? <Icon.content width={35} />
+          : <button 
+              className="hover:text-slate-500 duration-200"
+              onClick={Icon.onClick}
+            >
+              <Icon.content width={35} />
+            </button>
+      }
     </div>
   )
 }

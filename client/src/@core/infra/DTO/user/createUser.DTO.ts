@@ -6,7 +6,7 @@ export class CreateUserDTO {
   async exec(body: any): Promise<UserGatewaysTypes.NonAuth.ICreateReturn> {
 	const expectedBody = z.object({
 		cancelKey: z.string() 
-	});
+	}).strict();
 
 	await expectedBody.parseAsync(body)
 	  .catch(() => {

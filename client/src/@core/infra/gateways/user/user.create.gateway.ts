@@ -1,19 +1,25 @@
+import { adapterIds } from "@/@core/adapters/adapterIds";
 import { HttpAdapter } from "@/@core/adapters/http";
 import { UserGatewaysTypes } from "@/@core/domain/gateways/types/user.gateway-types";
 import { UserGateways } from "@/@core/domain/gateways/user.gateway";
+import { inject, injectable } from "inversify";
 import { CreateUserDTO } from "../../DTO/user/createUser.DTO";
 import { LaunchOTPDTO } from "../../DTO/user/launchOTP.DTO";
 import { ValidateUserDTO } from "../../DTO/user/validateUser.DTO";
 
+@injectable()
 export class CreateUserGateway implements UserGateways.CreateUserGateway {
-  constructor(private readonly http: HttpAdapter) {}
+  constructor(
+    @inject(adapterIds.http)
+    private readonly http: HttpAdapter
+  ) {}
 
   async cancelCreation(input: UserGatewaysTypes.NonAuth.ICancel) {
     const headers = new Headers();
     headers.set("content-type", "application/json");
 
     await this.http.call({
-      url: "/api/cancelKey",
+      url: "/api/user/cancelKey",
       method: "DELETE",
       headers,
       body: JSON.stringify(input) 
@@ -25,7 +31,7 @@ export class CreateUserGateway implements UserGateways.CreateUserGateway {
     headers.set("content-type", "application/json");
 
     const response = await this.http.call({
-      url: "/api/sigin",
+      url: "/api/user/sigin",
       method: "POST",
       headers,
       body: JSON.stringify(input)
@@ -42,7 +48,7 @@ export class CreateUserGateway implements UserGateways.CreateUserGateway {
     headers.set("content-type", "application/json");
   
     const response = await this.http.call({
-      url: "/api/launch-otp",
+      url: "/api/user/launch-otp",
       method: "POST",
       headers,
       body: JSON.stringify(input)
@@ -59,7 +65,7 @@ export class CreateUserGateway implements UserGateways.CreateUserGateway {
     headers.set("content-type", "application/json");
 
     const response = await this.http.call({
-      url: "/api/validate",
+      url: "/api/user/validate",
       method: "POST",
       headers,
       body: JSON.stringify(input)

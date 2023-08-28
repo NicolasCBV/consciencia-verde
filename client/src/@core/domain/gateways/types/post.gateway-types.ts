@@ -6,10 +6,52 @@ export namespace PostGatewayTypes {
   }
 
   export interface IGetPost {
-    name: string;
+    id: string;
   }
-  
-  export interface ICreatePost {
+
+  export interface IPagination {
+    date: Date;
+    number: number;
+  }
+
+  export type TPaginationReturn = {
     post: Post;
+    id: string;
+  }[];
+
+  export interface ISearchPost {
+    query: {
+      name?: string;
+      content?: string;
+      description?: string;
+    }
+  }
+
+  export type TSearchPostReturn = {
+    post: Post;
+    id: string;
+  }[];
+
+  export namespace Server {
+    export interface ICreatePost {
+      access_token: string;
+      post: Post;
+    }
+
+    export interface ICreatePostReturn {
+      id: string;
+    }
+
+    export interface IUpdatePost {
+      access_token: string;
+      id: string;
+      post: Post;
+    }
+
+    export interface IUploadImagePost {
+      access_token: string;
+      file: File;
+      id: string;
+    }
   }
 }

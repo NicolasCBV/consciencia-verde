@@ -14,7 +14,7 @@ export class GetPostDTO {
 	});
 
 	await expectedBody.parseAsync(body)
-	  .catch(() => {
+	  .catch((err) => {
 		throw new HttpError({
 		  name: "Internal Server Error",
 		  message: "Unexpected content.",

@@ -8,6 +8,7 @@ import { VerificationStage } from "../components/Login/VerificationStage";
 import { GetServerSidePropsContext } from "next";
 import { useDispatch } from "react-redux";
 import { CHANGE_AUTH_TOKEN } from "@/features/auth/auth.slice";
+import { Button } from "@/components/common/Button";
 
 export interface IFormProps {
   name: string;
@@ -55,10 +56,10 @@ export default function Login() {
   return (
     <>
       <Head>
-        <title>Dropneos - login</title>
+        <title>ConSciência - login</title>
         <meta
           name="description"
-          content="Cria uma conta na Dropneos e aproveite a loja"
+          content="Criar conta em ConSciência"
         />
         <meta name="keywords" content="" />
       </Head>
@@ -72,20 +73,28 @@ export default function Login() {
           text={errorMessage}
           className="mt-20"
         />
-        <div className="flex flex-col gap-2 w-screen h-screen place-items-center justify-center">
+        <div className="flex flex-col my-4 gap-2 min-h-screen place-items-center justify-center">
           <div className="flex flex-col gap-2">
             <ProgressBar verificationStage={verificationStage} />
             {!verificationStage ? (
-              <Form
-                form={form}
-                setVerificationStage={setVerificationStage}
-                setForm={setForm}
-                setIsOnSigin={setIsOnSigin}
-                isOnSigin={isOnSigin}
-                isError={isError}
-                setIsError={setIsError}
-                setErrorMessage={setErrorMessage}
-              />
+              <div className="grid gap-8">
+                <Form
+                  form={form}
+                  setVerificationStage={setVerificationStage}
+                  setForm={setForm}
+                  setIsOnSigin={setIsOnSigin}
+                  isOnSigin={isOnSigin}
+                  isError={isError}
+                  setIsError={setIsError}
+                  setErrorMessage={setErrorMessage}
+                />
+                <Button
+                  id="forgot-password-button"
+                  href="/redefine-password"
+                  name="Esqueci a senha"
+                  className="grid text-slate-900 place-self-center border-[1px] border-green-600 h-[2.5rem] place-content-center rounded-md hover:border-green-500 hover:bg-none hover:text-slate-700 duration-200"
+                />
+              </div>
             ) : (
               <VerificationStage
                 email={form.email}
@@ -106,9 +115,7 @@ export default function Login() {
 export function getServerSideProps(ctx: GetServerSidePropsContext) {
   ctx.res.setHeader(
     "Set-Cookie", 
-    [
-      `refresh-cookie=; Path=/; Expires=0; Max-Age=0;`
-    ] 
+    "refresh-cookie=; Path=/; Expires=0; Max-Age=0;" 
   );
 
 

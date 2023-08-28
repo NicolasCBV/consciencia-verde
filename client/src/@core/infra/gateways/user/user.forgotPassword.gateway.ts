@@ -1,16 +1,22 @@
+import { adapterIds } from "@/@core/adapters/adapterIds";
 import { HttpAdapter } from "@/@core/adapters/http";
 import { UserGatewaysTypes } from "@/@core/domain/gateways/types/user.gateway-types";
 import { UserGateways } from "@/@core/domain/gateways/user.gateway";
+import { inject, injectable } from "inversify";
 
+@injectable()
 export class ForgotPasswordGateway implements UserGateways.ForgotUserPasswordGateway {
-  constructor(private readonly http: HttpAdapter) {}
+  constructor(
+    @inject(adapterIds.http)
+    private readonly http: HttpAdapter
+  ) {}
   
   async start(input: UserGatewaysTypes.NonAuth.IStartForgotPassFlow) {
     const headers = new Headers();
     headers.set("content-type", `application/json`);
 
     await this.http.call({
-      url: "/api/forgotPassword",
+      url: "/api/user/forgotPassword",
       method: "POST",
       headers,
       body: JSON.stringify({
@@ -25,7 +31,7 @@ export class ForgotPasswordGateway implements UserGateways.ForgotUserPasswordGat
     headers.set("authorization", `Bearer ${input.forgot_token}`);
 
     await this.http.call({
-      url: "/api/finishForgotPassword",
+      url: "/api/user/finishForgotPassword",
       method: "PATCH",
       headers,
       body: JSON.stringify({

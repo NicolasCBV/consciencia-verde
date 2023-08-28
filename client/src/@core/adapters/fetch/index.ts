@@ -1,6 +1,8 @@
 import { HttpError } from "@/@core/errors/HttpError";
+import { injectable } from "inversify";
 import { IHttpClientCall, HttpAdapter, IHttpClientCallReturn } from "../http";
 
+@injectable()
 export class Fetcher implements HttpAdapter {
   async call(input: IHttpClientCall): Promise<IHttpClientCallReturn> {
     return await fetch(input.url, {

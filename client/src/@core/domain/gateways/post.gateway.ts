@@ -1,11 +1,18 @@
 import { Post } from "../entities/post";
 import { PostGatewayTypes } from "./types/post.gateway-types";
 
-// type IUpdatePost = Pick<Post, "name" | "description" | "imageURI" | "content">;
-
 export namespace PostGateway {
   export abstract class GetPostGateway {
     abstract get(input: PostGatewayTypes.IGetPost): Promise<Post | null>;
+    abstract pagination(input: PostGatewayTypes.IPagination): Promise<
+      PostGatewayTypes.TPaginationReturn
+    >;
+  }
+
+  export abstract class SearchPostGateway {
+    abstract search(input: PostGatewayTypes.ISearchPost): Promise<
+      PostGatewayTypes.TSearchPostReturn
+    >;
   }
 
   export abstract class ExistentPostGateway {
@@ -13,8 +20,8 @@ export namespace PostGateway {
   }
 
   export abstract class CreatePostGateway {
-    abstract create(input: PostGatewayTypes.ICreatePost): Promise<void>;
-    // abstract update(input: IUpdatePost): Promise<void>;
-    // abstract delete(key: string): Promise<void>;
+    abstract create(input: PostGatewayTypes.Server.ICreatePost): Promise<
+      PostGatewayTypes.Server.ICreatePostReturn
+    >;
   }
 }

@@ -20,7 +20,7 @@ export function FormInputs({
     <>
       <animated.div style={style}>
         <Input
-          isActiveClasses="bg-primaryColor-520"
+          isActiveClasses="bg-primaryColor-750"
           type="text"
           name="name"
           minLength={2}
@@ -34,11 +34,11 @@ export function FormInputs({
             });
           }}
           placeholder="Insira seu nome"
-          icon={UserIcon}
+          icon={{ content: UserIcon}}
         />
       </animated.div>
       <Input
-        isActiveClasses="bg-primaryColor-520"
+        isActiveClasses="bg-primaryColor-750"
         type="email"
         name="email"
         maxLength={256}
@@ -52,10 +52,10 @@ export function FormInputs({
           });
         }}
         placeholder="Insira seu e-mail"
-        icon={Envelope}
+        icon={{ content: Envelope }}
       />
       <Input
-        isActiveClasses="bg-primaryColor-520"
+        isActiveClasses="bg-primaryColor-750"
         type="password"
         name="password"
         maxLength={256}
@@ -69,7 +69,7 @@ export function FormInputs({
           });
         }}
         placeholder="Insira sua senha"
-        icon={Key}
+        icon={{ content: Key }}
       />
     </>
   )

@@ -28,7 +28,7 @@ export function PostForm({ form, setForm }: IProps) {
               name: event.target.value
             }));
           }}
-          icon={Tag}
+          icon={{ content: Tag }}
           placeholder="Insira uma nome"
         />
       </div>
@@ -51,7 +51,7 @@ export function PostForm({ form, setForm }: IProps) {
               description: event.target.value
             }));
           }}
-          icon={Article}
+          icon={{ content: Article }}
           placeholder="Insira uma descrição" 
         />
       </div>

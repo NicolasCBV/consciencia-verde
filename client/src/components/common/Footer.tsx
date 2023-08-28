@@ -1,17 +1,26 @@
 import { 
   TwitterLogo, 
   InstagramLogo, 
-  GithubLogo 
+  GithubLogo, 
+  Leaf
 } from "phosphor-react"
 
 export function Footer(){
   return (
-    <div className="p-8 bg-primaryColor-640">
-        <h1 className="text-2xl text-white">
-          TheBestFoods
-        </h1>
+    <div className="p-8 bg-primaryColor-600">
+        <div className="flex gap-2">
+          <h1 className="bigTitle font-bold text-3xl text-white micro:text-xl">
+            ConSciência
+          </h1>
+          <Leaf
+            className="text-white"
+            weight="bold"
+            width={30}
+            height={30}
+          />
+        </div>
         <p className="text-white py-4">
-          Todos os direitos reservados à TheBestFoods©
+          Todos os direitos reservados à ConSciência Verde©
         </p>
         <ul className="flex py-4 gap-2">
           <li>

@@ -8,6 +8,7 @@ import { Application } from "@/@core/application/container";
 interface IProps {
   email: string;
   isOnSigin: boolean;
+  nextRoute?: string;
   setVerificationStage: Dispatch<SetStateAction<boolean>>;
   setErrorMessage: Dispatch<SetStateAction<string>>;
   isError: boolean;
@@ -16,6 +17,7 @@ interface IProps {
 
 export function VerificationStage({
   email,
+  nextRoute,
   isOnSigin,
   setVerificationStage,
   setErrorMessage,
@@ -48,16 +50,13 @@ export function VerificationStage({
   async function handleSubmit() {
     setIsLoading(true);
 
-    let resValidate, resLogin;
-    resValidate = resLogin = 500;
-
     isOnSigin
       ? await Application
           .siginFlow
           .validate
           .exec({ email, code })
           .then(() => {
-            router.push("/config");
+            router.push(nextRoute ?? "/config");
           })
           .catch(() => setIsError(true))
       : await Application
@@ -65,7 +64,7 @@ export function VerificationStage({
           .login
           .exec({ email, code }) 
           .then(() => {
-            router.push("/config");
+            router.push(nextRoute ?? "/config");
           })
           .catch(() => setIsError(true));
 
@@ -83,7 +82,7 @@ export function VerificationStage({
   }, []);
 
   return (
-    <div className="flex relative flex-col gap-2 place-items-center place-self-center bg-primaryColor-640 py-8 px-4 text-center relative rounded-md shadow-2xl duration-200 h-[28rem] max-h-[23.5rem] w-[70vw] max-w-[20rem]">
+    <form className="flex relative flex-col place-items-center place-self-center bg-primaryColor-550 py-8 px-4 text-center relative rounded-md shadow-2xl duration-200 h-[20rem] w-[70vw] max-w-[20rem] prose prose-slate mini:w-full mini:h-[24rem]">
       <ArrowCircleLeft
         width={20}
         height={20}
@@ -93,13 +92,12 @@ export function VerificationStage({
           setVerificationStage(false);
         }}
       />
-      <h1 className="text-2xl text-white mb-4">Verificação</h1>
-      <p className=" text-white mb-4">
+      <h1 className="text-2xl text-white">Verificação</h1>
+      <p className=" text-white">
         Verifique sua identidade inserindo o código que enviamos em seu email.
-        Caso não tenha recebido nada, cheque a caixa de spam.
       </p>
       <Input
-        isActiveClasses="bg-primaryColor-520"
+        isActiveClasses="bg-primaryColor-750"
         name="Code"
         maxLength={7}
         minLength={7}
@@ -109,9 +107,9 @@ export function VerificationStage({
         }}
         type="password"
         placeholder="Digite o código"
-        icon={Key}
+        icon={{ content: Key }}
       />
-      <div className="grid mt-2 gap-4">
+      <div className="flex w-full justify-between mt-2 gap-4 mt-6 mini:mt-4 mini:grid mini:place-content-center">
         <Button
           name="Entrar"
           iconData={{
@@ -124,13 +122,12 @@ export function VerificationStage({
           onClick={handleSubmit}
         />
 
-        <button 
-          className="text-white hover:text-zinc-300 duration-200"
+        <Button 
+          name="Reenviar"
+          className="not-prose grid text-slate-900 place-self-center h-[1.2rem] place-content-center rounded-md hover:border-green-500 hover:bg-none hover:text-slate-700 duration-200"
           onClick={handleResubmit}
-        >
-          Reenviar
-        </button>
+        />      
       </div>
-    </div>
+    </form>
   );
 }

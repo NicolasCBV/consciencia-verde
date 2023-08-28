@@ -23,7 +23,7 @@ export class CreatePostDTO {
 
     await expectedBody.parseAsync(req.body)
       .then(() => next())
-      .catch((err) => {
+      .catch(() => {
          next(new BadRequest());
       });
   }

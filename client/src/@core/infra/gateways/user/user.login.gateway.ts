@@ -1,30 +1,24 @@
+import { adapterIds } from "@/@core/adapters/adapterIds";
 import { HttpAdapter } from "@/@core/adapters/http";
 import { UserGatewaysTypes } from "@/@core/domain/gateways/types/user.gateway-types";
 import { UserGateways } from "@/@core/domain/gateways/user.gateway";
+import { inject, injectable } from "inversify";
 import { LaunchOTPDTO } from "../../DTO/user/launchOTP.DTO";
 import { LoginUserDTO } from "../../DTO/user/loginUser.DTO";
 
+@injectable()
 export class LoginUserGateway implements UserGateways.LoginUserGateway {
-  constructor(private readonly http: HttpAdapter) {}
-
-  async cancelLogin(input: UserGatewaysTypes.NonAuth.ICancel) {
-    const headers = new Headers();
-    headers.set("content-type", "application/json");
-
-    await this.http.call({
-      url: "/api/cancelKey",
-      method: "DELETE",
-      headers,
-      body: JSON.stringify(input) 
-    });
-  }
+  constructor(
+    @inject(adapterIds.http)
+    private readonly http: HttpAdapter
+  ) {}
 
   async launchLoginOTP(input: UserGatewaysTypes.NonAuth.ILaunchOTP) {
     const headers = new Headers();
     headers.set("content-type", "application/json");
   
     const response = await this.http.call({
-      url: "/api/launchOTPLogin",
+      url: "/api/user/launchOTPLogin",
       method: "POST",
       headers,
       body: JSON.stringify(input)
@@ -42,7 +36,7 @@ export class LoginUserGateway implements UserGateways.LoginUserGateway {
     headers.set("content-type", "application/json");
 
     await this.http.call({
-      url: "/api/throwTFA",
+      url: "/api/user/throwTFA",
       method: "POST",
       headers,
       body: JSON.stringify(input)
@@ -54,7 +48,7 @@ export class LoginUserGateway implements UserGateways.LoginUserGateway {
     headers.set("content-type", "application/json");
 
     const response = await this.http.call({
-      url: "/api/login",
+      url: "/api/user/login",
       method: "POST",
       headers,
       body: JSON.stringify(input)

@@ -1,54 +1,54 @@
-import { firestore, storage } from "@/@core/config/firebase.config";
-import { Post } from "@/@core/domain/entities/post";
+import { adapterIds } from "@/@core/adapters/adapterIds";
+import { HttpAdapter } from "@/@core/adapters/http";
 import { PostGateway } from "@/@core/domain/gateways/post.gateway";
 import { PostGatewayTypes } from "@/@core/domain/gateways/types/post.gateway-types";
 import { HttpError } from "@/@core/errors/HttpError";
-import { doc, setDoc } from "firebase/firestore";
-import { ref, uploadBytes } from "firebase/storage";
-import { FirestorePostMapper, IFirestorePostObject } from "../../mappers/firebase/firestore/post";
+import { inject, injectable } from "inversify";
+import { CreatePostContentDTO } from "../../DTO/post/createPostContent.DTO";
 
-interface ISendToStorage {
-  file: File;
-  name: string;
-}
-
+@injectable()
 export class CreatePostGateway implements PostGateway.CreatePostGateway {
-  private formatPostData(input: Post) {
-    const post = FirestorePostMapper.toObject(input);
-    post.name = encodeURIComponent(post.name);
+  constructor(
+    @inject(adapterIds.http)
+    private readonly http: HttpAdapter
+  ) {}
 
-    const formattedName = encodeURIComponent(`posts/${post.name}`)
-    const firebaseUrl = process.env.NEXT_PUBLIC_FIREBASE_TEMPLATE_IMAGE_LINK;
-    post.imageURI = `${firebaseUrl}/${formattedName}?alt=media`;
-
-    return post;
-  }
-
-  private async sendToFirestore(input: IFirestorePostObject) {
-    const document = doc(firestore, "posts", input.name);
-    await setDoc(document, input)
-      .catch(() => {
-        throw new HttpError({
-          name: "Unauthorized",
-          code: 401,
-          message: "Could not send image"
-        })
+  private async sendContent(input: PostGatewayTypes.Server.ICreatePost) {
+    const res = await this.http.call({
+      url: "/api/posts/create",
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "authorization": String(input.access_token)
+      },
+      body: JSON.stringify({
+        name: input.post.name,
+        description: input.post.description,
+        content: input.post.content
       })
+    })
+
+    const dto = new CreatePostContentDTO();
+    const body = await dto.exec(res.body)
+      
+    return body;
   } 
 
-  private async sendToFirebaseStorage(input: ISendToStorage) {
-    const reference = ref(storage, `posts/${input.name}`);
-    await uploadBytes(reference, input.file)
-      .catch(() => {
-        throw new HttpError({
-          name: "Unauthorized",
-          code: 401,
-          message: "Could not send image"
-        })
-      })
+  private async sendImage(input: PostGatewayTypes.Server.IUploadImagePost) {
+    const form = new FormData();
+    form.append("file", input.file);
+
+    return await this.http.call({
+      url: `/api/posts/uploadImage?postId=${input.id}`,
+      method: "POST",
+      headers: {
+        "authorization": String(input.access_token)
+      },
+      body: form
+    });
   }
 
-  async create(input: PostGatewayTypes.ICreatePost) {
+  async create(input: PostGatewayTypes.Server.ICreatePost) {
     if(!input.post.image.file)
       throw new HttpError({
         name: "Bad Request",
@@ -56,13 +56,19 @@ export class CreatePostGateway implements PostGateway.CreatePostGateway {
         message: "File field empty."
       })
 
-    const formattedPost = this.formatPostData(input.post); 
 
-    await this.sendToFirestore(formattedPost);
-    await this.sendToFirebaseStorage({
-      file: input.post.image.file,
-      name: formattedPost.name
+    const { id } = await this.sendContent({
+      access_token: input.access_token,
+      post: input.post
     });
+
+    await this.sendImage({
+      id,
+      access_token: input.access_token,
+      file: input.post.image.file
+    });
+
+    return { id };
   }
 }
 

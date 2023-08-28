@@ -21,7 +21,6 @@ export namespace UserGateways {
   }
 
   export abstract class LoginUserGateway {
-    abstract cancelLogin(input: UserGatewaysTypes.NonAuth.ICancel): Promise<void>;
     abstract throwTFA(input: UserGatewaysTypes.NonAuth.IThrowTFA): Promise<void>;
     abstract launchLoginOTP(
       input: UserGatewaysTypes.NonAuth.ILaunchOTP

@@ -6,7 +6,7 @@ export class LaunchOTPDTO {
   async exec(body: any): Promise<UserGatewaysTypes.NonAuth.ILaunchOTPReturn> {
 	const expectedBody = z.object({
 		cancelKey: z.string() 
-	});
+	}).strict();
 
 	await expectedBody.parseAsync(body)
 	  .catch(() => {

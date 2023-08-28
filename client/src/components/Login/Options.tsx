@@ -20,6 +20,7 @@ export function FormOptions({
   return (
     <div className="text-white flex w-[100%] justify-between mini:grid mini:gap-2 mini:place-content-center">
       <Button
+        id="submit-button"
         type='submit'
         name="Próximo"
         iconData={{
@@ -31,6 +32,8 @@ export function FormOptions({
         onClick={submitOption} 
       />
       <Button
+        id="switch-button"
+        type="button"
         className="bg-none hover:bg-none hover:text-zinc-200 duration-200"
         name={switchName}
         onClick={switchOption}
