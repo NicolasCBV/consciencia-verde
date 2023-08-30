@@ -21,6 +21,7 @@ export function PostForm({ form, setForm }: IProps) {
           type="text"
           name="name"
           minLength={4}
+          maxLength={29}
           value={form.name}
           onChange={(event) => {
             setForm((item) => ({
@@ -44,6 +45,7 @@ export function PostForm({ form, setForm }: IProps) {
           type="text"
           name="description"
           minLength={4}
+          maxLength={49}
           value={form.description}
           onChange={(event) => {
             setForm((item) => ({

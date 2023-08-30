@@ -6,7 +6,10 @@ import { Container } from "inversify";
 import { useCasesIds } from "../../useCasesId";
 import { SearchPostUseCase } from "./search.use-case";
 
-SearchPostGateway.prototype.search = jest.fn(async () => []);
+SearchPostGateway.prototype.search = jest.fn(async () => ({
+  posts: [],
+  pages: 0
+}));
 
 describe("Pagination post use case test", () => {
   const container = new Container();
@@ -20,9 +23,7 @@ describe("Pagination post use case test", () => {
     const gatewaySpy = jest.spyOn(SearchPostGateway.prototype, "search");
 
     await useCase.exec({ 
-      query: {
-        name: "default name" 
-      }
+      query: "default name"
     });
 
     expect(gatewaySpy).toHaveBeenCalledTimes(1);

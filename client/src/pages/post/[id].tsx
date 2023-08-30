@@ -35,10 +35,11 @@ function Post({
     const html = sanitizeHtml(dirtyHtml);
     return html;
   }, [post.content])
+
   return (
     <div className="grid w-screen min-h-[100vh]">
       <Header/>
-      <div className="w-full grid place-self-center place-items-center place-content-center pt-24 prose prose-zinc prose-a:text-blue-600">
+      <div className="w-full grid place-self-center place-items-center place-content-center pt-24 prose prose-slate prose-a:text-blue-600">
         <div>
           <Image
             className="object-cover relative rounded-[2px] w-[60vw] max-w-[15rem] h-[60vh] max-h-[15rem] circle object-fit"
@@ -49,7 +50,7 @@ function Post({
           />
         </div>
         
-        <div className="w-full flex flex-col mt-8">
+        <div className="w-full flex flex-col my-8">
           <h1>{post.name}</h1>
           <small>{post.createdAt}</small>
           <small>Por: Random User</small>

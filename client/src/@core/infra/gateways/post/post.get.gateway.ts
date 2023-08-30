@@ -60,6 +60,8 @@ export class GetPostGateway implements PostGateway.GetPostGateway {
       data?.updatedAt instanceof Timestamp
     )
       return FirestorePostMapper.format(data);
+
+    throw new Error("Could not transform post content on 'GetPostGateway'");
   }
 
   async getPagination(input: PostGatewayTypes.IPagination) {
@@ -97,12 +99,16 @@ export class GetPostGateway implements PostGateway.GetPostGateway {
       const transformedData = this.transformData(item.post);
         
       const dto = new GetPostDTO();
-      const content = await dto.exec(transformedData)
+      await dto.exec(transformedData)
 
-      return {
-        id: item.id,
-        post: FirestorePostMapper.toClass(content)
-      }
+      const post = FirestorePostMapper.toClass(transformedData);
+      post.name = post.name.length >= 30
+            ? post.name.slice(0, 31) + "..."
+            : post.name;
+      post.description = post.description.length >= 50
+        ? post.description.slice(0, 51) + "..."
+        : post.description
+      return { id: item.id, post }
     })
     return await Promise.all(promiseArray);
   }
@@ -116,9 +122,9 @@ export class GetPostGateway implements PostGateway.GetPostGateway {
     const transformedData = this.transformData(data);
 
     const dto = new GetPostDTO();
-    const content = await dto.exec(transformedData)
+    await dto.exec(transformedData)
  
-    return FirestorePostMapper.toClass(content);
+    return FirestorePostMapper.toClass(transformedData);
   }
 }
 

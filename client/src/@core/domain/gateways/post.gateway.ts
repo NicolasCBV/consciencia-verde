@@ -11,7 +11,7 @@ export namespace PostGateway {
 
   export abstract class SearchPostGateway {
     abstract search(input: PostGatewayTypes.ISearchPost): Promise<
-      PostGatewayTypes.TSearchPostReturn
+      PostGatewayTypes.ISearchPostReturn
     >;
   }
 

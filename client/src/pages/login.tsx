@@ -73,7 +73,7 @@ export default function Login() {
           text={errorMessage}
           className="mt-20"
         />
-        <div className="flex flex-col my-4 gap-2 min-h-screen place-items-center justify-center">
+        <main className="flex flex-col my-4 gap-2 min-h-screen place-items-center justify-center">
           <div className="flex flex-col gap-2">
             <ProgressBar verificationStage={verificationStage} />
             {!verificationStage ? (
@@ -92,7 +92,7 @@ export default function Login() {
                   id="forgot-password-button"
                   href="/redefine-password"
                   name="Esqueci a senha"
-                  className="grid text-slate-900 place-self-center border-[1px] border-green-600 h-[2.5rem] place-content-center rounded-md hover:border-green-500 hover:bg-none hover:text-slate-700 duration-200"
+                  className="grid text-slate-900 place-self-center border-[1px] border-green-600 h-[2.5rem] place-content-center rounded-md hover:border-green-500 bg-transparent hover:bg-transparent hover:text-slate-700 duration-200"
                 />
               </div>
             ) : (
@@ -106,7 +106,7 @@ export default function Login() {
               />
             )}
           </div>
-        </div>
+        </main>
       </div>
     </>
   );

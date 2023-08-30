@@ -1,10 +1,20 @@
 import { HttpError } from "@/@core/errors/HttpError";
 import { z } from "zod";
-import { IFirestorePostObject } from "../../mappers/firebase/firestore/post";
+
+export interface IExpectedGetPostBody {
+	id?: string;
+	name: string;
+	imageURI: string;
+	description: string;
+	content: string[];
+	createdAt: Date;
+	updatedAt: Date;
+}
 
 export class GetPostDTO {
-  async exec(body: any): Promise<IFirestorePostObject> {
+  async exec(body: any) {
 	const expectedBody = z.object({
+		id: z.string().or(z.undefined()).or(z.null()),
 		name: z.string(),
 		imageURI: z.string(),
 		description: z.string(),
@@ -14,14 +24,12 @@ export class GetPostDTO {
 	});
 
 	await expectedBody.parseAsync(body)
-	  .catch((err) => {
+	  .catch(() => {
 		throw new HttpError({
 		  name: "Internal Server Error",
 		  message: "Unexpected content.",
 			code: 500
 		});
 	  });
-
-	return body;
   }
 }

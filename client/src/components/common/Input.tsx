@@ -1,3 +1,4 @@
+import { CircleNotch } from "phosphor-react";
 import { 
   useState, 
   ComponentProps,
@@ -9,6 +10,8 @@ interface IProps extends ComponentProps<"input"> {
   icon: {
     content: ElementType;
     onClick?: () => void;
+    disabled?: boolean;
+    isLoading?: boolean;
   };
   isActiveClasses: ComponentProps<"div">["className"];
   divClasses?: ComponentProps<"div">["className"];
@@ -32,7 +35,7 @@ export function Input({
         onChange={props.onChange}
         minLength={props.minLength ?? 6}
         maxLength={props.maxLength}
-        className={`w-[100%] place-self-center outline-none rounded-lg pl-2 py-2`}
+        className={`w-[100%] place-self-center outline-none rounded-lg px-2 py-2`}
         placeholder={props.placeholder}
         onSelect={() => setActive(true)}
         onBlur={() => setActive(false)}
@@ -42,10 +45,18 @@ export function Input({
         !Icon.onClick
           ? <Icon.content width={35} />
           : <button 
+              disabled={Icon.disabled || Icon.isLoading}
               className="hover:text-slate-500 duration-200"
               onClick={Icon.onClick}
             >
-              <Icon.content width={35} />
+              {
+                !Icon.isLoading
+                  ? <Icon.content width={35} />
+                  : <CircleNotch
+                      width={35}
+                      className="animate-spin"
+                    />
+              }
             </button>
       }
     </div>

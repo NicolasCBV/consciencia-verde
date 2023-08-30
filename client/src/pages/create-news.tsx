@@ -154,7 +154,7 @@ export default function CreateNews({
       />
       {
         editor
-          ? <main className="flex flex-col gap-8 place-self-center align-content-center place-items-center py-24 w-[80vw] min-h-screen prose prose-zinc prose-a:text-blue-600">
+          ? <main className="flex flex-col gap-8 place-self-center align-content-center place-items-center py-24 w-[80vw] min-h-screen prose prose-slate prose-a:text-blue-600">
               <CreateNewsMainFlow
                 isLoading={isLoading}
                 editor={editor}
@@ -163,7 +163,7 @@ export default function CreateNews({
                 handleSubmit={handleSubmit}
               /> 
             </main>
-          : <div className="grid w-screen h-screen place-content-center place-items-center place-self-center prose prose-zinc">
+          : <div className="grid w-screen h-screen place-content-center place-items-center place-self-center prose prose-slate">
               <CircleNotch 
                 width={150} 
                 height={150} 

@@ -60,7 +60,7 @@ export function NotificationBalloon ({
             />
             <div 
               id="text-content"
-              className="grid bg-primaryColor-840 py-2 pl-2 pr-4"
+              className="grid bg-slate-100 shadow-lg py-2 pl-2 pr-4"
             >
               <h1 style={{ color: mainColors[type] }}>
                 {title}

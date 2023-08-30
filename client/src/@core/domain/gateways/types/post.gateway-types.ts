@@ -20,17 +20,17 @@ export namespace PostGatewayTypes {
   }[];
 
   export interface ISearchPost {
-    query: {
-      name?: string;
-      content?: string;
-      description?: string;
-    }
+    page?: number;
+    query: string;
   }
 
-  export type TSearchPostReturn = {
-    post: Post;
-    id: string;
-  }[];
+  export interface ISearchPostReturn {
+    pages: number;
+    posts: {
+      post: Post;
+      id: string;
+    }[];
+  };
 
   export namespace Server {
     export interface ICreatePost {
