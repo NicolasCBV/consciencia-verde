@@ -2,12 +2,29 @@ import { Router } from "express";
 import { application } from "@src/app";
 import { routes_names } from "./routes_names";
 import multer from "multer";
+import { BadRequest } from "../errors/BadRequest";
 
 export const routes: Router = Router();
 const storage = multer.memoryStorage();
 
-const upload = multer({ storage });
-
+const upload = multer({ 
+  storage,
+  limits: {
+    files: 1,
+    fileSize: 1024 * 1024
+  }, 
+  fileFilter: (req, file, callback) => {
+    if(
+      file?.mimetype === "image/jpeg" ||
+      file?.mimetype === "image/png" ||
+      file?.mimetype === "image/gif" ||
+      file?.mimetype === "image/pjpeg"
+    ) 
+      return callback(null, true);
+    const err = new BadRequest();
+    return callback(err)
+  }
+});
 routes.use(application.middlewares.auth.exec);
 routes.use(application.middlewares.fingerprint.exec);
 routes.use(application.middlewares.admin.exec)
