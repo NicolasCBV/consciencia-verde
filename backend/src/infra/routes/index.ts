@@ -3,17 +3,34 @@ import { application } from "@src/app";
 import { routes_names } from "./routes_names";
 import multer from "multer";
 import { BadRequest } from "../errors/BadRequest";
+import rateLimit from "express-rate-limit";
 
 export const routes: Router = Router();
 const storage = multer.memoryStorage();
 
+routes.use(rateLimit({
+  windowMs: 30 * 1000,
+  max: 60,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    name: "Too Many Requests",
+    message: "Too many requests, please try again later.",
+    code: 429
+  }
+}));
 const upload = multer({ 
   storage,
   limits: {
     files: 1,
     fileSize: 1024 * 1024
   }, 
-  fileFilter: (req, file, callback) => {
+  fileFilter: (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    req, 
+    file, 
+    callback
+  ) => {
     if(
       file?.mimetype === "image/jpeg" ||
       file?.mimetype === "image/png" ||
@@ -25,9 +42,11 @@ const upload = multer({
     return callback(err)
   }
 });
+routes.get("/", (req, res) => res.status(200).end())
 routes.use(application.middlewares.auth.exec);
 routes.use(application.middlewares.fingerprint.exec);
 routes.use(application.middlewares.admin.exec)
+
 
 routes.post(
   routes_names.create_post,
