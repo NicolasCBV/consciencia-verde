@@ -24,7 +24,7 @@ export namespace UserGateways {
     abstract throwTFA(input: UserGatewaysTypes.NonAuth.IThrowTFA): Promise<void>;
     abstract launchLoginOTP(
       input: UserGatewaysTypes.NonAuth.ILaunchOTP
-    ): Promise<UserGatewaysTypes.NonAuth.ILaunchOTPReturn>;
+    ): Promise<void>;
     abstract login(
       input: UserGatewaysTypes.NonAuth.ILogin
     ): Promise<

@@ -1,13 +1,19 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { ArrowDown, NewspaperClipping } from 'phosphor-react';
 
 import { Button } from "../common/Button";
 
 export function Start() {
+  function scroll() {
+    const windowHeight = window.innerHeight;
+    window.scrollTo({
+      top: windowHeight <= 1600 ? windowHeight : 1600,
+      behavior: "smooth"
+    })
+  }
   return (
     <div id="home">
-      <div id="background" className="w-screen h-screen max-h-[100rem] absolute z-[-1] after:block after:absolute after:-inset-0 after:bg-gradient-to-t from-white to-white/0 after:h-[50vh] after:place-self-end after:top-[50%]">
+    <div id="background" className="w-screen h-screen max-h-[100rem] absolute z-[-1] after:block after:absolute after:-inset-0 after:bg-gradient-to-t from-white to-white/0 after:place-self-end after:top-[50%] desktop:after:top-[0] destkop:bg-gradient-to-r desktop:from-white desktop:via-transparent desktop:to-white desktop:blur-lg">
         <Image
           className="w-screen h-screen object-cover"
           src="/leafs.jpg"
@@ -31,10 +37,12 @@ export function Start() {
           }}
         />
 
-        <button id="mainPhrase-button-nav" className="grid animate-pulse hover:cursor-pointer place-content-center circle place-self-center relative top-[100%] h-[50vh] max-h-[3.5rem] w-[50vw] max-w-[3.5rem] bg-green-600 hover:bg-green-500">
-          <Link href="#about">
-            <ArrowDown width={40} height={40} className="text-white"/>
-          </Link>
+        <button 
+          id="mainPhrase-button-nav" 
+          className="grid animate-pulse hover:cursor-pointer place-content-center circle place-self-center relative top-[100%] h-[50vh] max-h-[3.5rem] w-[50vw] max-w-[3.5rem] bg-green-600 hover:bg-green-500"
+          onClick={scroll}
+        >
+          <ArrowDown width={40} height={40} className="text-white"/>
         </button>
       </div>  
     </div>

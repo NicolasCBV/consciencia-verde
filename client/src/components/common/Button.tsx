@@ -59,7 +59,7 @@ export function Button({
   const { className, ...props } = propsContent;
   return (
     <button
-      className={`not-prose flex gap-[2px] bg-green-600 hover:bg-green-500 items-center place-self-center py-1 ${ !href ? "px-2" : ""} rounded-md h-[8vh] max-h-[2rem] duration-200 text-white ${props.disabled ? "opacity-40" : "opacity-100"} ${className ?? ""}`}
+      className={`not-prose flex gap-[2px] bg-green-600 hover:bg-green-500 items-center place-self-center py-1 ${ !href ? "px-2" : ""} rounded-md h-[2rem] duration-200 text-white ${props.disabled ? "opacity-40" : "opacity-100"} ${className ?? ""}`}
       {...props}
     > 
       {

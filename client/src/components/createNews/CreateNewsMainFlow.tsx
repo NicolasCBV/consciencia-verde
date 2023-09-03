@@ -4,12 +4,12 @@ import { Article, Envelope, NewspaperClipping, Tag } from "phosphor-react";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Button } from "../common/Button";
 import { ImageUpdate } from "../common/ImageUpdate";
-import { Input } from "../common/Input";
 import { BubbleOptionsMenu } from "./BubbleOptionsMenu";
 import { OptionsMenu } from "./Menu";
 import { PostForm } from "./PostForm";
 
 interface IProps {
+  isError: boolean;
   isLoading: boolean;
   editor: Editor
   image: IFormCreateNews;
@@ -23,6 +23,7 @@ export interface ICreatePostForm {
 }
 
 export function CreateNewsMainFlow({ 
+  isError,
   editor,
   image,
   setImage,
@@ -54,6 +55,7 @@ export function CreateNewsMainFlow({
 
       <Button
         disabled={
+          isError ||
           isLoading ||
           !image.URI || 
           !image.file ||

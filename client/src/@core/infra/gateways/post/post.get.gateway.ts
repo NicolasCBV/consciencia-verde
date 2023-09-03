@@ -71,7 +71,7 @@ export class GetPostGateway implements PostGateway.GetPostGateway {
       postCollections, 
       where("createdAt", ">", input.date), 
       orderBy("createdAt"), 
-      limit(10)
+      limit(22)
     )
     return await getDocs(q)
       .then((snapshot): TPostContentArray => {

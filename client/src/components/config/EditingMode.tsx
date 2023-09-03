@@ -1,6 +1,6 @@
 import { useStoreHook } from "@/hooks";
 import { IDisponibleStages, IUserProfileData } from "@/pages/config";
-import { Check, Tag, UserCircle } from "phosphor-react";
+import { ArrowUDownLeft, Check, Tag, UserCircle } from "phosphor-react";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Button } from "../common/Button";
 import { Input } from "../common/Input";
@@ -68,7 +68,8 @@ export function EditingMode({
       />
       <div id="text" className="w-full grid place-items-center text-center gap-4">
         <Input
-          isActiveClasses="bg-primaryColor-520"
+          isActiveClasses="bg-primaryColor-750"
+          divClasses="border-primaryColor-450 border-2" 
           type="text"
           name="name"
           minLength={2}
@@ -84,7 +85,8 @@ export function EditingMode({
           icon={{ content: Tag }}
         />
         <textarea
-          className="w-full h-[40vh] max-h-[8rem] border-[1px] border-zinc-600 rounded-lg p-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500"
+          maxLength={256}
+          className="w-full h-[40vh] max-h-[8rem] border-[1px] border-primaryColor-450 rounded-lg p-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primaryColor-750"
           defaultValue={
             dinamicUserData.description ?? ""
           }
@@ -114,7 +116,10 @@ export function EditingMode({
         />
         <Button
           name="Voltar"
-          className="place-self-center border-[1px] border-green-600 hover:border-green-500 hover:text-zinc-600"
+          iconData={{
+            pos: "right",
+            Icon: ArrowUDownLeft
+          }}
           onClick={() => {
             setStages(() => ({
               isEditing: false,

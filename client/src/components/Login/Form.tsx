@@ -19,7 +19,6 @@ interface IProps {
   setIsOnSigin: Dispatch<SetStateAction<boolean>>;
   setVerificationStage: Dispatch<SetStateAction<boolean>>;
   setForm: Dispatch<SetStateAction<IFormProps>>;
-  setErrorMessage: Dispatch<SetStateAction<string>>;
   isError: boolean;
   setIsError: Dispatch<SetStateAction<boolean>>;
 }
@@ -30,7 +29,6 @@ export function Form({
   isOnSigin,
   setIsOnSigin,
   setForm,
-  setErrorMessage,
   isError,
   setIsError,
 }: IProps) {
@@ -78,7 +76,7 @@ export function Form({
   return (
     <animated.div 
       style={boxStyle} 
-      className="grid place-items-center place-self-center bg-primaryColor-550 py-8 px-4 text-center relative rounded-md shadow-2xl duration-200 w-[70vw] max-w-[20rem] prose prose-slate"
+      className="grid place-items-center place-self-center bg-primaryColor-550 py-8 px-2 text-center relative rounded-md shadow-2xl duration-200 w-[70vw] max-w-[20rem] prose prose-slate mini:w-screen"
     >
       <h1 className="text-2xl text-white mb-4">
         {isOnSigin ? "Cadastro" : "Login"}
@@ -131,7 +129,7 @@ export function Form({
                   visibility: "hidden",
                 });
                 setBoxStyle.start({
-                  height: "17rem"
+                  height: "18rem"
                 })
                 return setIsOnSigin(false);
               }

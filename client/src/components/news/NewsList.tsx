@@ -15,8 +15,8 @@ interface IProps {
 
 export function NewsList({ pages, search, posts }: IProps) {
   return (
-    <div id="post-container" className="not-prose w-[80vw] max-w-[20rem] min-h-[50vh]">
-      <ul className="grid gap-8 border-t-[1px] border-slate-900 place-content-center py-8">
+    <div id="post-container" className="grid not-prose min-h-[50vh] tablet:w-screen place-content-center">
+    <ul className="grid gap-8 border-t-[1px] border-slate-900 place-content-center py-8 desktop:grid-cols-3 bigDesktop:grid-cols-4 tablet:grid-cols-2">
         {
           posts.map((item) => {
             return (

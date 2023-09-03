@@ -86,20 +86,20 @@ export default function Config({
   return (
     <>
       <Head>
-        <title>Blog - configurações</title>
+        <title>ConSciência - configurações</title>
         <meta
           name="description"
-          content="Configure o seu perfil da maneira que mais te agrada e aproveite a loja."
+          content="Configure o seu perfil da maneira que mais te agrada e aproveite o nosso blog."
         />
       </Head>
       <div id="content" className="grid">
         <Header />
-        <main className='grid'>
+        <main className='grid min-h-[30rem] my-16'>
           <NotificationBalloon
             activate={error}
             setActivate={setError}
-            title='Error no processamento'
-            text='Erro ao enviar os dados.'
+            title='ERRO:'
+            text='Erro ao enviar os dados'
             type='error'
             className='mt-20 z-[2]'
           />

@@ -33,7 +33,8 @@ module.exports = {
         "mini": { "max": "348px" },
         "tablet": "776px",
         "laptop": "1024px",
-        "desktop": "1280px"
+        "desktop": "1280px",
+        "bigDesktop": "1960px" 
       },
       colors: {
         "primaryColor": {

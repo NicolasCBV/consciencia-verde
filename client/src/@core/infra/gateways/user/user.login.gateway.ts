@@ -3,7 +3,6 @@ import { HttpAdapter } from "@/@core/adapters/http";
 import { UserGatewaysTypes } from "@/@core/domain/gateways/types/user.gateway-types";
 import { UserGateways } from "@/@core/domain/gateways/user.gateway";
 import { inject, injectable } from "inversify";
-import { LaunchOTPDTO } from "../../DTO/user/launchOTP.DTO";
 import { LoginUserDTO } from "../../DTO/user/loginUser.DTO";
 
 @injectable()
@@ -17,17 +16,12 @@ export class LoginUserGateway implements UserGateways.LoginUserGateway {
     const headers = new Headers();
     headers.set("content-type", "application/json");
   
-    const response = await this.http.call({
+    await this.http.call({
       url: "/api/user/launchOTPLogin",
       method: "POST",
       headers,
       body: JSON.stringify(input)
     });
-
-    const dto = new LaunchOTPDTO();
-    const body = await dto.exec(response.body);
-
-    return body;
   }
   
 

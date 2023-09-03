@@ -20,9 +20,6 @@ export default function Login() {
   const dispatch = useDispatch();
 
   const [isError, setIsError] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>(
-    "Não foi possível enviar os dados"
-  );
   const [form, setForm] = useState<IFormProps>({
     name: "",
     email: "",
@@ -59,7 +56,7 @@ export default function Login() {
         <title>ConSciência - login</title>
         <meta
           name="description"
-          content="Criar conta em ConSciência"
+          content="Vamos criar uma conta no nosso blog."
         />
         <meta name="keywords" content="" />
       </Head>
@@ -68,12 +65,12 @@ export default function Login() {
         <NotificationBalloon
           activate={isError}
           setActivate={setIsError}
-          title={"Error no processamento"}
+          title="ERRO:"
           type="error"
-          text={errorMessage}
+          text="Verifique os dados inseridos."
           className="mt-20"
         />
-        <main className="flex flex-col my-4 gap-2 min-h-screen place-items-center justify-center">
+        <main className="flex flex-col mt-4 gap-2 min-h-screen place-items-center justify-center mini:mt-16">
           <div className="flex flex-col gap-2">
             <ProgressBar verificationStage={verificationStage} />
             {!verificationStage ? (
@@ -86,13 +83,12 @@ export default function Login() {
                   isOnSigin={isOnSigin}
                   isError={isError}
                   setIsError={setIsError}
-                  setErrorMessage={setErrorMessage}
                 />
                 <Button
                   id="forgot-password-button"
                   href="/redefine-password"
                   name="Esqueci a senha"
-                  className="grid text-slate-900 place-self-center border-[1px] border-green-600 h-[2.5rem] place-content-center rounded-md hover:border-green-500 bg-transparent hover:bg-transparent hover:text-slate-700 duration-200"
+                  className="grid text-slate-900 place-self-center border-[1px] border-green-600 h-[2.5rem] place-content-center rounded-md hover:border-green-500 bg-slate-100/20 hover:bg-slate-100/20 hover:text-slate-700 duration-200"
                 />
               </div>
             ) : (
@@ -102,7 +98,8 @@ export default function Login() {
                 setVerificationStage={setVerificationStage}
                 isError={isError}
                 setIsError={setIsError}
-                setErrorMessage={setErrorMessage}
+                setForm={setForm}
+                setIsOnSigin={setIsOnSigin}
               />
             )}
           </div>

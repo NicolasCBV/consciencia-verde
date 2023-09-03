@@ -13,7 +13,7 @@ export function Card({ post, id }: IProps) {
   return (
     <li className="grid">
       <Link 
-        className="flex justify-start gap-4 w-[80vw] max-w-[30rem] min-h-[5rem] border-[1px] border-slate-900 rounded-md prose prose-slate hover:bg-slate-200 duration-200 cursor-pointer" 
+        className="grid justify-start w-[80vw] max-w-[18rem] h-[21rem] border-[1px] border-slate-900/20 rounded-r-lg prose prose-slate hover:bg-slate-200 duration-200 cursor-pointer micro:w-screen micro:w-screen micro:h-auto" 
         href={`post/${id}`}
       >
         {
@@ -22,11 +22,11 @@ export function Card({ post, id }: IProps) {
                 width={100}
                 height={100}
                 weight="thin"
-                className="h-full w-1/4 bg-zinc-800 text-white"
+                className="grid h-[11.5rem] w-full object-cover relative object-fit place-self-center self-start"
               />
             : <Image
                 key={`${uuid()}-image`}
-                className="h-auto w-1/4 object-cover relative rounded-l-sm object-fit"  
+                className="grid h-[11.5rem] w-full object-cover relative object-fit place-self-center self-start"  
                 width={100}
                 height={100}
                 src={post.image.URI}
@@ -34,11 +34,11 @@ export function Card({ post, id }: IProps) {
               />
         }
 
-      <div id="post-text" className="grid w-full place-self-start justify-start pr-2 py-2 text-start mini:break-all">
-          <h1 className="font-bold">
+        <div id="post-text" className="grid w-full gap-2 place-self-start justify-start p-4 text-start break-all">
+          <h1 className="font-bold text-xl mini:text-[1rem]">
             {post.name}
           </h1>
-          <p className="mini:hidden">
+          <p>
             {post.description}
           </p>
         </div>

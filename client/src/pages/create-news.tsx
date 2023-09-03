@@ -24,6 +24,7 @@ import { NotificationBalloon } from '@/components/common/NotificationBalloon'
 import { Footer } from '@/components/common/Footer'
 import { useRouter } from 'next/router'
 import { useStoreHook } from '@/hooks'
+import Head from 'next/head'
 
 lowlight.registerLanguage("css", css);
 lowlight.registerLanguage("html", html);
@@ -51,8 +52,7 @@ export default function CreateNews({
 
   const accessToken = useStoreHook(({ accessToken }) => accessToken)
 
-  const [ defaultError, setDefaultError ] = useState(false);
-  const [ alreadyExistError, setAlreadyExistError ] = useState(false);
+  const [ error, setError ] = useState(false);
 
   const [ image, setImage ] = useState<IFormCreateNews>({
     URI: null,
@@ -77,6 +77,8 @@ export default function CreateNews({
   });
 
   async function handleSubmit(form: ICreatePostForm) {
+    setIsLoading(true);
+
     const content = editor?.getJSON()?.content?.map((item) => {
       return JSON.stringify(item);
     }) ?? []
@@ -101,7 +103,7 @@ export default function CreateNews({
       .then((data) => {
         router.push(`/post/${data.id}`);
       })
-      .catch(() => setDefaultError(true))
+      .catch(() => setError(true))
       .finally(() => {
         setIsLoading(false);
       });
@@ -138,44 +140,50 @@ export default function CreateNews({
   },[]);
 
   return (
-    <div className="grid w-screen min-h-[100vh]">
-      <Header/>
-      <NotificationBalloon
-        activate={alreadyExistError ?? defaultError}
-        setActivate={setAlreadyExistError ?? setDefaultError}
-        title={"Não foi possível enviar os dados"}
-        type="error"
-        text={
-          defaultError 
-            ? "Error no processamento."
-            : "O nome desta postagem já foi usado."
+    <>
+      <Head>
+        <title>ConSciência - criar notícia</title>
+        <meta
+          name="description"
+          content="Crie uma notícia para o seu maravilho blog."
+        />
+      </Head>
+      <div className="grid w-screen min-h-[100vh]">
+        <Header/>
+        <NotificationBalloon
+          activate={error}
+          setActivate={setError}
+          title={"ERRO:"}
+          type="error"
+          text={"Erro no processamento"}
+          className="mt-20"
+        />
+        {
+          editor
+            ? <main className="flex flex-col gap-8 place-self-center align-content-center place-items-center py-24 w-[80vw] min-h-screen prose prose-slate prose-a:text-blue-600">
+                <CreateNewsMainFlow
+                  isError={error}
+                  isLoading={isLoading}
+                  editor={editor}
+                  image={image}
+                  setImage={setImage}
+                  handleSubmit={handleSubmit}
+                /> 
+              </main>
+            : <div className="grid w-screen h-screen place-content-center place-items-center place-self-center prose prose-slate">
+                <CircleNotch 
+                  width={150} 
+                  height={150} 
+                  className="animate-spin" 
+                />
+                <h1 className="text-2xl">
+                  Carregando...
+                </h1>
+              </div>
         }
-        className="mt-20"
-      />
-      {
-        editor
-          ? <main className="flex flex-col gap-8 place-self-center align-content-center place-items-center py-24 w-[80vw] min-h-screen prose prose-slate prose-a:text-blue-600">
-              <CreateNewsMainFlow
-                isLoading={isLoading}
-                editor={editor}
-                image={image}
-                setImage={setImage}
-                handleSubmit={handleSubmit}
-              /> 
-            </main>
-          : <div className="grid w-screen h-screen place-content-center place-items-center place-self-center prose prose-slate">
-              <CircleNotch 
-                width={150} 
-                height={150} 
-                className="animate-spin" 
-              />
-              <h1 className="text-2xl">
-                Carregando...
-              </h1>
-            </div>
-      }
-      <Footer/>
-    </div>
+        <Footer/>
+      </div>
+    </>
   )
 }
 

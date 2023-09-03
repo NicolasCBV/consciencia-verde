@@ -32,13 +32,13 @@ export function Header(){
     <animated.header 
       id="header"
       style={headerStyle}
-      className={"grid grid- grid-rows-[5vh,1fr] items-center pt-4 pb-2 bg-primaryColor-600 fixed w-[100vw] z-[100]"}
+      className={"grid grid- grid-rows-[5vh,1fr] items-center pt-4 pb-2 bg-primaryColor-600 fixed w-[100vw] z-[10000]"}
     >
       <div 
         id="menu"
         className={"flex justify-between px-8 py-2 bg-primaryColor-600 w-[100vw] mini:px-2"}
       >
-        <div className="flex gap-2">
+        <Link href="/" className="flex gap-2">
           <h1 className="bigTitle font-bold text-3xl text-white micro:text-xl">
             ConSciência
           </h1>
@@ -48,7 +48,7 @@ export function Header(){
             width={30}
             height={30}
           />
-        </div>
+        </Link>
         {
           !isMenuActive
           ? <button
@@ -91,7 +91,7 @@ export function Header(){
               style={styles} 
             >
               <li 
-                className="hover:text-zinc-300 duration-200"
+                className="hover:text-slate-500 duration-200"
                 onClick={() => {
                   setHeaderStyle.start({
                     height: "5vh"
@@ -108,7 +108,7 @@ export function Header(){
                 }
               </li>
               <li 
-                className="hover:text-zinc-300 duration-200"
+                className="hover:text-slate-500 duration-200"
                 onClick={() => {
                   setHeaderStyle.start({
                     height: "5vh"
@@ -127,7 +127,7 @@ export function Header(){
               {
                 token && (
                   <li 
-                    className="hover:text-zinc-300 duration-200"
+                    className="hover:text-slate-500 duration-200"
                     onClick={() => {
                       setHeaderStyle.start({
                         height: "5vh"
@@ -146,7 +146,7 @@ export function Header(){
                 )
               }
               <li 
-                className="hover:text-zinc-300 duration-200"
+                className="hover:text-slate-500 duration-200"
                 onClick={() => {
                   setHeaderStyle.start({
                     height: "5vh"

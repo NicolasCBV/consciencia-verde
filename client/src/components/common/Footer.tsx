@@ -2,12 +2,14 @@ import {
   TwitterLogo, 
   InstagramLogo, 
   GithubLogo, 
-  Leaf
+  Leaf,
+  IdentificationCard,
+  LinkedinLogo
 } from "phosphor-react"
 
 export function Footer(){
   return (
-    <div className="p-8 bg-primaryColor-600">
+    <footer className="p-8 bg-primaryColor-600">
         <div className="flex gap-2">
           <h1 className="bigTitle font-bold text-3xl text-white micro:text-xl">
             ConSciência
@@ -24,8 +26,8 @@ export function Footer(){
         </p>
         <ul className="flex py-4 gap-2">
           <li>
-            <a href="">
-              <InstagramLogo
+            <a href="https://www.linkedin.com/in/n%C3%ADcolas-cleiton-707688227/" target="_blank">
+              <LinkedinLogo
                 width={35}
                 height={35}
                 className="text-zinc-50 hover:text-zinc-200 duration-200"
@@ -33,8 +35,8 @@ export function Footer(){
             </a>
           </li>
           <li>
-            <a href="">
-              <TwitterLogo
+            <a href="https://rebrand.ly/gqbnysf" target="_blank">
+              <IdentificationCard
                 width={35}
                 height={35}
                 className="text-zinc-50 hover:text-zinc-200 duration-200"
@@ -42,7 +44,7 @@ export function Footer(){
             </a>
           </li>
           <li>
-            <a href="">
+            <a href="https://github.com/NicolasCBV" target="_blank">
               <GithubLogo
                 width={35}
                 height={35}
@@ -51,6 +53,6 @@ export function Footer(){
             </a>
           </li>
         </ul>
-    </div>
+    </footer>
   )
 }

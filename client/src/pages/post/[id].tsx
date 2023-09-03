@@ -18,6 +18,8 @@ import Code from "@tiptap/extension-code";
 import { useMemo } from "react";
 import { ContentContainer } from "@/components/post/contentContainer";
 import Image from "next/image";
+import CodeBlock from "@tiptap/extension-code-block";
+import Head from "next/head";
 
 function Post({
   post
@@ -28,6 +30,7 @@ function Post({
       Paragraph,
       Heading,
       Code,
+      CodeBlock,
       Text,
       Bold
     ]);
@@ -37,28 +40,36 @@ function Post({
   }, [post.content])
 
   return (
-    <div className="grid w-screen min-h-[100vh]">
-      <Header/>
-      <div className="w-full grid place-self-center place-items-center place-content-center pt-24 prose prose-slate prose-a:text-blue-600">
-        <div>
-          <Image
-            className="object-cover relative rounded-[2px] w-[60vw] max-w-[15rem] h-[60vh] max-h-[15rem] circle object-fit"
-            width={300}
-            height={300}
-            src={post.image.URI}
-            alt="Foto do post."
-          />
-        </div>
-        
-        <div className="w-full flex flex-col my-8">
-          <h1>{post.name}</h1>
-          <small>{post.createdAt}</small>
-          <small>Por: Random User</small>
-        </div>
-        <ContentContainer output={output}/>
+    <>
+      <Head>
+        <title>ConSciência - postagem</title>
+        <meta
+          name="description"
+          content="Vamos parar para ler uma de nossas notícias."
+        />
+      </Head>
+      <div className="grid min-h-[100vh]">
+        <Header/>
+        <main className="grid w-[80vw] max-w-[45rem] place-self-center place-items-center place-content-center pt-24 pb-32">
+          <div>
+            <Image
+              className="object-cover relative rounded-lg w-[80vw] max-w-[35rem] h-[57vh] max-h-[20rem] object-fit"
+              width={300}
+              height={300}
+              src={post.image.URI}
+              alt="Foto do post."
+            />
+          </div>
+          
+          <div className="grid w-[80vw] max-w-[45rem] flex flex-col my-8 prose prose-slate prose-a:text-blue-600 place-self-start prose-sm break-all mt-24">
+            <h1>{post.name}</h1>
+            <small>{post.createdAt}</small>
+          </div>
+          <ContentContainer output={output}/>
+        </main>
+        <Footer/>
       </div>
-      <Footer/>
-    </div>
+    </>
   )
 }
 

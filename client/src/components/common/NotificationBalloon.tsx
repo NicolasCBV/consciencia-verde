@@ -52,11 +52,11 @@ export function NotificationBalloon ({
               ...style,
               justifySelf: "right"
             }}
-            className={`flex fixed ${className} z-[100]`}
+            className={`flex fixed w-[80vh] max-w-[18rem] justify-end ${className} z-[100]`}
           >
             <span 
               style={{ background: mainColors[type] }}
-              className={`w-[1rem] max-w-[5vw] rounded-tl-md rounded-bl-md`}
+              className={`w-[5vh] max-w-[1rem] rounded-tl-md rounded-bl-md`}
             />
             <div 
               id="text-content"

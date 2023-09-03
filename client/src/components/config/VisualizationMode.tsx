@@ -1,9 +1,10 @@
 import Image from "next/image";
-import { UserCircle } from "phosphor-react";
+import { PencilCircle, UserCircle } from "phosphor-react";
 import { Dispatch, SetStateAction } from "react";
 import { v4 as uuid } from "uuid";
 import { IDisponibleStages, IUserProfileData } from "@/pages/config";
 import Menu from "./Menu";
+import { Button } from "../common/Button";
 
 interface IProps {
   staticUserData: IUserProfileData;
@@ -48,6 +49,20 @@ export function VisualizationMode({
               </p>
         }
       </div>
+      <Button
+        name="Editar"
+        className="mb-8"
+        iconData={{
+          pos: "right",
+          Icon: PencilCircle
+        }}
+        onClick={() => {
+          setStages(() => ({
+            isEditing: true,
+            isDeleting: false
+          }))
+        }}
+      />
       <Menu
         setStages={setStages}
       />
