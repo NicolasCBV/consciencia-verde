@@ -1,9 +1,6 @@
-import { InMemoryAdmins } from "../mocks/repositories/admins";
 import { storageIds } from "@infra/storages/ids";
-import { InMemoryAdminsCache } from "../mocks/repositories/admins.cache";
 import { InMemoryPostRepo } from "../mocks/repositories/postRepo";
 import { CacheManagerMock } from "../mocks/managers/cache";
-import { DatabaseManagerMock } from "../mocks/managers/db";
 import { InMemoryTokensCache } from "../mocks/repositories/token.cache";
 import { adapterIds } from "@app/adapters/adapterIds";
 import { midIds } from "@infra/middlewares/midIds";
@@ -25,21 +22,13 @@ import { UpdatePostController } from "@infra/controllers/post/updatePost.control
 import { UploadImagePostController } from "@infra/controllers/post/uploadImageOnPost.controller";
 import { DeletePostController } from "@infra/controllers/post/deletePost.controller";
 import { CustomServer, serverIds } from "@infra/server";
-import { SearchManager } from "@infra/storages/search/search-manager";
 import { Container } from "inversify";
-import { DatabaseManager } from "@infra/storages/db/manager";
 import { CacheManager } from "@infra/storages/cache/manager";
 
 const container = new Container();
 
 container.bind(storageIds.cache.manager).to(CacheManagerMock);
-container.bind(storageIds.db.manager).to(DatabaseManagerMock);
-
-container.bind(storageIds.db.adminEntitie).to(InMemoryAdmins);
-container.bind(storageIds.cache.adminEntitie).to(InMemoryAdminsCache);
 container.bind(storageIds.cache.tokenEntitie).to(InMemoryTokensCache);
-
-container.bind(storageIds.search.manager).to(SearchManager);
 
 container.bind(storageIds.external.postRepo).to(InMemoryPostRepo);
 
@@ -67,13 +56,8 @@ container.bind(serverIds.server).to(CustomServer);
 
 const appTest = {
   storages: {
-    db: {
-      manager: container.get<DatabaseManager>(storageIds.db.manager),
-      admin: container.get<InMemoryAdmins>(storageIds.db.adminEntitie)
-    },
     cache: {
       manager: container.get<CacheManager>(storageIds.cache.manager),
-      admin: container.get<InMemoryAdminsCache>(storageIds.cache.adminEntitie),
       token: container.get<InMemoryTokensCache>(storageIds.cache.tokenEntitie)
     }
   },

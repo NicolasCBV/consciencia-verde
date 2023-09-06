@@ -2,7 +2,6 @@ import { Container } from "inversify";
 import { CustomServer, serverIds } from "./infra/server";
 import { storageIds } from "./infra/storages/ids";
 import { RedisService } from "./infra/storages/cache/redis";
-import { TypeORMService } from "./infra/storages/db/typeorm";
 import { adapterIds } from "./app/adapters/adapterIds";
 import { BcryptAdapter } from "./app/adapters/bcrypt";
 import { JwtAdapter } from "./app/adapters/jwt";
@@ -24,22 +23,13 @@ import { DeletePostController } from "./infra/controllers/post/deletePost.contro
 import { UpdatePostController } from "./infra/controllers/post/updatePost.controller";
 import { ErrorMiddleware } from "./infra/middlewares/error.middleware";
 import { RedisTokenEntitie } from "./infra/storages/cache/redis/entities/token.entitie";
-import { RedisAdminEntitie } from "./infra/storages/cache/redis/entities/admin.entitie";
-import { SearchManager } from "./infra/storages/search/search-manager";
-import { TypeORMAdminRepo } from "./infra/storages/db/typeorm/repositories/admins";
 
 export const container = new Container();
 
-container.bind(storageIds.db.manager).to(TypeORMService)
-container.bind(storageIds.db.adminEntitie).to(TypeORMAdminRepo)
-
 container.bind(storageIds.cache.manager).to(RedisService)
 container.bind(storageIds.cache.tokenEntitie).to(RedisTokenEntitie)
-container.bind(storageIds.cache.adminEntitie).to(RedisAdminEntitie)
 
 container.bind(storageIds.external.postRepo).to(FirebaseHandler)
-
-container.bind(storageIds.search.manager).to(SearchManager)
 
 container.bind(adapterIds.crypt).to(BcryptAdapter)
 container.bind(adapterIds.token).to(JwtAdapter)

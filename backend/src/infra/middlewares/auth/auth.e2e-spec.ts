@@ -2,18 +2,13 @@ import request from "supertest";
 import { Router, json } from "express";
 import { appTest } from "@tests/setup/define-app-test";
 import { setAuth } from "@tests/utils/setAuth";
-import { adminFactory } from "@tests/factory/admin";
 import { JwtAdapter } from "@app/adapters/jwt";
-import { InMemoryAdmins } from "@tests/mocks/repositories/admins";
-import { InMemoryAdminsCache } from "@tests/mocks/repositories/admins.cache";
 import { InMemoryTokensCache } from "@tests/mocks/repositories/token.cache";
 
 const routes = Router();
 
 describe("Create post test E2E", () => {
   afterEach(async () => {
-    InMemoryAdmins.admins = [];
-    InMemoryAdminsCache.admins = [];
     InMemoryTokensCache.tokens = [];
   })
 
@@ -51,6 +46,7 @@ describe("Create post test E2E", () => {
       email: "default@email.com",
       userData: {
         name: "default name",
+        level: 0,
         createdAt: new Date().toUTCString(),
         updatedAt: new Date().toUTCString()
       }
@@ -81,16 +77,13 @@ describe("Create post test E2E", () => {
       deviceId: "deviceId",
       userData: {
         name: "default name",
+        level: 1,
         createdAt: new Date().toUTCString(),
         updatedAt: new Date().toUTCString()
       }
     } as const;
-    const admin = adminFactory({
-      userId: tokenData.sub
-    });
 
     const token = await new JwtAdapter().create(tokenData);
-    await appTest.storages.cache.admin.create({ admin });
     await appTest.storages.cache.token.set({
       type: tokenData.type,
       content: token,

@@ -9,6 +9,10 @@ import cors from "cors";
 const port = process.env.PORT ?? 3031;
 
 export async function startApplication() {
+  process.on("SIGINT", async () => {
+    await application.server.stopInSilence();
+  })
+
   application.server.expressApp.use(cors({
     origin: String(process.env.CLIENT_URL),
     methods: ['DELETE', 'POST', 'PATCH', 'GET'],
@@ -16,18 +20,14 @@ export async function startApplication() {
     credentials: true,
   }))
 
-  application.server.expressApp.use(express.json({
-    limit: "5mb"
-  }));
+  application.server.expressApp.use(express.json());
   application.server.expressApp.use(routes);
   application.server.expressApp.use(application.middlewares.error.exec);
 
-  await application.server.initServices().then(() => {
-    application.server.http.listen(port, () => {
-      if(process.env.NODE_ENV !== "test")
-        logger.info(`Running server on ${port} port.`);
-    })
-  });
+  application.server.http.listen(port, () => {
+    if(process.env.NODE_ENV !== "test")
+      logger.info(`Running server on ${port} port.`);
+  })
 }
 
 startApplication();

@@ -23,7 +23,7 @@ const upload = multer({
   storage,
   limits: {
     files: 1,
-    fileSize: 1024 * 1024
+    fileSize: 1024 * 1024 * 4
   }, 
   fileFilter: (
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -45,8 +45,7 @@ const upload = multer({
 routes.get("/", (req, res) => res.status(200).end())
 routes.use(application.middlewares.auth.exec);
 routes.use(application.middlewares.fingerprint.exec);
-routes.use(application.middlewares.admin.exec)
-
+routes.use(application.middlewares.admin.exec);
 
 routes.post(
   routes_names.create_post,

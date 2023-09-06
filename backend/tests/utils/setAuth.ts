@@ -1,5 +1,4 @@
 import { JwtAdapter } from "@app/adapters/jwt";
-import { adminFactory } from "../factory/admin";
 import { appTest } from "../setup/define-app-test";
 
 export async function setAuth() {
@@ -11,16 +10,13 @@ export async function setAuth() {
     email: "default@email.com",
     userData: {
       name: "default name",
+      level: 1,
       createdAt: new Date().toUTCString(),
       updatedAt: new Date().toUTCString()
     }
   } as const;
-  const admin = adminFactory({
-    userId: tokenData.sub
-  });
 
   const token = await new JwtAdapter().create(tokenData);
-  await appTest.storages.cache.admin.create({ admin });
   await appTest.storages.cache.token.set({
     type: tokenData.type,
     content: token,
@@ -28,5 +24,5 @@ export async function setAuth() {
     id: tokenData.sub
   });
 
-  return { admin, token }
+  return { token }
 }

@@ -1,4 +1,3 @@
-import { DatabaseManager } from "@infra/storages/db/manager";
 import { Server, createServer } from "http";
 import express from "express";
 import { logger } from "@src/config/logger";
@@ -17,9 +16,7 @@ export class CustomServer {
 
   constructor(
     @inject(storageIds.cache.manager)
-    private readonly cache: CacheManager,
-    @inject(storageIds.db.manager)
-    private readonly db: DatabaseManager
+    private readonly cache: CacheManager
   ) {
     this._expressApp = express();
     this.server = createServer(this._expressApp);
@@ -36,9 +33,9 @@ export class CustomServer {
     return this._expressApp;
   }
 
-  async initServices() {
-    await this.db.init()
-      .then(() => logger.info("Database loaded."));
+  async stopInSilence() {
+    this.server.close();
+    await this.cache.close();
   }
 
   async stop() {
@@ -48,9 +45,6 @@ export class CustomServer {
       return;
 
     logger.info("Http server closed.")
-
-    await this.db.close()
-      .then(() => logger.info("Database closed."))
     
     await this.cache.close()
       .then(() => logger.info("Cache database closed."))

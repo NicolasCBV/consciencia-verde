@@ -7,6 +7,6 @@ export class RedisService implements CacheManager {
   constructor() {}
 
   async close() {
-    await redisClient.shutdown();
+    await redisClient.quit();
   }
 }

@@ -11,7 +11,8 @@ export interface IRefreshToken {
   exp: number; 
   userData: { 
     name: string; 
-    description?: string | null; 
+    description?: string | null;
+    level: number;
     imageUrl?: string | null; 
     createdAt: string; 
     updatedAt: string; 

@@ -26,7 +26,8 @@ services:
     hostname: redis
     ports:
       - "6379:6379"
-    command: redis-server --loglevel warning --requirepass password 
+    command: redis-server --requirepass password
+    # command: redis-server --loglevel warning --requirepass password 
     networks:
       - internal_network 
       - external_network
