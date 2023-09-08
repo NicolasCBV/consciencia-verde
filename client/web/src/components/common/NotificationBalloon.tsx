@@ -11,64 +11,64 @@ interface Props {
 }
 
 export function NotificationBalloon ({ 
-  activate,
-  setActivate,
-  title, 
-  text,
-  type,
-  className
+	activate,
+	setActivate,
+	title, 
+	text,
+	type,
+	className
 }: Props) {
-  const transition = useTransition(activate, {
-    from: {
-      transform: "translateX(100%)" 
-    },
-    enter: {
-      transform: "translateX(0%)" 
-    },
-    leave: {
-      transform: "translateX(100%)" 
-    },
-    reverse: activate
-  });
+	const transition = useTransition(activate, {
+		from: {
+			transform: "translateX(100%)" 
+		},
+		enter: {
+			transform: "translateX(0%)" 
+		},
+		leave: {
+			transform: "translateX(100%)" 
+		},
+		reverse: activate
+	});
 
-  useEffect(() => {
-    if(activate)
-      setTimeout(() => {
-        setActivate(false);
-      }, 5000);
-  }, [ activate ]);
+	useEffect(() => {
+		if(activate)
+			setTimeout(() => {
+				setActivate(false);
+			}, 5000);
+	}, [ activate, setActivate ]);
 
 
-  const mainColors = {
-    warn: "rgb(234 179 8)",
-    error: "rgb(239 68 68)"
-  } 
+	const mainColors = {
+		warn: "rgb(234 179 8)",
+		error: "rgb(239 68 68)"
+	}; 
 
-  return (
-      transition((style, item) => {
-        return item && (
-          <animated.div 
-            style={{
-              ...style,
-              justifySelf: "right"
-            }}
-            className={`flex fixed w-[80vh] max-w-[18rem] justify-end ${className} z-[100]`}
-          >
-            <span 
-              style={{ background: mainColors[type] }}
-              className={`w-[5vh] max-w-[1rem] rounded-tl-md rounded-bl-md`}
-            />
-            <div 
-              id="text-content"
-              className="grid bg-slate-100 shadow-lg py-2 pl-2 pr-4"
-            >
-              <h1 style={{ color: mainColors[type] }}>
-                {title}
-              </h1>
-              <p>{text}</p>
-            </div>
-          </animated.div>
-        )
-      })
-  )
+	return (
+		transition((style, item) => {
+			return item && (
+				<animated.div 
+					style={{
+						...style,
+						justifySelf: "right"
+					}}
+					className={`flex fixed w-[80vh] max-w-[18rem] justify-end ${className} z-[100]`}
+				>
+					<span 
+						style={{ background: mainColors[type] }}
+						className={"w-[5vh] max-w-[1rem] rounded-tl-md rounded-bl-md"}
+					/>
+					<div 
+						id="text-content"
+						className="grid bg-slate-100 shadow-lg py-2 pl-2 pr-4"
+					>
+						<h1 style={{ color: mainColors[type] }}>
+							{title}
+						</h1>
+						<p>{text}</p>
+					</div>
+				</animated.div>
+			);
+		})
+	);
 }

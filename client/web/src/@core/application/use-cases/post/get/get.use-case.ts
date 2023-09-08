@@ -5,12 +5,12 @@ import { inject, injectable } from "inversify";
 
 @injectable()
 export class GetPostUseCase {
-  constructor(
+	constructor(
     @inject(gateIds.post.get)
     private readonly postGate: PostGateway.GetPostGateway
-  ) {}
+	) {}
 
-  async exec(input: PostGatewayTypes.IGetPost) {
-    return await this.postGate.get(input);
-  }
+	async exec(input: PostGatewayTypes.IGetPost) {
+		return await this.postGate.get(input);
+	}
 }

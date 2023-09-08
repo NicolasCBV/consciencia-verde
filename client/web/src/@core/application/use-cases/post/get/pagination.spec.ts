@@ -10,18 +10,18 @@ import { PaginationPostUseCase } from "./pagination.use-case";
 GetPostGateway.prototype.pagination = jest.fn(async () => []);
 
 describe("Pagination post use case test", () => {
-  const container = new Container();
-  container.bind(adapterIds.http).to(FakeHttpClient);
-  container.bind(gateIds.post.get).to(GetPostGateway);
-  container.bind(useCasesIds.post.pagination).to(PaginationPostUseCase);
+	const container = new Container();
+	container.bind(adapterIds.http).to(FakeHttpClient);
+	container.bind(gateIds.post.get).to(GetPostGateway);
+	container.bind(useCasesIds.post.pagination).to(PaginationPostUseCase);
 
-  it("should be able to get pagination on post", async () => {
-    const useCase = container.get<GetPostUseCase>(useCasesIds.post.pagination);
+	it("should be able to get pagination on post", async () => {
+		const useCase = container.get<GetPostUseCase>(useCasesIds.post.pagination);
 
-    const gatewaySpy = jest.spyOn(GetPostGateway.prototype, "pagination");
+		const gatewaySpy = jest.spyOn(GetPostGateway.prototype, "pagination");
 
-    await useCase.exec({ id: "default_id" });
+		await useCase.exec({ id: "default_id" });
 
-    expect(gatewaySpy).toHaveBeenCalledTimes(1);
-  })
-})
+		expect(gatewaySpy).toHaveBeenCalledTimes(1);
+	});
+});

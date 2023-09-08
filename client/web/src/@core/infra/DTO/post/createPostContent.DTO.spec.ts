@@ -9,7 +9,7 @@ describe("Create post content DTO test", () => {
 		};
 
 		expect(createUserDTO.exec(body)).resolves.toEqual(body);
-	})
+	});
 
 	it("should throw one error: wrong id input", async () => {
 		const createUserDTO = new CreatePostContentDTO();
@@ -19,5 +19,5 @@ describe("Create post content DTO test", () => {
 		};
 
 		expect(createUserDTO.exec(body)).rejects.toThrow();
-	})
-})
+	});
+});

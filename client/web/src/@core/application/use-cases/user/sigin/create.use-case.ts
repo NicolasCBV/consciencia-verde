@@ -5,14 +5,14 @@ import { inject, injectable } from "inversify";
 
 @injectable()
 export class CreateUserUseCase {
-  constructor(
+	constructor(
     @inject(gateIds.user.create)
     private readonly createUserGate: UserGateways.CreateUserGateway
-  ) {}
+	) {}
 
-  async exec(
-	input: UserGatewaysTypes.NonAuth.ICreate
-  ) {
-	return await this.createUserGate.create(input);
-  }
+	async exec(
+		input: UserGatewaysTypes.NonAuth.ICreate
+	) {
+		return await this.createUserGate.create(input);
+	}
 }

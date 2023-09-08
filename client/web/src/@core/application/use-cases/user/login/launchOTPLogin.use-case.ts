@@ -5,12 +5,12 @@ import { inject, injectable } from "inversify";
 
 @injectable()
 export class LaunchOTPLoginUseCase {
-  constructor(
+	constructor(
     @inject(gateIds.user.login)
     private readonly loginUserGate: UserGateways.LoginUserGateway
-  ) {}
+	) {}
 
-  async exec(input: UserGatewaysTypes.NonAuth.ILaunchOTP) {
-    return await this.loginUserGate.launchLoginOTP(input);
-  }
+	async exec(input: UserGatewaysTypes.NonAuth.ILaunchOTP) {
+		return await this.loginUserGate.launchLoginOTP(input);
+	}
 }

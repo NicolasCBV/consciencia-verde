@@ -3,7 +3,7 @@ import { Timestamp } from "firebase/firestore";
 
 export interface IFirestorePostObject {
   name: string;
-  imageURI: string;
+  imageURI?: string;
   description: string;
   content: string[];
   createdAt: Date;
@@ -11,7 +11,7 @@ export interface IFirestorePostObject {
 }
 
 export interface IIncomingFirebasePostData {
-  imageURI: string;
+  imageURI?: string;
   name: string;
   description: string;
   content: string[];
@@ -20,38 +20,38 @@ export interface IIncomingFirebasePostData {
 }
 
 export class FirestorePostMapper {
-  static format(input: IIncomingFirebasePostData): IFirestorePostObject {
-    return {
-      name: input.name,
-      description: input.description,
-      imageURI: input.imageURI,
-      content: input.content,
-      createdAt: input.createdAt.toDate(),
-      updatedAt: input.updatedAt.toDate()
-    }
-  }
+	static format(input: IIncomingFirebasePostData): IFirestorePostObject {
+		return {
+			name: input.name,
+			description: input.description,
+			imageURI: input.imageURI,
+			content: input.content,
+			createdAt: input.createdAt.toDate(),
+			updatedAt: input.updatedAt.toDate()
+		};
+	}
 
-  static toObject(input: Post): IFirestorePostObject {
-    return {
-      name: input.name,
-      imageURI: input.image.URI,
-      description: input.description,
-      content: input.content,
-      createdAt: input.createdAt,
-      updatedAt: input.updatedAt
-    }
-  }
+	static toObject(input: Post): IFirestorePostObject {
+		return {
+			name: input.name,
+			imageURI: input.image.URI,
+			description: input.description,
+			content: input.content,
+			createdAt: input.createdAt,
+			updatedAt: input.updatedAt
+		};
+	}
 
-  static toClass(input: IFirestorePostObject): Post {
-    return new Post({
-      name: input.name,
-      description: input.description,
-      content: input.content,
-      image: {
-        URI: input.imageURI
-      },
-      createdAt: input.createdAt,
-      updatedAt: input.updatedAt
-    });
-  }
+	static toClass(input: IFirestorePostObject): Post {
+		return new Post({
+			name: input.name,
+			description: input.description,
+			content: input.content,
+			image: {
+				URI: input.imageURI
+			},
+			createdAt: input.createdAt,
+			updatedAt: input.updatedAt
+		});
+	}
 }

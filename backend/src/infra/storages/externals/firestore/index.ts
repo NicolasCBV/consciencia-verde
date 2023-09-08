@@ -102,7 +102,9 @@ export class FirebaseHandler implements PostRepo {
           code: 404
         });
 
-      await storageApp.bucket().file(`posts/${file[1]}`).delete();
+      await storageApp.bucket().file(`posts/${file[1]}`).delete({
+        ignoreNotFound: true
+      });
     }
 
     await document.delete();

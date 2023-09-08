@@ -9,18 +9,18 @@ import { ExistPostUseCase } from "./exist.use-case";
 ExistentPostGateway.prototype.exist = jest.fn(async () => true);
 
 describe("Exist post use case test", () => {
-  const container = new Container();
-  container.bind(adapterIds.http).to(FakeHttpClient)
-  container.bind(gateIds.post.exist).to(ExistentPostGateway);
-  container.bind(useCasesIds.post.exist).to(ExistPostUseCase);
+	const container = new Container();
+	container.bind(adapterIds.http).to(FakeHttpClient);
+	container.bind(gateIds.post.exist).to(ExistentPostGateway);
+	container.bind(useCasesIds.post.exist).to(ExistPostUseCase);
 
-  it("should be able to check if post exist", async () => {
-    const useCase = container.get<ExistPostUseCase>(useCasesIds.post.exist);
+	it("should be able to check if post exist", async () => {
+		const useCase = container.get<ExistPostUseCase>(useCasesIds.post.exist);
 
-    const gatewaySpy = jest.spyOn(ExistentPostGateway.prototype, "exist");
+		const gatewaySpy = jest.spyOn(ExistentPostGateway.prototype, "exist");
 
-    await useCase.exec({ name: "default name" });
+		await useCase.exec({ name: "default name" });
 
-    expect(gatewaySpy).toHaveBeenCalledTimes(1);
-  })
-})
+		expect(gatewaySpy).toHaveBeenCalledTimes(1);
+	});
+});

@@ -6,19 +6,19 @@ import { inject, injectable } from "inversify";
 
 @injectable()
 export class DeleteUserGateway implements UserGateways.DeleteUserGateway {
-  constructor(
+	constructor(
     @inject(adapterIds.http)
     private readonly http: HttpAdapter
-  ) {}
+	) {}
   
-  async delete(input: UserGatewaysTypes.Auth.IDelete) {
-    const headers = new Headers();
-    headers.set("authorization", `${input.access_token}`);
+	async delete(input: UserGatewaysTypes.Auth.IDelete) {
+		const headers = new Headers();
+		headers.set("authorization", `${input.access_token}`);
 
-    await this.http.call({
-      url: "/api/user/delete",
-      method: "DELETE",
-      headers
-    })
-  };
+		await this.http.call({
+			url: "/api/user/delete",
+			method: "DELETE",
+			headers
+		});
+	}
 }

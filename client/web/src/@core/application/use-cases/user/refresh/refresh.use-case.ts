@@ -4,12 +4,12 @@ import { inject, injectable } from "inversify";
 
 @injectable()
 export class RefreshUseCase {
-  constructor(
+	constructor(
     @inject(gateIds.user.refreshToken)
 	private readonly refreshGate: UserGateways.RefreshUserTokenGateway
-  ) {}
+	) {}
 
-  async exec() {
-	return this.refreshGate.refresh();
-  }
+	async exec() {
+		return this.refreshGate.refresh();
+	}
 }

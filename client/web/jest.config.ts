@@ -4,12 +4,12 @@ import { compilerOptions } from './tsconfig.json';
 
 const config: Config = {
   moduleFileExtensions: ['js', 'json', 'ts'],
-  testRegex: '.*\\.spec\\.ts$',
+  testRegex: '.*\\.spec\\.(ts|js)$',
   transform: {
-    '^.+\\.(t|j)s$': 'ts-jest',
+    '^.+\\.(ts|js)$': 'ts-jest',
   },
   clearMocks: true,
-  collectCoverageFrom: ['**/*.(t|j)s'],
+  collectCoverageFrom: ['**/*.(ts|js)'],
   coverageDirectory: 'coverage',
 
   setupFiles: ["./tests/setup/reflect-metadata.ts"],

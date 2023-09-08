@@ -34,49 +34,48 @@ startGatewayContent(container);
 startUserContent(container);
 startPostContent(container);
 
-export namespace Application {
-  export const httpClient = container.get<Fetcher>(adapterIds.http);
+export const Application = {
+	httpClient: container.get<Fetcher>(adapterIds.http),
 
-  export const postFlow = {
-    create: container.get<CreatePostUseCase>(useCasesIds.post.create),
-    delete: container.get<DeletePostUseCase>(useCasesIds.post.delete),
-    update: container.get<UpdatePostUseCase>(useCasesIds.post.update),
-    get: container.get<GetPostUseCase>(useCasesIds.post.get),
-    pagination: container.get<PaginationPostUseCase>(
-      useCasesIds.post.pagination
-    ),
-    search: container.get<SearchPostUseCase>(useCasesIds.post.search),
-    exist: container.get<ExistPostUseCase>(useCasesIds.post.exist)
-  }
+	postFlow: {
+		create: container.get<CreatePostUseCase>(useCasesIds.post.create),
+		delete: container.get<DeletePostUseCase>(useCasesIds.post.delete),
+		update: container.get<UpdatePostUseCase>(useCasesIds.post.update),
+		get: container.get<GetPostUseCase>(useCasesIds.post.get),
+		pagination: container.get<PaginationPostUseCase>(
+			useCasesIds.post.pagination
+		),
+		search: container.get<SearchPostUseCase>(useCasesIds.post.search),
+		exist: container.get<ExistPostUseCase>(useCasesIds.post.exist)
+	},
 
-  export const forgotPasswordFlow = {
-    start: container.get<StartForgotPassUseCase>(useCasesIds.user.forgotPassword.start),
-    end: container.get<EndForgotPassUseCase>(useCasesIds.user.forgotPassword.end
-    )
-  };
+	forgotPasswordFlow: {
+		start: container.get<StartForgotPassUseCase>(useCasesIds.user.forgotPassword.start),
+		end: container.get<EndForgotPassUseCase>(useCasesIds.user.forgotPassword.end)
+	},
 
-  export const loginFlow = {
-    login: container.get<LoginUseCase>(useCasesIds.user.login.end),
-    throwTFA: container.get<ThrowTFAUseCase>(useCasesIds.user.login.start),
-    launchOTP: container.get<LaunchOTPLoginUseCase>(useCasesIds.user.login.launchOTP)
-  };
+	loginFlow: {
+		login: container.get<LoginUseCase>(useCasesIds.user.login.end),
+		throwTFA: container.get<ThrowTFAUseCase>(useCasesIds.user.login.start),
+		launchOTP: container.get<LaunchOTPLoginUseCase>(useCasesIds.user.login.launchOTP)
+	},
 
-  export const siginFlow = {
-    start: container.get<CreateUserUseCase>(useCasesIds.user.sigin.create),
-    validate: container.get<ValidateUseCase>(useCasesIds.user.sigin.validate),
-    launchOTP: container.get<LaunchOTPUseCase>(useCasesIds.user.sigin.launchOTP),
-    cancelKey: container.get<CancelSiginKeyUseCase>(useCasesIds.user.sigin.cancelKey)
-  };
+	siginFlow: {
+		start: container.get<CreateUserUseCase>(useCasesIds.user.sigin.create),
+		validate: container.get<ValidateUseCase>(useCasesIds.user.sigin.validate),
+		launchOTP: container.get<LaunchOTPUseCase>(useCasesIds.user.sigin.launchOTP),
+		cancelKey: container.get<CancelSiginKeyUseCase>(useCasesIds.user.sigin.cancelKey)
+	},
+  
+	refreshTokensFlow: {
+		refresh: container.get<RefreshUseCase>(useCasesIds.user.refreshTokens)
+	},
 
-  export const refreshTokensFlow = {
-    refresh: container.get<RefreshUseCase>(useCasesIds.user.refreshTokens)
-  };
+	updateUserFlow: {
+		update: container.get<UpdateUserUseCase>(useCasesIds.user.update)
+	},
 
-  export const updateUserFlow = {
-    update: container.get<UpdateUserUseCase>(useCasesIds.user.update)
-  };
-
-  export const deleteUserFlow = {
-    delete: container.get<DeleteUserUseCase>(useCasesIds.user.delete)
-  };
-}
+	deleteUserFlow: {
+		delete: container.get<DeleteUserUseCase>(useCasesIds.user.delete)
+	},
+};

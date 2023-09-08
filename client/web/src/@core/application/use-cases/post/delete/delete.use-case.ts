@@ -5,12 +5,12 @@ import { inject, injectable } from "inversify";
 
 @injectable()
 export class DeletePostUseCase {
-  constructor(
+	constructor(
     @inject(gateIds.post.delete)
     private readonly postGate: PostGateway.DeletePostGateway
-  ) {}
+	) {}
 
-  async exec(input: PostGatewayTypes.Server.IDeletePost) {
-    return await this.postGate.remove(input);
-  }
+	async exec(input: PostGatewayTypes.Server.IDeletePost) {
+		return await this.postGate.remove(input);
+	}
 }

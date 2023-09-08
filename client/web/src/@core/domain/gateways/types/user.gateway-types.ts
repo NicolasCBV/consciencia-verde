@@ -64,7 +64,7 @@ export namespace UserGatewaysTypes {
         file: File;
       };
       access_token: string;
-    };
+    }
   } 
 }
 

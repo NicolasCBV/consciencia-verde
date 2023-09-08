@@ -22,145 +22,143 @@ export interface ISearchArgs {
   page: number;
 }
 
-function News ({
-  postsContent
+export default function News ({
+	postsContent
 }: InferGetServerSidePropsType<
   typeof getServerSideProps
 >) {
-  const [ isLoading, setIsLoading ] = useState(false);
-  const [ error, setError ] = useState(false);
-  const [searchPost, setSearchPost] = useState("");
-  const [ pages, setPages ] = useState<IPagination | undefined>();
-  const [ postsContentDinamic, setPostsContentDinamic ] = useState(postsContent);
+	const [ isLoading, setIsLoading ] = useState(false);
+	const [ error, setError ] = useState(false);
+	const [searchPost, setSearchPost] = useState("");
+	const [ pages, setPages ] = useState<IPagination | undefined>();
+	const [ postsContentDinamic, setPostsContentDinamic ] = useState(postsContent);
 
-  async function handleSearch(input: ISearchArgs) {
-    setIsLoading(true);
+	async function handleSearch(input: ISearchArgs) {
+		setIsLoading(true);
 
-    if(input.page === pages?.actualPage) {
-      setIsLoading(false)
-      return
-    }
+		if(input.page === pages?.actualPage) {
+			setIsLoading(false);
+			return;
+		}
 
-    try {
-      const { pages: quantity, posts: rawPosts } = await Application
-        .postFlow
-        .search
-        .exec(input)
+		try {
+			const { pages: quantity, posts: rawPosts } = await Application
+				.postFlow
+				.search
+				.exec(input);
     
-      const posts = rawPosts.map((item) => {
-        return {
-          id: item.id,
-          post: PostMapper.toObject(item.post)
-        }
-      })
+			const posts = rawPosts.map((item) => {
+				return {
+					id: item.id,
+					post: PostMapper.toObject(item.post)
+				};
+			});
    
-      setPages({ 
-        quantity, 
-        query: input.query,
-        actualPage: input.page
-      });
-      setPostsContentDinamic(posts);
-    } catch(err) {
-      setError(true)
-    }
+			setPages({ 
+				quantity, 
+				query: input.query,
+				actualPage: input.page
+			});
+			setPostsContentDinamic(posts);
+		} catch(err) {
+			setError(true);
+		}
 
-    setIsLoading(false);
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth" 
-    });
-  }
-  useEffect(() => {
-    if(searchPost.length <= 0) {
-      setPostsContentDinamic(postsContent)
-      setPages(undefined)
-    }
-  }, [searchPost])
+		setIsLoading(false);
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth" 
+		});
+	}
+	useEffect(() => {
+		if(searchPost.length <= 0) {
+			setPostsContentDinamic(postsContent);
+			setPages(undefined);
+		}
+	}, [searchPost, postsContent]);
 
-  return (
-    <>
-      <Head>
-        <title>ConSciência - notícias</title>
-        <meta
-          name="description"
-          content="Acesse as nossas mais novas notícias."
-        />
-      </Head>
-      <div className="grid w-screen min-h-screen relative">
-        <Header/>
-        <NotificationBalloon
-          activate={error}
-          setActivate={setError}
-          title={"ERRO:"}
-          type="error"
-          text={"Não foi possível enviar os dados"}
-          className="mt-20"
-        />
-        <main className="grid place-self-center place-content-center content-start min-h-screen py-24 gap-8 prose prose-slate">
-          <SearchBar 
-            query={searchPost} 
-            setQuery={setSearchPost}
-            search={handleSearch}
-            isLoading={isLoading}
-          /> 
+	return (
+		<>
+			<Head>
+				<title>ConSciência - notícias</title>
+				<meta
+					name="description"
+					content="Acesse as nossas mais novas notícias."
+				/>
+			</Head>
+			<div className="grid w-screen min-h-screen relative">
+				<Header/>
+				<NotificationBalloon
+					activate={error}
+					setActivate={setError}
+					title={"ERRO:"}
+					type="error"
+					text={"Não foi possível enviar os dados"}
+					className="mt-20"
+				/>
+				<main className="grid place-self-center place-content-center content-start min-h-screen py-24 gap-8 prose prose-slate">
+					<SearchBar 
+						query={searchPost} 
+						setQuery={setSearchPost}
+						search={handleSearch}
+						isLoading={isLoading}
+					/> 
 
-          {
-            !pages && !isLoading &&
-              <h1 className="text-slate-800 text-xl place-self-center mb-0">
-                Mais recentes
-              </h1>
-          }
-          {
-            isLoading 
-              ? <CircleNotch
-                  width={150}
-                  height={150}
-                  className="place-self-center animate-spin" 
-                />
-              : postsContentDinamic.length > 0
-                ? <NewsList
-                    search={handleSearch}
-                    posts={postsContentDinamic} 
-                    pages={pages}
-                  /> 
-                : <NotFound/>
-          }
-        </main>
-        <Footer/>
-      </div>
-    </>
-  )
+					{
+						!pages && !isLoading &&
+							<h1 className="text-slate-800 text-xl place-self-center mb-0">
+								Mais recentes
+							</h1>
+					}
+					{
+						isLoading 
+							? <CircleNotch
+								width={150}
+								height={150}
+								className="place-self-center animate-spin" 
+							/>
+							: postsContentDinamic.length > 0
+								? <NewsList
+									search={handleSearch}
+									posts={postsContentDinamic} 
+									pages={pages}
+								/> 
+								: <NotFound/>
+					}
+				</main>
+				<Footer/>
+			</div>
+		</>
+	);
 }
 
-export default News;
-
 export async function getServerSideProps() {
-  try {
-    const content = await Application
-      .postFlow
-      .pagination
-      .exec({
-        date: new Date(0),
-        number: 10
-      })
+	try {
+		const content = await Application
+			.postFlow
+			.pagination
+			.exec({
+				date: new Date(0),
+				number: 10
+			});
 
-    return {
-      props: {
-        postsContent: content.map((item) => {
-          return {
-            id: item.id,
-            post: PostMapper.toObject(item.post)
-          }
-        })
-      }
-    }
-  } catch(err) {
-    return {
-      redirect: {
-        permanent: true,
-        destination: "/"
-      }
-    }
-  }
+		return {
+			props: {
+				postsContent: content.map((item) => {
+					return {
+						id: item.id,
+						post: PostMapper.toObject(item.post)
+					};
+				})
+			}
+		};
+	} catch(err) {
+		return {
+			redirect: {
+				permanent: false,
+				destination: "/"
+			}
+		};
+	}
 }
 

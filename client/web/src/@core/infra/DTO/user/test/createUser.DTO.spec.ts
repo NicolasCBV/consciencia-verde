@@ -1,5 +1,4 @@
-import { HttpError } from "@/@core/errors/HttpError";
-import { CreateUserDTO } from "../createUser.DTO"
+import { CreateUserDTO } from "../createUser.DTO";
 
 describe("Create user DTO test", () => {
 	it("should be able to get expected body", async () => {
@@ -10,7 +9,7 @@ describe("Create user DTO test", () => {
 		};
 
 		expect(createUserDTO.exec(body)).resolves.toEqual(body);
-	})
+	});
 
 	it("should throw one error: wrong cancelKey input", async () => {
 		const createUserDTO = new CreateUserDTO();
@@ -20,5 +19,5 @@ describe("Create user DTO test", () => {
 		};
 
 		expect(createUserDTO.exec(body)).rejects.toThrow();
-	})
-})
+	});
+});

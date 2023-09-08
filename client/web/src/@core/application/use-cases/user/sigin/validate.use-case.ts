@@ -5,12 +5,12 @@ import { inject, injectable } from "inversify";
 
 @injectable()
 export class ValidateUseCase {
-  constructor(
+	constructor(
     @inject(gateIds.user.create)
     private readonly createUserGate: UserGateways.CreateUserGateway
-  ) {}
+	) {}
 
-  async exec(input: UserGatewaysTypes.NonAuth.IValidate) {
-    return await this.createUserGate.validate(input);
-  }
+	async exec(input: UserGatewaysTypes.NonAuth.IValidate) {
+		return await this.createUserGate.validate(input);
+	}
 }

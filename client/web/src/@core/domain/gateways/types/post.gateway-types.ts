@@ -30,7 +30,7 @@ export namespace PostGatewayTypes {
       post: Post;
       id: string;
     }[];
-  };
+  }
 
   export namespace Server {
     export interface IDeletePost {

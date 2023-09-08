@@ -14,7 +14,7 @@ describe("Get post DTO test", () => {
 		};
 
 		expect(getPostDTO.exec(body)).resolves;
-	})
+	});
 
 	it("should throw one error: wrong name input", async () => {
 		const getPostDTO = new GetPostDTO();
@@ -29,7 +29,7 @@ describe("Get post DTO test", () => {
 		};
 	
 		expect(getPostDTO.exec(body)).rejects.toThrow();
-	})
+	});
 	
 	it("should throw one error: wrong id input", async () => {
 		const getPostDTO = new GetPostDTO();
@@ -45,7 +45,7 @@ describe("Get post DTO test", () => {
 		};
 	
 		expect(getPostDTO.exec(body)).rejects.toThrow();
-	})
+	});
 	
 	it("should throw one error: wrong imageURI input", async () => {
 		const getPostDTO = new GetPostDTO();
@@ -60,7 +60,7 @@ describe("Get post DTO test", () => {
 		};
 	
 		expect(getPostDTO.exec(body)).rejects.toThrow();
-	})
+	});
 	
 	it("should throw one error: wrong description input", async () => {
 		const getPostDTO = new GetPostDTO();
@@ -75,7 +75,7 @@ describe("Get post DTO test", () => {
 		};
 	
 		expect(getPostDTO.exec(body)).rejects.toThrow();
-	})
+	});
 	
 	it("should throw one error: wrong content input", async () => {
 		const getPostDTO = new GetPostDTO();
@@ -90,7 +90,7 @@ describe("Get post DTO test", () => {
 		};
 	
 		expect(getPostDTO.exec(body)).rejects.toThrow();
-	})
+	});
 	
 	it("should throw one error: wrong createdAt input", async () => {
 		const getPostDTO = new GetPostDTO();
@@ -105,7 +105,7 @@ describe("Get post DTO test", () => {
 		};
 	
 		expect(getPostDTO.exec(body)).rejects.toThrow();
-	})
+	});
 	
 	it("should throw one error: wrong updatedAt input", async () => {
 		const getPostDTO = new GetPostDTO();
@@ -120,5 +120,5 @@ describe("Get post DTO test", () => {
 		};
 	
 		expect(getPostDTO.exec(body)).rejects.toThrow();
-	})
-})
+	});
+});

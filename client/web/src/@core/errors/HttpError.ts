@@ -7,17 +7,17 @@ interface IProps {
 }
 
 export class HttpError extends Error {
-  code: number | undefined;
-  body: string | undefined;
-  headers: Headers | undefined;
+	code: number | undefined;
+	body: string | undefined;
+	headers: Headers | undefined;
 
-  constructor(input: IProps) {
-    super();
+	constructor(input: IProps) {
+		super();
 
-    this.name = input.name;
-    this.message = input.message;
-    this.code = input.code;
-    this.body = input.body;
-    this.headers = input.headers;
-  }
+		this.name = input.name;
+		this.message = input.message;
+		this.code = input.code;
+		this.body = input.body;
+		this.headers = input.headers;
+	}
 }

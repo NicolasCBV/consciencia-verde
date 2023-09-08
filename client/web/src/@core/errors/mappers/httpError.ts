@@ -9,23 +9,23 @@ interface IObject {
 }
 
 export class HttpErrorMapper {
-  static toObject(input: HttpError): IObject {
-    return {
-      name: input.name,
-      message: input.message,
-      code: input.code,
-      body: input.body,
-      headers: input.headers
-    }
-  }
+	static toObject(input: HttpError): IObject {
+		return {
+			name: input.name,
+			message: input.message,
+			code: input.code,
+			body: input.body,
+			headers: input.headers
+		};
+	}
   
-  static toClass(input: IObject): HttpError {
-    return new HttpError({
-      name: input.name,
-      message: input.message,
-      code: input.code,
-      body: input.body,
-      headers: input.headers
-    });
-  }
+	static toClass(input: IObject): HttpError {
+		return new HttpError({
+			name: input.name,
+			message: input.message,
+			code: input.code,
+			body: input.body,
+			headers: input.headers
+		});
+	}
 }

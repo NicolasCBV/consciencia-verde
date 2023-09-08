@@ -5,12 +5,12 @@ import { inject, injectable } from "inversify";
 
 @injectable()
 export class StartForgotPassUseCase {
-  constructor(
+	constructor(
     @inject(gateIds.user.forgotPassword)
     private readonly forgotPasswordGate: UserGateways.ForgotUserPasswordGateway
-  ) {}
+	) {}
 
-  async exec(input: UserGatewaysTypes.NonAuth.IStartForgotPassFlow) {
-    return this.forgotPasswordGate.start(input);
-  }
+	async exec(input: UserGatewaysTypes.NonAuth.IStartForgotPassFlow) {
+		return this.forgotPasswordGate.start(input);
+	}
 }

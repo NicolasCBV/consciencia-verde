@@ -3,6 +3,6 @@
  */
 
 export const NotAuthList = [
-  "/",
-  "/authUser"
-]
+	"/",
+	"/authUser"
+];

@@ -13,25 +13,25 @@ export interface IPostObject {
 }
 
 export class PostMapper {
-  static toObject(input: Post): IPostObject {
-    return {
-      name: input.name,
-      description: input.description,
-      image: {
-        URI: input.image.URI,
-        file: input.image.file ?? null,
-      },
-      content: input.content,
-      createdAt: new Date(input.createdAt).toUTCString(),
-      updatedAt: new Date(input.updatedAt).toUTCString()
-    }
-  }
+	static toObject(input: Post): IPostObject {
+		return {
+			name: input.name,
+			description: input.description,
+			image: {
+				URI: input.image.URI,
+				file: input.image.file ?? null,
+			},
+			content: input.content,
+			createdAt: new Date(input.createdAt).toUTCString(),
+			updatedAt: new Date(input.updatedAt).toUTCString()
+		};
+	}
 
-  static toClass(input: IPostObject): Post {
-    return new Post({
-      ...input,
-      createdAt: new Date(input.createdAt),
-      updatedAt: new Date(input.updatedAt)
-    });
-  }
+	static toClass(input: IPostObject): Post {
+		return new Post({
+			...input,
+			createdAt: new Date(input.createdAt),
+			updatedAt: new Date(input.updatedAt)
+		});
+	}
 }

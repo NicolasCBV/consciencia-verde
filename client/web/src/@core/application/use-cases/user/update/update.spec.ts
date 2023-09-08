@@ -9,22 +9,22 @@ import { UpdateUserUseCase } from "./update.use-case";
 UpdateUserGateway.prototype.update = jest.fn(async () => {});
 
 describe("Update user use case test", () => {
-  const container = new Container();
-  container.bind(adapterIds.http).to(FakeHttpClient);
-  container.bind(gateIds.user.update).to(UpdateUserGateway);
-  container.bind(useCasesIds.user.update).to(UpdateUserUseCase);
+	const container = new Container();
+	container.bind(adapterIds.http).to(FakeHttpClient);
+	container.bind(gateIds.user.update).to(UpdateUserGateway);
+	container.bind(useCasesIds.user.update).to(UpdateUserUseCase);
 
-  it("should be able to update user", async () => {
-    const useCase = container.get<UpdateUserUseCase>(useCasesIds.user.update);
+	it("should be able to update user", async () => {
+		const useCase = container.get<UpdateUserUseCase>(useCasesIds.user.update);
 
-    const gatewaySpy = jest.spyOn(UpdateUserGateway.prototype, "update");
+		const gatewaySpy = jest.spyOn(UpdateUserGateway.prototype, "update");
 
-    await useCase.exec({
-      access_token: "access_token",
-      name: "new name",
-      description: "new description"
-    });
+		await useCase.exec({
+			access_token: "access_token",
+			name: "new name",
+			description: "new description"
+		});
 
-    expect(gatewaySpy).toHaveBeenCalledTimes(1);
-  })
-})
+		expect(gatewaySpy).toHaveBeenCalledTimes(1);
+	});
+});

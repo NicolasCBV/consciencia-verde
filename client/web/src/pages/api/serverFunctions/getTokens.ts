@@ -7,18 +7,18 @@ export interface ITokens {
 }
 
 export function getTokens(ctx: GetServerSidePropsContext) {
-  const auth = ctx.req.headers.authorization;
-  if(!auth) throw new Error("Empty access token");
+	const auth = ctx.req.headers.authorization;
+	if(!auth) throw new Error("Empty access token");
 
-  const userData: IUserContainerData = JSON.parse(
-    Buffer.from(
-      auth.split(".")[1], 
-      "base64"
-    ).toString("ascii")
-  );
+	const userData: IUserContainerData = JSON.parse(
+		Buffer.from(
+			auth.split(".")[1], 
+			"base64"
+		).toString("ascii")
+	);
 
-  return {
-    rawToken: auth,
-    userContainerData: userData
-  }
+	return {
+		rawToken: auth,
+		userContainerData: userData
+	};
 }

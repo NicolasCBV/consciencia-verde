@@ -26,80 +26,77 @@ export interface ICreatePostForm {
 }
 
 export function CreateNewsMainFlow({ 
-  isError,
-  editor,
-  postId,
-  currentForm,
-  image,
-  setImage,
-  isLoading,
-  handleSubmit,
-  handleDeletion
+	isError,
+	editor,
+	postId,
+	currentForm,
+	image,
+	setImage,
+	isLoading,
+	handleSubmit,
+	handleDeletion
 }: IProps) {
-  const [ form, setForm ] = useState({
-    name: currentForm?.name ?? "",
-    description: currentForm?.description ?? ""
-  });
+	const [ form, setForm ] = useState({
+		name: currentForm?.name ?? "",
+		description: currentForm?.description ?? ""
+	});
 
-  return (
-    <>
-      <OptionsMenu editor={editor} />
-      <ImageUpdate
-        icon={NewspaperClipping}
-        image={image.URI}
-        action={({ image, file }) => {
-          setImage({ URI: image, file });
-        }}
-      />
-      <PostForm form={form} setForm={setForm} /> 
+	return (
+		<>
+			<OptionsMenu editor={editor} />
+			<ImageUpdate
+				icon={NewspaperClipping}
+				image={image.URI}
+				action={({ image, file }) => {
+					setImage({ URI: image, file });
+				}}
+			/>
+			<PostForm form={form} setForm={setForm} /> 
 
-      <div>
-        <EditorContent editor={editor} />
-        <BubbleOptionsMenu editor={editor} />
-      </div>
+			<div>
+				<EditorContent editor={editor} />
+				<BubbleOptionsMenu editor={editor} />
+			</div>
 
-      <div className={`flex ${
-        postId 
-          ? "justify-between w-full"
-          : ""
-      }`}>
-        <Button
-          disabled={
-            isError ||
-            isLoading ||
-            (
-              (!image.URI || !image.file) &&
-              !currentForm
-            ) ||
-            !form.name && form.name.length < 4 ||
-            !form.description && form.description.length < 4
-          }
-          name="Enviar"
-          onClick={() => handleSubmit(form)}
-          iconData={{
-            Icon: Envelope,
-            pos: "right",
-            loading: isLoading
-          }}
-        />
+			<div className={`flex ${
+				postId 
+					? "justify-between w-full"
+					: ""
+			}`}>
+				<Button
+					disabled={
+						isError ||
+						isLoading ||
+						((!image.URI || !image.file) && !currentForm) ||
+						!form.name && form.name.length < 4 ||
+						!form.description && form.description.length < 4
+					}
+					name="Enviar"
+					onClick={() => handleSubmit(form)}
+					iconData={{
+						Icon: Envelope,
+						pos: "right",
+						loading: isLoading
+					}}
+				/>
 
-        {
-          postId &&
-          <Button
-            disabled={isError || isLoading}
-            onClick={() => {
-              handleDeletion(postId)
-            }}
-            className="h-[8vh] max-h-[2rem] px-3 border-[2px] border-red-500 rounded-md bg-transparent hover:bg-red-300 text-slate-900"
-            name="Deletar"
-            iconData={{
-              pos: "right",
-              Icon: Trash,
-              loading: isLoading
-            }}
-          />
-        }
-      </div>
-    </>
-  )
+				{
+					postId &&
+						<Button
+							disabled={isError || isLoading}
+							onClick={() => {
+								handleDeletion(postId);
+							}}
+							className="h-[8vh] max-h-[2rem] px-3 border-[2px] border-red-500 rounded-md bg-transparent hover:bg-red-300 text-slate-900"
+							name="Deletar"
+							iconData={{
+								pos: "right",
+								Icon: Trash,
+								loading: isLoading
+							}}
+						/>
+				}
+			</div>
+		</>
+	);
 }

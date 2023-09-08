@@ -3,20 +3,20 @@ import { HttpError } from "@/@core/errors/HttpError";
 import { z } from "zod";
 
 export class CreateUserDTO {
-  async exec(body: any): Promise<UserGatewaysTypes.NonAuth.ICreateReturn> {
-	const expectedBody = z.object({
-		cancelKey: z.string() 
-	}).strict();
+	async exec(body: any): Promise<UserGatewaysTypes.NonAuth.ICreateReturn> {
+		const expectedBody = z.object({
+			cancelKey: z.string() 
+		}).strict();
 
-	await expectedBody.parseAsync(body)
-	  .catch(() => {
-		throw new HttpError({
-		  name: "Internal Server Error",
-		  message: "Unexpected body",
-			code: 500
-		});
-	  });
+		await expectedBody.parseAsync(body)
+			.catch(() => {
+				throw new HttpError({
+					name: "Internal Server Error",
+					message: "Unexpected body",
+					code: 500
+				});
+			});
 
-	return body;
-  }
+		return body;
+	}
 }

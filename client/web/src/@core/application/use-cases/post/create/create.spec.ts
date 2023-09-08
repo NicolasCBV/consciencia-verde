@@ -8,26 +8,26 @@ import { useCasesIds } from "../../useCasesId";
 import { CreatePostUseCase } from "./create.use-case";
 
 CreatePostGateway.prototype.create = jest.fn(async () => ({ 
-  id: "default_id" 
+	id: "default_id" 
 }));
 
 describe("Create post use case test", () => {
-  const container = new Container();
-  container.bind(adapterIds.http).to(FakeHttpClient)
-  container.bind(gateIds.post.create).to(CreatePostGateway);
-  container.bind(useCasesIds.post.create).to(CreatePostUseCase);
+	const container = new Container();
+	container.bind(adapterIds.http).to(FakeHttpClient);
+	container.bind(gateIds.post.create).to(CreatePostGateway);
+	container.bind(useCasesIds.post.create).to(CreatePostUseCase);
 
-  it("should be able to create post", async () => {
-    const useCase = container.get<CreatePostUseCase>(useCasesIds.post.create);
+	it("should be able to create post", async () => {
+		const useCase = container.get<CreatePostUseCase>(useCasesIds.post.create);
 
-    const gatewaySpy = jest.spyOn(CreatePostGateway.prototype, "create");
-    const post = postFactory();
+		const gatewaySpy = jest.spyOn(CreatePostGateway.prototype, "create");
+		const post = postFactory();
 
-    await useCase.exec({ 
-      access_token: "access_token",
-      post 
-    });
+		await useCase.exec({ 
+			access_token: "access_token",
+			post 
+		});
 
-    expect(gatewaySpy).toHaveBeenCalledTimes(1);
-  })
-})
+		expect(gatewaySpy).toHaveBeenCalledTimes(1);
+	});
+});

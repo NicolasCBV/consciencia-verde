@@ -9,73 +9,73 @@ import { CreatePostContentDTO } from "../../DTO/post/createPostContent.DTO";
 
 @injectable()
 export class CreatePostGateway implements PostGateway.CreatePostGateway {
-  constructor(
+	constructor(
     @inject(adapterIds.http)
     private readonly http: HttpAdapter
-  ) {}
+	) {}
 
-  private async sendContent(input: PostGatewayTypes.Server.ICreatePost) {
-    const res = await this.http.call({
-      url: "/api/posts/create",
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        "authorization": String(input.access_token)
-      },
-      body: JSON.stringify({
-        name: input.post.name,
-        description: input.post.description,
-        content: input.post.content
-      })
-    })
+	private async sendContent(input: PostGatewayTypes.Server.ICreatePost) {
+		const res = await this.http.call({
+			url: "/api/posts/create",
+			method: "POST",
+			headers: {
+				"content-type": "application/json",
+				"authorization": String(input.access_token)
+			},
+			body: JSON.stringify({
+				name: input.post.name,
+				description: input.post.description,
+				content: input.post.content
+			})
+		});
 
-    const dto = new CreatePostContentDTO();
-    const body = await dto.exec(res.body)
+		const dto = new CreatePostContentDTO();
+		const body = await dto.exec(res.body);
       
-    return body;
-  } 
+		return body;
+	} 
 
-  private async sendImage(input: PostGatewayTypes.Server.IUploadImagePost) {
-    const form = new FormData();
-    form.append("file", input.file);
+	private async sendImage(input: PostGatewayTypes.Server.IUploadImagePost) {
+		const form = new FormData();
+		form.append("file", input.file);
 
-    return await this.http.call({
-      url: `/api/posts/uploadImage?postId=${input.id}`,
-      method: "POST",
-      headers: {
-        "authorization": String(input.access_token)
-      },
-      body: form
-    });
-  }
+		return await this.http.call({
+			url: `/api/posts/uploadImage?postId=${input.id}`,
+			method: "POST",
+			headers: {
+				"authorization": String(input.access_token)
+			},
+			body: form
+		});
+	}
 
-  async create(input: PostGatewayTypes.Server.ICreatePost) {
-    if(!input.post.image.file)
-      throw new HttpError({
-        name: "Bad Request",
-        code: 400,
-        message: "File field empty."
-      })
+	async create(input: PostGatewayTypes.Server.ICreatePost) {
+		if(!input.post.image.file)
+			throw new HttpError({
+				name: "Bad Request",
+				code: 400,
+				message: "File field empty."
+			});
 
 
-    const { id } = await this.sendContent({
-      access_token: input.access_token,
-      post: input.post
-    });
+		const { id } = await this.sendContent({
+			access_token: input.access_token,
+			post: input.post
+		});
 
-    await this.sendImage({
-      id,
-      access_token: input.access_token,
-      file: input.post.image.file
-    }).catch(() => { 
-      throw new PostError({
-        name: "Cannot Send",
-        message: "Could not upload image",
-        postId: id
-      });
-    })
+		await this.sendImage({
+			id,
+			access_token: input.access_token,
+			file: input.post.image.file
+		}).catch(() => { 
+			throw new PostError({
+				name: "Cannot Send",
+				message: "Could not upload image",
+				postId: id
+			});
+		});
 
-    return { id };
-  }
+		return { id };
+	}
 }
 

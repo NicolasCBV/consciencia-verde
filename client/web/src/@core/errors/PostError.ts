@@ -5,13 +5,13 @@ interface IProps {
 }
 
 export class PostError extends Error {
-  postId: string;
+	postId: string;
 
-  constructor(input: IProps) {
-    super();
+	constructor(input: IProps) {
+		super();
 
-    this.name = input.name;
-    this.message = input.message;
-    this.postId = input.postId;
-  }
+		this.name = input.name;
+		this.message = input.message;
+		this.postId = input.postId;
+	}
 }

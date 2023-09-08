@@ -7,29 +7,29 @@ export interface IUser {
 }
 
 export class User {
-  private props: IUser;
+	private props: IUser;
 
-  constructor(input: IUser) {
-    this.props = input;
-  }
+	constructor(input: IUser) {
+		this.props = input;
+	}
 
-  get name(): string {
-    return this.props.name;
-  }
+	get name(): string {
+		return this.props.name;
+	}
 
-  get description(): null | string {
-    return this.props.description;
-  }
+	get description(): null | string {
+		return this.props.description;
+	}
 
-  get imageUrl(): null | string {
-    return this.props.imageUrl;
-  }
+	get imageUrl(): null | string {
+		return this.props.imageUrl;
+	}
 
-  get createdAt(): string {
-    return this.props.createdAt;
-  }
+	get createdAt(): string {
+		return this.props.createdAt;
+	}
 
-  get updatedAt(): string {
-    return this.props.updatedAt;
-  }
+	get updatedAt(): string {
+		return this.props.updatedAt;
+	}
 }

@@ -9,11 +9,11 @@ import { SearchPostUseCase } from "./search/search.use-case";
 import { UpdatePostUseCase } from "./update/update.use-case";
 
 export function startPostContent(container: Container) {
-  container.bind(useCasesIds.post.create).to(CreatePostUseCase);
-  container.bind(useCasesIds.post.delete).to(DeletePostUseCase);
-  container.bind(useCasesIds.post.update).to(UpdatePostUseCase);
-  container.bind(useCasesIds.post.get).to(GetPostUseCase);
-  container.bind(useCasesIds.post.pagination).to(PaginationPostUseCase);
-  container.bind(useCasesIds.post.exist).to(ExistPostUseCase);
-  container.bind(useCasesIds.post.search).to(SearchPostUseCase);
+	container.bind(useCasesIds.post.create).to(CreatePostUseCase);
+	container.bind(useCasesIds.post.delete).to(DeletePostUseCase);
+	container.bind(useCasesIds.post.update).to(UpdatePostUseCase);
+	container.bind(useCasesIds.post.get).to(GetPostUseCase);
+	container.bind(useCasesIds.post.pagination).to(PaginationPostUseCase);
+	container.bind(useCasesIds.post.exist).to(ExistPostUseCase);
+	container.bind(useCasesIds.post.search).to(SearchPostUseCase);
 }

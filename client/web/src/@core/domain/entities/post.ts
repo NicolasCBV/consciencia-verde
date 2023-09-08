@@ -19,59 +19,59 @@ type TInput = Replace<
 >;
 
 export class Post {
-  private props: IPost;
+	private props: IPost;
 
-  constructor(input: TInput) {
-    this.props = {
-      ...input,
-      createdAt: input.createdAt ?? new Date(),
-      updatedAt: input.updatedAt ?? new Date()
-    };
-  }
+	constructor(input: TInput) {
+		this.props = {
+			...input,
+			createdAt: input.createdAt ?? new Date(),
+			updatedAt: input.updatedAt ?? new Date()
+		};
+	}
 
-  // name
-  set name(input: string) {
-    this.props.name = input;
-  }
+	// name
+	set name(input: string) {
+		this.props.name = input;
+	}
 
-  get name(): string {
-    return this.props.name;
-  }
+	get name(): string {
+		return this.props.name;
+	}
 
-  // image
-  set image(input: IImage) {
-    this.props.image = input;
-  }
+	// image
+	set image(input: IImage) {
+		this.props.image = input;
+	}
 
-  get image(): IImage {
-    return this.props.image;
-  }
+	get image(): IImage {
+		return this.props.image;
+	}
 
-  // description
-  set description(input: string) {
-    this.props.description = input;
-  }
+	// description
+	set description(input: string) {
+		this.props.description = input;
+	}
 
-  get description(): string {
-    return this.props.description;
-  }
+	get description(): string {
+		return this.props.description;
+	}
 
-  // content
-  set content(input: string[]) {
-    this.props.content = input
-  }
+	// content
+	set content(input: string[]) {
+		this.props.content = input;
+	}
 
-  get content(): string[] {
-    return this.props.content;
-  }
+	get content(): string[] {
+		return this.props.content;
+	}
 
-  // createdAt
-  get createdAt(): Date {
-    return this.props.createdAt;
-  }
+	// createdAt
+	get createdAt(): Date {
+		return this.props.createdAt;
+	}
   
-  // updatedAt
-  get updatedAt(): Date {
-    return this.props.updatedAt;
-  }
+	// updatedAt
+	get updatedAt(): Date {
+		return this.props.updatedAt;
+	}
 }

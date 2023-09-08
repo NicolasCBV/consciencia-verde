@@ -9,7 +9,7 @@ describe("Validate user DTO test", () => {
 		};
 
 		expect(validateUserDTO.exec(body)).resolves.toEqual(body);
-	})
+	});
 
 
 	it("should throw one error: wrong access_token input", async () => {
@@ -20,5 +20,5 @@ describe("Validate user DTO test", () => {
 		};
 
 		expect(validateUserDTO.exec(body)).rejects.toThrow();
-	})
-})
+	});
+});

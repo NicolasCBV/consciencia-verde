@@ -12,52 +12,52 @@ interface IProps {
 }
 
 export function SearchBar({ 
-  search, 
-  query, 
-  setQuery,
-  isLoading
+	search, 
+	query, 
+	setQuery,
+	isLoading
 }: IProps) {
-  return (
-    <form 
-      onSubmit={(event) => {
-        event.preventDefault();
-        search({ query, page: 0 });
-      }} 
-      className="grid gap-2"
-    >
-      {
-        query.length > 0 &&
-        <Button
-          type="button"
-          name="Limpar"
-          onClick={() => setQuery("")}
-          iconData={{
-            pos: "right",
-            Icon: XCircle,
-            loading: isLoading
-          }}
-        />
-      }
-      <Input
-        divClasses="border-primaryColor-600 border-[1px] place-self-center" 
-        isActiveClasses="bg-primaryColor-750"
-        type="text"
-        name="name"
-        minLength={1}
-        value={query}
-        onChange={(event) => {
-          setQuery(event.target.value);
-        }}
-        placeholder="Pesquisar por post"
-        icon={{
-          disabled: query.length <= 0,
-          content: MagnifyingGlass,
-          isLoading,
-          onClick: () => {
-            search({ query, page: 0 });
-          }
-        }}
-      />
-    </form>
-  )
+	return (
+		<form 
+			onSubmit={(event) => {
+				event.preventDefault();
+				search({ query, page: 0 });
+			}} 
+			className="grid gap-2"
+		>
+			{
+				query.length > 0 &&
+					<Button
+						type="button"
+						name="Limpar"
+						onClick={() => setQuery("")}
+						iconData={{
+							pos: "right",
+							Icon: XCircle,
+							loading: isLoading
+						}}
+					/>
+			}
+			<Input
+				divClasses="border-primaryColor-600 border-[1px] place-self-center" 
+				isActiveClasses="bg-primaryColor-750"
+				type="text"
+				name="name"
+				minLength={1}
+				value={query}
+				onChange={(event) => {
+					setQuery(event.target.value);
+				}}
+				placeholder="Pesquisar por post"
+				icon={{
+					disabled: query.length <= 0,
+					content: MagnifyingGlass,
+					isLoading,
+					onClick: () => {
+						search({ query, page: 0 });
+					}
+				}}
+			/>
+		</form>
+	);
 }

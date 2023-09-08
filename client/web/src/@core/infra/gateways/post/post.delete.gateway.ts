@@ -6,21 +6,21 @@ import { inject, injectable } from "inversify";
 
 @injectable()
 export class DeletePostGateway implements PostGateway.DeletePostGateway {
-  constructor(
+	constructor(
     @inject(adapterIds.http)
     private readonly http: HttpAdapter
-  ) {}
+	) {}
 
-  async remove(input: PostGatewayTypes.Server.IDeletePost) {
-    const route = `/api/posts/delete?postId=${input.id}`
-    await this.http.call({
-      url: route,
-      method: "DELETE",
-      headers: {
-        "content-type": "application/json",
-        "authorization": String(input.access_token)
-      }
-    })
-  }
+	async remove(input: PostGatewayTypes.Server.IDeletePost) {
+		const route = `/api/posts/delete?postId=${input.id}`;
+		await this.http.call({
+			url: route,
+			method: "DELETE",
+			headers: {
+				"content-type": "application/json",
+				"authorization": String(input.access_token)
+			}
+		});
+	}
 }
 

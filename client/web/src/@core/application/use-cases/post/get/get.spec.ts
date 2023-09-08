@@ -10,18 +10,18 @@ import { GetPostUseCase } from "./get.use-case";
 GetPostGateway.prototype.get = jest.fn(async () => postFactory());
 
 describe("Get post use case test", () => {
-  const container = new Container();
-  container.bind(adapterIds.http).to(FakeHttpClient);
-  container.bind(gateIds.post.get).to(GetPostGateway);
-  container.bind(useCasesIds.post.get).to(GetPostUseCase);
+	const container = new Container();
+	container.bind(adapterIds.http).to(FakeHttpClient);
+	container.bind(gateIds.post.get).to(GetPostGateway);
+	container.bind(useCasesIds.post.get).to(GetPostUseCase);
 
-  it("should be able to get post", async () => {
-    const useCase = container.get<GetPostUseCase>(useCasesIds.post.get);
+	it("should be able to get post", async () => {
+		const useCase = container.get<GetPostUseCase>(useCasesIds.post.get);
 
-    const gatewaySpy = jest.spyOn(GetPostGateway.prototype, "get");
+		const gatewaySpy = jest.spyOn(GetPostGateway.prototype, "get");
 
-    await useCase.exec({ id: "default_id" });
+		await useCase.exec({ id: "default_id" });
 
-    expect(gatewaySpy).toHaveBeenCalledTimes(1);
-  })
-})
+		expect(gatewaySpy).toHaveBeenCalledTimes(1);
+	});
+});

@@ -9,7 +9,7 @@ describe("Launch OTP DTO test", () => {
 		};
 
 		expect(launchOTPDTO.exec(body)).resolves.toEqual(body);
-	})
+	});
 
 	it("should throw one error: wrong cancelKey input", async () => {
 		const launchOTPDTO = new LaunchOTPDTO();
@@ -19,5 +19,5 @@ describe("Launch OTP DTO test", () => {
 		};
 
 		expect(launchOTPDTO.exec(body)).rejects.toThrow();
-	})
-})
+	});
+});

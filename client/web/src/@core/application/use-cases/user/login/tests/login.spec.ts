@@ -7,25 +7,25 @@ import { useCasesIds } from "../../../useCasesId";
 import { LoginUseCase } from "../login.use-case";
 
 LoginUserGateway.prototype.login = jest.fn(async () => ({
-  access_token: "access_token"
+	access_token: "access_token"
 }));
 
 describe("Login use case test", () => {
-  const container = new Container();
-  container.bind(adapterIds.http).to(FakeHttpClient);
-  container.bind(gateIds.user.login).to(LoginUserGateway);
-  container.bind(useCasesIds.user.login.start).to(LoginUseCase);
+	const container = new Container();
+	container.bind(adapterIds.http).to(FakeHttpClient);
+	container.bind(gateIds.user.login).to(LoginUserGateway);
+	container.bind(useCasesIds.user.login.start).to(LoginUseCase);
 
-  it("should be able to login", async () => {
-    const useCase = container.get<LoginUseCase>(useCasesIds.user.login.start);
+	it("should be able to login", async () => {
+		const useCase = container.get<LoginUseCase>(useCasesIds.user.login.start);
 
-    const gatewaySpy = jest.spyOn(LoginUserGateway.prototype, "login");
+		const gatewaySpy = jest.spyOn(LoginUserGateway.prototype, "login");
 
-    await useCase.exec({
-      email: "default@email.com",
-      code: "123456"
-    });
+		await useCase.exec({
+			email: "default@email.com",
+			code: "123456"
+		});
 
-    expect(gatewaySpy).toHaveBeenCalledTimes(1);
-  })
-})
+		expect(gatewaySpy).toHaveBeenCalledTimes(1);
+	});
+});

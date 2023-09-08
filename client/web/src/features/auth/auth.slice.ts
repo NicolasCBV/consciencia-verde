@@ -15,49 +15,49 @@ export interface IUserContainerData {
     createdAt: string;
     updatedAt: string;
   };
-};
+}
 
 export interface IAuthContentType {
   rawToken: string | null;
   userContainerData: IUserContainerData;
-};
+}
 
 const initialState: IAuthContentType = {
-  rawToken: null,
-  userContainerData: {
-    deviceId: null,
-    email: "UNDEFINED",
-    exp: -1,
-    iat: -1,
-    sub: "UNDEFINED",
-    type: "access_token",
-    userData: {
-      name: "UNDEFINED",
-      description: null,
-      imageUrl: null,
-      level: 0,
-      createdAt: "UNDEFINED",
-      updatedAt: "UNDEFINED"
-    }
-  }
+	rawToken: null,
+	userContainerData: {
+		deviceId: null,
+		email: "UNDEFINED",
+		exp: -1,
+		iat: -1,
+		sub: "UNDEFINED",
+		type: "access_token",
+		userData: {
+			name: "UNDEFINED",
+			description: null,
+			imageUrl: null,
+			level: 0,
+			createdAt: "UNDEFINED",
+			updatedAt: "UNDEFINED"
+		}
+	}
 };
 
 function changeAuthToken(
-  state: IAuthContentType,
-  action: PayloadAction<IAuthContentType>
+	state: IAuthContentType,
+	action: PayloadAction<IAuthContentType>
 ) {
-  return {
-    ...state,
-    ...action.payload
-  };
+	return {
+		...state,
+		...action.payload
+	};
 }
 
 const authSlice = createSlice({
-  name: "authContent",
-  initialState,
-  reducers: {
-    CHANGE_AUTH_TOKEN: changeAuthToken
-  }
+	name: "authContent",
+	initialState,
+	reducers: {
+		CHANGE_AUTH_TOKEN: changeAuthToken
+	}
 });
 
 export const { CHANGE_AUTH_TOKEN } = authSlice.actions;
