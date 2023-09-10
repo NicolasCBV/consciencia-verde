@@ -13,6 +13,7 @@ async function startApplication() {
     await application.server.stopInSilence();
   })
 
+  application.server.expressApp.set('trust proxy', true);
   application.server.expressApp.use(cors({
     origin: String(process.env.CLIENT_URL),
     methods: ['DELETE', 'POST', 'PATCH', 'GET'],
