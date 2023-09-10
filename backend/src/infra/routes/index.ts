@@ -43,13 +43,6 @@ const upload = multer({
   }
 });
 
-routes.get('/x-forwarded-for', (request, response) => {
-  response.send(request.headers['x-forwarded-for'])
-})
-routes.get('/ip', (request, response) => {
-  response.send(request.ip)
-});
-
 routes.get("/", (req, res) => res.status(200).end())
 routes.use(application.middlewares.auth.exec);
 routes.use(application.middlewares.fingerprint.exec);
