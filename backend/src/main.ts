@@ -8,7 +8,7 @@ import cors from "cors";
 
 const port = process.env.PORT ?? 3031;
 
-export async function startApplication() {
+async function startApplication() {
   process.on("SIGINT", async () => {
     await application.server.stopInSilence();
   })
@@ -31,3 +31,5 @@ export async function startApplication() {
 }
 
 startApplication();
+
+export { startApplication };
