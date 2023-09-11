@@ -29,11 +29,38 @@ defaults:
     working-directory: client/web
 
 jobs:
-  test:
+  test-backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{matrix.node-version}}
+          cache: "pnpm"
+          cache-dependency-path: backend/pnpm-lock.yaml
+      
+      - name: Install dependencies
+        run: pnpm install
+      - name: Unit test & E2E test
+        run: pnpm run test && pnpm run test:e2e
+
+  test-frontend:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [16.x, 18.x, 20.x]
     steps:
       - uses: actions/checkout@v3
 
@@ -55,7 +82,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: test 
+    needs: [test-frontend, test-backend]
     steps:
       - uses: actions/checkout@v2
 
@@ -63,7 +90,7 @@ jobs:
         with:
           version: 8
 
-      - name: Install Dependencies again
+      - name: Install Dependencies
         run: pnpm install
 
       - name: Pull Vercel Environment Information

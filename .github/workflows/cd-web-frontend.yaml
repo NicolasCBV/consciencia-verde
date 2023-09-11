@@ -72,7 +72,7 @@ jobs:
         working-directory: ./client/web
     strategy:
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [16.x, 18.x, 20.x]
     steps:
       - uses: actions/checkout@v3
 
@@ -92,20 +92,20 @@ jobs:
       - name: Unit test
         run: pnpm run test
 
-    deploy:
-      runs_on: ubuntu-latest
-      defaults:
-        run:
-          working-directory: ./client/web
-      needs: [test-frontend, test-backend]
-      steps:
-        - uses: actions/checkout@v2
+  deploy:
+    runs_on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./client/web
+    needs: [test-frontend, test-backend]
+    steps:
+      - uses: actions/checkout@v2
 
       - uses: pnpm/action-setup@v2
         with:
           version: 8
 
-      - name: Install Dependencies again
+      - name: Install Dependencies 
         run: pnpm install
 
       - name: Pull Vercel Environment Information

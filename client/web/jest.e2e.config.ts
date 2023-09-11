@@ -3,6 +3,7 @@ import { pathsToModuleNameMapper } from "ts-jest";
 import { compilerOptions } from "./tsconfig.json";
 
 const config: Config = {
+  testEnvironment: "jsdom",
   moduleFileExtensions: ["js", "json", "ts"],
   testRegex: ".*\\.e2e-spec\\.ts$",
   transform: {
@@ -11,7 +12,6 @@ const config: Config = {
   clearMocks: true,
   collectCoverageFrom: ["**/*.(t|j)s"],
   coverageDirectory: "coverage",
-  testEnvironment: "node",
 
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: "<rootDir>/",

@@ -3,6 +3,7 @@ import { pathsToModuleNameMapper } from "ts-jest";
 import { compilerOptions } from "./tsconfig.json";
 
 const config: Config = {
+  testEnvironment: "jsdom",
   moduleFileExtensions: ["js", "json", "ts"],
   testRegex: ".*\\.spec\\.(ts|js)$",
   transform: {
