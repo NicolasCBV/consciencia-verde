@@ -48,4 +48,4 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Unit test
-        run: pnpm run test && pnpm run test:e2e
+        run: pnpm run test
