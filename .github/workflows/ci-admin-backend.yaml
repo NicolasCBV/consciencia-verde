@@ -1,0 +1,46 @@
+name: Admin Back-end CI - Unit & E2E tests
+
+env:
+  CLIENT_URL: ${{secrets.CLIENT_URL}}
+  PORT: ${{secrets.PORT}}
+  TOKEN_SECRET: ${{secrets.TOKEN_SECRET}}
+  DATABASE_URL: ${{secrets.DATABASE_URL}}
+  CACHE_HOSTNAME: ${{secrets.CACHE_HOSTNAME}}
+  CACHE_PASSWORD: ${{secrets.CACHE_PASSWORD}}
+  FIREBASE: ${{secrets.FIREBASE}}
+  FIREBASE_TEMPLATE_IMAGE_LINK: ${{secrets.FIREBASE_TEMPLATE_IMAGE_LINK}}
+  FIREBASE_BUCKET: ${{secrets.FIREBASE_BUCKET}}
+
+on:
+  push:
+    branches: [ "develop" ]
+    paths:
+      - "backend/**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{matrix.node-version}}
+          cache: "pnpm"
+          cache-dependency-path: backend/pnpm-lock.yaml
+      
+      - name: Install dependencies
+        run: pnpm install
+      - name: Unit test & E2E test
+        run: pnpm run test && pnpm run test:e2e
