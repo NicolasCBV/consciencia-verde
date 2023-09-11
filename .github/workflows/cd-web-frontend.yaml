@@ -93,7 +93,7 @@ jobs:
         run: pnpm run test
 
   deploy:
-    runs_on: ubuntu-latest
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./client/web
