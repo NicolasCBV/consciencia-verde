@@ -11,7 +11,7 @@ const port = process.env.PORT ?? 3031;
 async function startApplication() {
   process.on("SIGINT", async () => {
     await application.server.stopInSilence();
-  })
+  });
 
   application.server.expressApp.set('trust proxy', 3);
   application.server.expressApp.use(cors({
