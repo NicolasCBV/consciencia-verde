@@ -1,4 +1,4 @@
-name: Node.js CI - Unit & E2E tests - admin backend
+name: Admin Back-end CI - Unit & E2E tests
 
 env:
   CLIENT_URL: ${{secrets.CLIENT_URL}}
