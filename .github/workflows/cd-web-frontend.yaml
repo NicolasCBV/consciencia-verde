@@ -54,6 +54,9 @@ jobs:
 
     deploy:
       runs_on: ubuntu-latest
+      defaults:
+        run:
+          working-directory: ./client/web
       needs: test 
       steps:
         - uses: actions/checkout@v2
