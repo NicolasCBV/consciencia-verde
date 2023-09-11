@@ -46,7 +46,7 @@ container.bind(useCaseIds.post.create).to(SetPostUseCase);
 container.bind(useCaseIds.post.uploadImage).to(UploadImagePostUseCase)
 container.bind(useCaseIds.post.delete).to(DeletePostUseCase)
 
-container.bind(controllerIds.createPost).to(CreatePostController)
+container.bind(controllerIds.createPost).to(CreatePostController);
 container.bind(controllerIds.updatePost).to(UpdatePostController)
 container.bind(controllerIds.uploadImagePost).to(UploadImagePostController)
 container.bind(controllerIds.deletePost).to(DeletePostController)
