@@ -26,7 +26,7 @@ import { RedisTokenEntitie } from "./infra/storages/cache/redis/entities/token.e
 
 export const container = new Container();
 
-container.bind(storageIds.cache.manager).to(RedisService)
+container.bind(storageIds.cache.manager).to(RedisService);
 container.bind(storageIds.cache.tokenEntitie).to(RedisTokenEntitie)
 
 container.bind(storageIds.external.postRepo).to(FirebaseHandler)
