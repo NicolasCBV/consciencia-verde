@@ -18,6 +18,6 @@ const config: Config = {
 	  prefix: "<rootDir>/"
 	}
   )
-}
+};
 
 export default config;
