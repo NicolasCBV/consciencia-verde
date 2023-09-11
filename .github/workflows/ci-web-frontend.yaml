@@ -24,13 +24,12 @@ on:
     paths:
       - "client/web/**"
 
-defaults:
-  run:
-    working-directory: client/web
-
 jobs:
   test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client/web
     strategy:
       matrix:
         node-version: [20.x]
@@ -61,8 +60,8 @@ jobs:
       - name: Install Vercel CLI
         run: npm i vercel@latest -g
       - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel pull --cwd ./client/web --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
-        run: vercel build --token=${{ secrets.VERCEL_TOKEN }} --scope ./web/client
+        run: vercel build --cwd ./client/web --token=${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel deploy --cwd ./client/web --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
