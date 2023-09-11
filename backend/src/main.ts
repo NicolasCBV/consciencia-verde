@@ -19,7 +19,7 @@ async function startApplication() {
     methods: ['DELETE', 'POST', 'PATCH', 'GET'],
     preflightContinue: false,
     credentials: true,
-  }))
+  }));
 
   application.server.expressApp.use(express.json());
   application.server.expressApp.use(routes);
