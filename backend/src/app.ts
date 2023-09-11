@@ -32,7 +32,7 @@ container.bind(storageIds.cache.tokenEntitie).to(RedisTokenEntitie)
 container.bind(storageIds.external.postRepo).to(FirebaseHandler)
 
 container.bind(adapterIds.crypt).to(BcryptAdapter);
-container.bind(adapterIds.token).to(JwtAdapter)
+container.bind(adapterIds.token).to(JwtAdapter);
 
 container.bind(midIds.error).to(ErrorMiddleware);
 container.bind(midIds.auth.mid).to(AuthMiddleware);
