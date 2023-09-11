@@ -1,0 +1,67 @@
+name: Node.js CI - Unit test - web frontend
+
+env:
+  VERCEL_PROJECT_ID: ${{secrets.VERCEL_PROJECT_ID}}
+  VERCEL_ORG_ID: ${{secrets.VERCEL_ORG_ID}}
+  NODE_ENV: ${{secrets.NODE_ENV}}
+  SERVER_URL: ${{secrets.SERVER_URL}}
+  ADMIN_SERVER_URL: ${{secrets.ADMIN_SERVER_URL}}
+  NEXT_PUBLIC_DOMAIN: ${{secrets.NEXT_PUBLIC_DOMAIN}}
+  NEXT_PUBLIC_ALGOLIA_APP_ID: ${{secrets.NEXT_PUBLIC_ALGOLIA_APP_ID}}
+  NEXT_PUBLIC_ALGOLIA_SEARCH_KEY: ${{secrets.NEXT_PUBLIC_ALGOLIA_SEARCH_KEY}}
+  NEXT_PUBLIC_FIREBASE_TEMPLATE_IMAGE_LINK: ${{secrets.NEXT_PUBLIC_FIREBASE_TEMPLATE_IMAGE_LINK}}
+  NEXT_PUBLIC_API_KEY: ${{secrets.NEXT_PUBLIC_API_KEY}}
+  NEXT_PUBLIC_AUTH_DOMAIN: ${{secrets.NEXT_PUBLIC_AUTH_DOMAIN}}
+  NEXT_PUBLIC_PROJECT_ID: ${{secrets.NEXT_PUBLIC_PROJECT_ID}}
+  NEXT_PUBLIC_STORAGE_BUCKET: ${{secrets.NEXT_PUBLIC_STORAGE_BUCKET}}
+  NEXT_PUBLIC_MESSAGING_SENDER_ID: ${{secrets.NEXT_PUBLIC_MESSAGING_SENDER_ID}}
+  NEXT_PUBLIC_APP_ID: ${{secrets.NEXT_PUBLIC_APP_ID}}
+  NEXT_PUBLIC_MEASUREMENT_ID: ${{secrets.NEXT_PUBLIC_MEASUREMENT_ID}}
+
+on:
+  push:
+    branches: [ "master" ]
+    paths:
+      - "client/web/**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./client/web
+    strategy:
+      matrix:
+        node-version: [20.x]
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{matrix.node-version}}
+          cache: "pnpm"
+          cache-dependency-path: client/web/pnpm-lock.yaml
+      
+      - name: Install dependencies
+        run: pnpm install
+      - name: Unit test
+        run: pnpm run test
+
+    deploy:
+      runs_on: ubuntu-latest
+      needs: build
+      steps:
+        - uses: actions/checkout@v2
+        - name: Install Vercel CLI
+          run: npm install --global vercel@latest
+        - name: Pull Vercel Environment Information
+          run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        - name: Build Project Artifacts
+          run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        - name: Deploy Project Artifacts to Vercel
+          run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
