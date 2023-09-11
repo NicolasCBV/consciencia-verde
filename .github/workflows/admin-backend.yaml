@@ -24,6 +24,8 @@ jobs:
       matrix:
         node-version: [16.x, 18.x, 20.x]
     steps:
+      - name: Change directory to /backend
+        run: cd "./backend"
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
         with:
@@ -34,6 +36,6 @@ jobs:
           node-version: ${{matrix.node-version}}
           cache: "pnpm"
       - name: Install dependencies
-        run: cd "./backend" && pnpm install
+        run: pnpm install
       - name: Unit test & E2E test
         run: pnpm run test && pnpm run test:e2e
