@@ -92,14 +92,14 @@ jobs:
       - name: Unit test
         run: pnpm run test
 
-    deploy:
-      runs_on: ubuntu-latest
-      defaults:
-        run:
-          working-directory: ./client/web
-      needs: [test-frontend, test-backend]
-      steps:
-        - uses: actions/checkout@v2
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./client/web
+    needs: [test-frontend, test-backend]
+    steps:
+      - uses: actions/checkout@v2
 
       - uses: pnpm/action-setup@v2
         with:
