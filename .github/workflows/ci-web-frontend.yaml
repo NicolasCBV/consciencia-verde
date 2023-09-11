@@ -1,6 +1,8 @@
-name: Node.js CI - Unit test - web frontend
+name: Web Front-end CI - Unit test
 
-env: 
+env:
+  VERCEL_PROJECT_ID: ${{secrets.VERCEL_PROJECT_ID}}
+  VERCEL_ORG_ID: ${{secrets.VERCEL_ORG_ID}}
   NODE_ENV: ${{secrets.NODE_ENV}}
   SERVER_URL: ${{secrets.SERVER_URL}}
   ADMIN_SERVER_URL: ${{secrets.ADMIN_SERVER_URL}}
@@ -49,3 +51,17 @@ jobs:
         run: pnpm install
       - name: Unit test
         run: pnpm run test
+
+    deploy:
+      runs_on: ubuntu-latest
+      needs: test 
+      steps:
+        - uses: actions/checkout@v2
+        - name: Install Vercel CLI
+          run: npm install --global vercel@latest
+        - name: Pull Vercel Environment Information
+          run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+        - name: Build Project Artifacts
+          run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+        - name: Deploy Project Artifacts to Vercel
+          run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
