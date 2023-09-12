@@ -1,5 +1,5 @@
-import { Container } from "inversify";
 import "reflect-metadata";
+import { Container } from "inversify";
 import { startAdapterContent } from "../adapters/adapterContent.start";
 import { adapterIds } from "../adapters/adapterIds";
 import { Fetcher } from "../adapters/fetch";
@@ -26,16 +26,28 @@ import { LaunchOTPUseCase } from "./use-cases/user/sigin/launchOTP.use-case";
 import { ValidateUseCase } from "./use-cases/user/sigin/validate.use-case";
 import { UpdateUserUseCase } from "./use-cases/user/update/update.use-case";
 import { startUserContent } from "./use-cases/user/userContent.start";
+import { Cookie } from "../adapters/cookie/index";
+import { MakeRefreshCookieUseCase } from "./use-cases/cookies/makeRefreshCookie.use-case";
+import { startCookiesContent } from "./use-cases/cookies/cookies.start";
 
 const container = new Container();
 
 startAdapterContent(container);
 startGatewayContent(container);
+
+startCookiesContent(container);
 startUserContent(container);
 startPostContent(container);
 
 export const Application = {
 	httpClient: container.get<Fetcher>(adapterIds.http),
+	cookie: container.get<Cookie>(adapterIds.cookie),
+
+	cookieFlow: {
+		createRefreshCookie: container.get<MakeRefreshCookieUseCase>(
+			useCasesIds.cookie.makeRefreshCookie
+		)
+	},
 
 	postFlow: {
 		create: container.get<CreatePostUseCase>(useCasesIds.post.create),

@@ -1,4 +1,7 @@
 export const useCasesIds = {
+	cookie: {
+		makeRefreshCookie: Symbol.for("MakeRefreshCookieUseCase")
+	},
 	post: {
 		create: Symbol.for("CreatePostUseCase"),
 		delete: Symbol.for("DeletePostUseCase"),

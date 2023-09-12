@@ -1,4 +1,7 @@
 export const gateIds = {
+	cookie: {
+		refreshCookie: Symbol.for("RefreshCookieGateway")
+	},
 	post: {
 		create: Symbol.for("CreatePostGateway"),
 		exist: Symbol.for("ExistentPostGateway"),

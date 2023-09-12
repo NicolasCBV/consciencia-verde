@@ -1,4 +1,5 @@
 import { Container } from "inversify";
+import { RefreshCookieGateway } from "./cookie/refreshCookie.gateway";
 import { gateIds } from "./gateIds";
 import { CreatePostGateway } from "./post/post.create.gateway";
 import { DeletePostGateway } from "./post/post.delete.gateway";
@@ -14,6 +15,8 @@ import { RefreshUserTokenGateway } from "./user/user.refreshToken.gateway";
 import { UpdateUserGateway } from "./user/user.update.gateway";
 
 export function startGatewayContent(container: Container) {
+	container.bind(gateIds.cookie.refreshCookie).to(RefreshCookieGateway);
+
 	container.bind(gateIds.post.create).to(CreatePostGateway);
 	container.bind(gateIds.post.update).to(UpdatePostGateway);
 	container.bind(gateIds.post.delete).to(DeletePostGateway);
