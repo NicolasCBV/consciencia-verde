@@ -22,7 +22,7 @@ export class RefreshCookieGateway implements AbstractCookieGateway.RefreshCookie
 				secure: process.env.NODE_ENV === "production"
 					? true
 					: false,
-				domain: process.env.NEXT_PUBLIC_DOMAIN ?? undefined,
+				domain: process.env.NEXT_PUBLIC_DOMAIN || undefined,
 				path: "/",
 				expires: new Date(cookie["Expires"]),
 				sameSite: "strict"
