@@ -1,4 +1,5 @@
 export const gateIds = {
+	image: Symbol.for("ImageGateway"),
 	cookie: {
 		refreshCookie: Symbol.for("RefreshCookieGateway")
 	},

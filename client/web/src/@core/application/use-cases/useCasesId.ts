@@ -1,4 +1,7 @@
 export const useCasesIds = {
+	image: {
+		process: Symbol.for("ProcessImageUseCase")
+	},
 	cookie: {
 		makeRefreshCookie: Symbol.for("MakeRefreshCookieUseCase")
 	},

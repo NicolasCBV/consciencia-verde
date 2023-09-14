@@ -4,7 +4,7 @@ export interface IHttpClientCall {
   headers: Headers | {
     [key: string]: string;
   },
-  body?: string | FormData;
+  body?: string | FormData | BodyInit;
 }
 
 export interface IHttpClientCallReturn {
