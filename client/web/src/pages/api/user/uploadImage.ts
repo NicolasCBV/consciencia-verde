@@ -43,7 +43,7 @@ export default async function uploadImage(
 					},
 					body: form
 				})
-				.then((data) => res.status(data.status).end())
+				.then((data) => res.status(data.status).end());
 		})
 		.catch((err) => {
 			if(err instanceof HttpError) {

@@ -1,7 +1,7 @@
 import { AbstractImageGateway } from "@/@core/domain/gateways/image.gateway";
 import { ImageGatewayTypes } from "@/@core/domain/gateways/types/image.gateway-types";
 import { HttpError } from "@/@core/errors/HttpError";
-import formidable from 'formidable';
+import formidable from "formidable";
 import { IncomingMessage } from "http";
 import { injectable } from "inversify";
 import { Writable } from "stream";
@@ -31,8 +31,8 @@ export class ImageGateway implements AbstractImageGateway {
 				if(err)
 					return reject(err);
 				return accept({ fields, files });
-			})
-		})
+			});
+		});
 	}
 
 	private fileConsumer<T = unknown>(acc: T[]) {
@@ -68,6 +68,6 @@ export class ImageGateway implements AbstractImageGateway {
 			buffer: Buffer.concat(chunks),
 			mimeType: file[0].mimetype,
 			name: file[0].originalFilename
-		}
+		};
 	}	
 } 

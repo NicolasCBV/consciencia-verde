@@ -40,7 +40,7 @@ export default async function createPost(
 			res.status(result.status).json(result.body);
 		})
 		.catch((err) => {
-			console.log(err)
+			console.log(err);
 			if(err instanceof HttpError) {
 				const httpError = HttpErrorMapper.toObject(err);
 				res.status(httpError.code ?? 500).json(httpError);

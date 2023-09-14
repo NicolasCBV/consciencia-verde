@@ -8,8 +8,8 @@ import { ProcessImageUseCase } from "./processImage.use-case";
 
 ImageGateway.prototype.process = jest.fn(async () => ({
 	name: "",
-    buffer: Buffer.from([]),
-    mimeType: ""
+	buffer: Buffer.from([]),
+	mimeType: ""
 }));
 
 describe("Process image use case test", () => {
