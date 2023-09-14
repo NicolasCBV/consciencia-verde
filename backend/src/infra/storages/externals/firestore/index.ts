@@ -9,8 +9,7 @@ export class FirebaseHandler implements PostRepo {
   async setImage(input: PostTypes.ISetImage) {
     const { file, postId } = input;
 
-    const type = file.mimetype.split("/")[1];
-    const formattedName = encodeURIComponent(`${postId}.${type}`);
+    const formattedName = encodeURIComponent(postId);
 
     const firebaseUrl = process.env.FIREBASE_TEMPLATE_IMAGE_LINK;
     const imageURI = `${firebaseUrl}/${
