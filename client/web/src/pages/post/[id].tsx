@@ -20,7 +20,7 @@ import { ContentContainer } from "@/components/post/contentContainer";
 import Image from "next/image";
 import CodeBlock from "@tiptap/extension-code-block";
 import Head from "next/head";
-import { getTokens } from "../api/serverFunctions/getTokens";
+import { getTokens, ITokens } from "../api/serverFunctions/getTokens";
 import { useDispatch } from "react-redux";
 import { CHANGE_AUTH_TOKEN, IUserContainerData } from "@/features/auth/auth.slice";
 import { Button } from "@/components/common/Button";
@@ -105,10 +105,11 @@ export default function Post({
 								/>
 								: <Image
 									className="object-cover relative rounded-lg w-[80vw] max-w-[35rem] h-[57vh] max-h-[20rem] object-fit"
-									width={300}
-									height={300}
+									width={500}
+									height={500}
 									src={post.image.URI}
 									alt="Foto do post."
+									priority={true}
 								/>
 						}
 					</div>
@@ -142,18 +143,22 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 	try {
 		const refreshCookie = ctx.req.headers["cookie"];
 
-		let tokens = undefined;
+		let tokens: ITokens | undefined;
 		if(refreshCookie) {
 			const headers = new Headers();
-			const { access_token } = await refreshTokenServerOnly({
+			await refreshTokenServerOnly({
 				cookie: refreshCookie,
 				headers
-			});
-			ctx.req.headers.authorization = access_token;
-			tokens = getTokens(ctx);
-			ctx.res.setHeader("set-cookie", String(
-				headers.get("set-cookie")
-			));
+			})
+				.then(({ access_token }) => {
+					ctx.req.headers.authorization = access_token;
+					tokens = getTokens(ctx);
+					ctx.res.setHeader("set-cookie", String(
+						headers.get("set-cookie")
+					));
+					return access_token;
+				})
+				.catch(() => {})
 		}
 
 		const postId = String(ctx?.params?.id) ?? "";
@@ -166,7 +171,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 			return {
 				redirect: {
 					permanent: false,
-					destination: "/"
+					destination: "/news"
 				}
 			};
 
@@ -188,7 +193,8 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
 		return {
 			props: {
-				...tokens,
+				rawToken: tokens ? tokens.rawToken : null,
+				userContainerData: tokens ? tokens.userContainerData : null,
 				post: {
 					...post,
 					id: postId,

@@ -2,8 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  // pageExtensions: ['page.tsx', 'api.ts'],
   images: {
+    minimumCacheTTL: 20,
     domains: [
       "images.unsplash.com",
       "randomuser.me",
