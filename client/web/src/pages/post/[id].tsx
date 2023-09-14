@@ -158,7 +158,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 					));
 					return access_token;
 				})
-				.catch(() => {})
+				.catch(() => {});
 		}
 
 		const postId = String(ctx?.params?.id) ?? "";
