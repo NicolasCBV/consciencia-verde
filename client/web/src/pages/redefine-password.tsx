@@ -64,7 +64,7 @@ function Reset() {
 					{
 						time > 0 &&
 						<p className="place-self-center w-[70vw] max-w-[20rem]">
-						  Um email foi enviado para você. Aguarde {time} segundos para reenviar um email novamente. Você tem até 2 minutos após o envio para trocar a sua senha.
+							Um email foi enviado para você. Aguarde {time} segundos para reenviar um email novamente. Você tem até 2 minutos após o envio para trocar a sua senha.
 						</p>
 					}
 					<form className="grid place-items-center place-self-center bg-primaryColor-550 py-8 px-4 text-center relative rounded-md shadow-2xl duration-200 h-[15rem] w-[70vw] max-w-[20rem] mini:h-[15.5rem] mini:w-full">
