@@ -89,7 +89,7 @@ export default function Login() {
 									id="forgot-password-button"
 									href="/redefine-password"
 									name="Esqueci a senha"
-									className="grid text-slate-900 place-self-center border-[1px] border-green-600 h-[2.5rem] place-content-center rounded-md hover:border-green-500 bg-slate-100/20 hover:bg-slate-100/20 hover:text-slate-700 duration-200"
+									className="grid text-slate-900 place-self-center border-[1px] border-green-600 h-[2.5rem] place-content-center rounded-md hover:border-green-500 bg-transparent hover:bg-slate-200/20 hover:text-slate-700 duration-200"
 								/>
 							</div>
 						) : (

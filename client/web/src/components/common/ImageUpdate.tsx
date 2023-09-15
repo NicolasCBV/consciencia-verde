@@ -57,7 +57,8 @@ export function ImageUpdate({
 							/>
 						</div>
 						: <Image
-							key={uuid()} 
+							key={uuid()}
+							priority={true}
 							className={`object-cover relative w-[60vw] max-w-[15rem] h-[60vh] max-h-[15rem] circle object-fit ${imageClassName ?? ""}`}
 							width={300}
 							height={300}
