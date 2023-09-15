@@ -10,10 +10,10 @@ interface IProps {
 
 export function PostForm({ form, setForm }: IProps) {
 	return (
-		<div className="grid text-center gap-4">
-			<div className="grid gap-2">
+		<div className="grid text-center gap-4 tablet:flex tablet:justify-between tablet:w-full">
+			<div className="grid tablet:text-start gap-2">
 				<label htmlFor="post-name" className="text-xl">
-          Nome
+					Nome
 				</label>
 				<Input
 					isActiveClasses="bg-green-500"
@@ -30,13 +30,13 @@ export function PostForm({ form, setForm }: IProps) {
 						}));
 					}}
 					icon={{ content: Tag }}
-					placeholder="Insira uma nome"
+					placeholder="Insira um nome"
 				/>
 			</div>
 
-			<div className="grid gap-2">
+			<div className="grid tablet:text-end gap-2">
 				<label htmlFor="post-description" className="text-xl">
-          Descrição
+					Descrição
 				</label>
 				<Input
 					id="post-description"

@@ -1,7 +1,6 @@
 import { BubbleMenu } from "@tiptap/react";
 import { Editor } from "@tiptap/react";
 import { 
-	Code, 
 	TextBolder, 
 	TextHOne, 
 	TextHThree, 
@@ -79,13 +78,6 @@ export function BubbleOptionsMenu({ editor }: IProps) {
 				onClick={() => editor.chain().focus().toggleStrike().run()}
 			>
 				<TextStrikethrough width={35}/>
-			</BubbleButton>
-
-			<BubbleButton
-				data-active={editor.isActive("code")}
-				onClick={() => editor.chain().focus().toggleCode().run()}
-			>
-				<Code width={35}/>
 			</BubbleButton>
 		</BubbleMenu>
 	);

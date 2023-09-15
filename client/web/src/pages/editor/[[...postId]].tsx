@@ -1,16 +1,8 @@
 import sanitizeHtml from "sanitize-html";
-import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
-import { lowlight } from "lowlight";
-import css from "highlight.js/lib/languages/css";
-import js from "highlight.js/lib/languages/javascript";
-import ts from "highlight.js/lib/languages/typescript";
-import html from "highlight.js/lib/languages/xml";
 
 import { Header } from "../../components/common/Header";
 import StarterKit from "@tiptap/starter-kit";
 import { JSONContent, useEditor } from "@tiptap/react";
-
-import "highlight.js/styles/github.css";
 import { useEffect, useMemo, useState } from "react";
 import { CircleNotch } from "phosphor-react";
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from "next";
@@ -29,20 +21,9 @@ import Head from "next/head";
 import { IPostObject, PostMapper } from "@/@core/infra/mappers/post";
 import { generateHTML } from "@tiptap/html";
 import { Replace } from "@/utils/replace";
-import Paragraph from "@tiptap/extension-paragraph";
-import Heading from "@tiptap/extension-heading";
-import Document from "@tiptap/extension-document";
-import Code from "@tiptap/extension-code";
-import CodeBlock from "@tiptap/extension-code-block";
-import Text from "@tiptap/extension-text";
-import Bold from "@tiptap/extension-bold";
+
 import { PostError } from "@/@core/errors/PostError";
 import { refreshAllTokens } from "../api/serverFunctions/refreshAllTokens";
-
-lowlight.registerLanguage("css", css);
-lowlight.registerLanguage("html", html);
-lowlight.registerLanguage("javascript", js);
-lowlight.registerLanguage("typescript", ts);
 
 export interface IFormCreateNews {
   URI: string | null;
@@ -85,15 +66,7 @@ export default function CreateNews({
 			{
 				content: post.content,
 				type: "doc"
-			}, [
-				Document,
-				Paragraph,
-				Heading,
-				Code,
-				CodeBlock,
-				Text,
-				Bold
-			]
+			}, [StarterKit]
 		);
 
 		const html = sanitizeHtml(dirtyHtml);
@@ -101,16 +74,11 @@ export default function CreateNews({
 	}, [post]);
 
 	const editor = useEditor({
-		extensions: [
-			StarterKit,
-			CodeBlockLowlight.configure({
-				lowlight
-			})
-		],
+		extensions: [StarterKit],
 		content: output ?? defaultHTMLText,
 		editorProps: {
 			attributes: {
-				class: "w-[80vw] border-[1px] border-primaryColor-640 rounded-md p-2 outline-none"
+				class: "w-[80vw] max-w-[45rem] border-[1px] border-primaryColor-640 rounded-md p-2 outline-none"
 			}
 		}
 	});
@@ -125,8 +93,8 @@ export default function CreateNews({
 		if(
 			!post && (
 				!image.URI || 
-        !image.file || 
-        content.length <= 0
+				!image.file || 
+				content.length <= 0
 			)
 		)
 			return;
@@ -157,7 +125,7 @@ export default function CreateNews({
 					setError(true);
 					if(
 						err instanceof PostError && 
-              err.message === "Could not upload image"
+						err.message === "Could not upload image"
 					)
 						router.push(`/post/${err.postId}`);
 				})
@@ -178,7 +146,7 @@ export default function CreateNews({
 					setError(true);
 					if(
 						err instanceof PostError && 
-              err.message === "Could not upload image"
+						err.message === "Could not upload image"
 					)
 						router.push(`/post/${err.postId}`);
 				})
@@ -253,7 +221,7 @@ export default function CreateNews({
 				/>
 				{
 					editor
-						? <main className="flex flex-col gap-8 place-self-center align-content-center place-items-center py-24 w-[80vw] min-h-screen prose prose-slate prose-a:text-blue-600">
+						? <main className="flex flex-col gap-8 place-self-center">
 							<CreateNewsMainFlow
 								isError={error}
 								isLoading={isLoading}

@@ -42,15 +42,24 @@ export function CreateNewsMainFlow({
 	});
 
 	return (
-		<>
+		<div className="flex flex-col gap-8 place-self-center align-content-center place-items-center py-24 w-[80vw] max-w-[45rem] min-h-screen prose prose-slate prose-a:text-blue-600">
 			<OptionsMenu editor={editor} />
 			<ImageUpdate
+				emptyImageClassName="clip-none rounded-lg"
+				imageClassName="clip-none rounded-lg border-2 border-green-600"
+				cameraClassName="clip-none rounded-br-lg"
 				icon={NewspaperClipping}
 				image={image.URI}
 				action={({ image, file }) => {
 					setImage({ URI: image, file });
 				}}
 			/>
+			{
+				postId &&
+					<p className="max-w-[20rem] text-center">
+						<b>Aviso:</b> alterações de imagens podem levar alguns minutos até que as modificações sejam refletidas.
+					</p>
+			}
 			<PostForm form={form} setForm={setForm} /> 
 
 			<div>
@@ -97,6 +106,6 @@ export function CreateNewsMainFlow({
 						/>
 				}
 			</div>
-		</>
+		</div>
 	);
 }

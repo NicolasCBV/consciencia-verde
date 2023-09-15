@@ -169,7 +169,7 @@ export function PagesHandler({ search, pages }: IProps) {
 	}
 
 	return (
-		<ul className="flex justify-center gap-2 w-full h-[2rem] border-t-[1px] border-t-primaryColor-650 pt-4">
+		<ul className="flex justify-center gap-2 w-full h-[2rem] border-t-[1px] border-t-primaryColor-650 pt-4 list-none">
 			{
 				defaultIndexes.length >= 3 &&
 					<li>
