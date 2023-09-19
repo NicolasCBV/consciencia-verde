@@ -180,7 +180,7 @@ export function VerificationStage({
 						}
 						type="button"
 						name="Reenviar"
-						className="not-prose grid text-slate-900 place-self-center w-auto h-[1.2rem] place-content-center rounded-md bg-transparent hover:bg-slate-200/20 hover:text-slate-700 duration-200"
+						className="not-prose grid text-slate-900 place-self-center w-auto h-[1.2rem] place-content-center rounded-md bg-opacity-0 hover:bg-opacity-0 hover:text-slate-700 duration-200"
 						onClick={handleResubmit}
 					/>      
 				</div>

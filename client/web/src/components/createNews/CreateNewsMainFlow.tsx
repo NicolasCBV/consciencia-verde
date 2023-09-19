@@ -96,7 +96,7 @@ export function CreateNewsMainFlow({
 							onClick={() => {
 								handleDeletion(postId);
 							}}
-							className="h-[8vh] max-h-[2rem] px-3 border-[2px] border-red-500 rounded-md bg-zinc-200/20 hover:bg-zinc-200/40 hover:bg-red-300 text-slate-900"
+							className="h-[8vh] max-h-[2rem] px-3 border-[2px] border-red-500 rounded-md bg-opacity-0 hover:bg-red-300 text-slate-900"
 							name="Deletar"
 							iconData={{
 								pos: "right",

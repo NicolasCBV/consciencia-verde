@@ -105,7 +105,7 @@ function Reset() {
 								name="Voltar"
 								href="/login"
 								type="button"
-								className="not-prose grid text-slate-900 place-self-center h-[1.2rem] place-content-center rounded-md bg-zinc-200/20 hover:bg-zinc-200/40 hover:bg-slate-200/20 hover:text-slate-700 duration-200"
+								className="not-prose grid text-slate-900 place-self-center h-[1.2rem] place-content-center rounded-md bg-opacity-0 hover:bg-opacity-0 hover:text-slate-700 duration-200"
 							/> 
 						</div>
 					</form>

@@ -45,7 +45,7 @@ function Content({ data }: IContentProps) {
 								: <data.iconData.Icon width={35} weight="bold"/>
 						}
 					</>
-						: <>{data.name}</>
+					: <>{data.name}</>
 			}
 		</>
 	);
@@ -59,8 +59,8 @@ export function Button({
 	const { className, ...props } = propsContent;
 	return (
 		<button
-			className={`not-prose flex gap-[2px] bg-green-600 hover:bg-green-500 items-center place-self-center py-1 ${ !href ? "px-2" : ""} rounded-md h-[2rem] duration-200 text-white ${props.disabled ? "opacity-40" : "opacity-100"} ${className ?? ""}`}
 			{...props}
+			className={`not-prose flex gap-[2px] bg-green-600 hover:bg-green-500 items-center place-self-center py-1 ${ !href ? "px-2" : ""} rounded-md h-[2rem] duration-200 text-white ${props.disabled ? "opacity-40" : "opacity-100"} ${className ?? ""}`}
 		> 
 			{
 				href
