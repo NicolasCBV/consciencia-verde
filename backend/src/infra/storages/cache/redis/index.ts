@@ -4,9 +4,9 @@ import { injectable } from "inversify";
 
 @injectable()
 export class RedisService implements CacheManager {
-  constructor() {}
+	constructor() {}
 
-  async close() {
-    await redisClient.quit();
-  }
+	async close() {
+		await redisClient.quit();
+	}
 }

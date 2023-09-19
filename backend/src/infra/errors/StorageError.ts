@@ -5,13 +5,13 @@ interface IProps {
 }
 
 export class StorageError extends Error {
-  code: number | undefined;
+	code: number | undefined;
 
-  constructor(input: IProps) {
-    super();
+	constructor(input: IProps) {
+		super();
 
-    this.name = input.name;
-    this.message = input.message;
-    this.code = input.code;
-  }
+		this.name = input.name;
+		this.message = input.message;
+		this.code = input.code;
+	}
 }

@@ -5,12 +5,12 @@ import { storageIds } from "@infra/storages/ids";
 
 @injectable()
 export class DeletePostUseCase {
-  constructor(
+	constructor(
     @inject(storageIds.external.postRepo)
     private readonly postRepo: PostRepo
-  ) {}
+	) {}
 
-  async exec(input: PostTypes.IDelete) {
-    return await this.postRepo.deletePost(input);
-  }
+	async exec(input: PostTypes.IDelete) {
+		return await this.postRepo.deletePost(input);
+	}
 }

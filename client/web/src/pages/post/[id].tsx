@@ -104,7 +104,7 @@ export default function Post({
           
 					<div className="w-[80vw] max-w-[45rem] flex flex-col my-8 prose prose-slate prose-a:text-blue-600 place-self-start place-content-start prose-sm break-all mt-24 mb-16">
 						<h1>{post.name}</h1>
-						<small>{post.createdAt}</small>
+						<small>Criado em: {post.createdAt}</small>
 						{
 							userContainerData 
 							&& userContainerData?.userData.level > 0 &&
@@ -179,12 +179,17 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 			content
 		};
 
+		const createdAt = new Date(post.createdAt).toLocaleString();
+		const hours = createdAt.split(",")[1];
+		const [ month, day, year ] = createdAt.split(",")[0].split("/");
+		
 		return {
 			props: {
 				rawToken: tokens ? tokens.rawToken : null,
 				userContainerData: tokens ? tokens.userContainerData : null,
 				post: {
 					...post,
+					createdAt: `${day}/${month}/${year} às ${hours}`,
 					id: postId,
 					name,
 					content: json

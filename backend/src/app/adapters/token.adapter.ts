@@ -3,7 +3,7 @@ export interface IValidateToken {
 }
 
 export interface IRefreshToken { 
-  type: 'access_token'; 
+  type: "access_token"; 
   sub: string; 
   email: string; 
   deviceId?: string; 

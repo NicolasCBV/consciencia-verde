@@ -5,12 +5,12 @@ import { storageIds } from "@infra/storages/ids";
 
 @injectable()
 export class SetPostUseCase {
-  constructor(
+	constructor(
     @inject(storageIds.external.postRepo)
     private readonly postRepo: PostRepo
-  ) {}
+	) {}
 
-  async exec(input: PostTypes.ISetContent) {
-    return await this.postRepo.setContent(input);
-  }
+	async exec(input: PostTypes.ISetContent) {
+		return await this.postRepo.setContent(input);
+	}
 }

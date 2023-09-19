@@ -5,20 +5,20 @@ import { inject, injectable } from "inversify";
 
 @injectable()
 export class CreatePostController {
-  constructor(
+	constructor(
     @inject(useCaseIds.post.create)
     private readonly setPostUseCase: SetPostUseCase
-  ) {
-    this.exec = this.exec.bind(this);
-  }
+	) {
+		this.exec = this.exec.bind(this);
+	}
 
-  async exec(req: Request, res: Response, next: NextFunction) {
-    await this.setPostUseCase.exec(req.body)
-      .then((id) => {
-        res.status(201).json({ id }).end();
-      })
-      .catch((err) => {
-        next(err);
-      })
-  }
+	async exec(req: Request, res: Response, next: NextFunction) {
+		await this.setPostUseCase.exec(req.body)
+			.then((id) => {
+				res.status(201).json({ id }).end();
+			})
+			.catch((err) => {
+				next(err);
+			});
+	}
 }

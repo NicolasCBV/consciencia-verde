@@ -5,27 +5,27 @@ import { injectable } from "inversify";
 
 @injectable()
 export class UpdatePostDTO {
-  constructor(){
-    this.exec = this.exec.bind(this);
-  }
+	constructor(){
+		this.exec = this.exec.bind(this);
+	}
 
-  async exec(
-    req: Request,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    res: Response,
-    next: NextFunction
-  ) {
-    const expectedBody = z.object({
-      id: z.string(),
-      name: z.string(),
-      description: z.string(),
-      content: z.array(z.string()).min(1)
-    }).strict();
+	async exec(
+		req: Request,
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		res: Response,
+		next: NextFunction
+	) {
+		const expectedBody = z.object({
+			id: z.string(),
+			name: z.string(),
+			description: z.string(),
+			content: z.array(z.string()).min(1)
+		}).strict();
 
-    await expectedBody.parseAsync(req.body)
-      .then(() => next())
-      .catch(() => {
-         next(new BadRequest());
-      });
-  }
+		await expectedBody.parseAsync(req.body)
+			.then(() => next())
+			.catch(() => {
+				next(new BadRequest());
+			});
+	}
 }

@@ -106,7 +106,7 @@ function Reset() {
 							<Button
 								href="/login"
 								type="button"
-								className="not-prose grid text-slate-900 place-self-center h-[1.2rem] place-content-center rounded-md bg-white/[0] hover:bg-white/[0] hover:text-slate-700 duration-200"
+								className="not-prose grid text-slate-900 place-self-center h-[1.2rem] place-content-center rounded-md bg-zinc-200/20 hover:bg-zinc-200/40 hover:text-slate-700 duration-200"
 								name="Voltar"
 							/>  
 						</div>
