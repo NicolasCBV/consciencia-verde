@@ -45,7 +45,7 @@ function Content({ data }: IContentProps) {
 								: <data.iconData.Icon width={35} weight="bold"/>
 						}
 					</>
-					: <>{data.name}</>
+						: <>{data.name}</>
 			}
 		</>
 	);
