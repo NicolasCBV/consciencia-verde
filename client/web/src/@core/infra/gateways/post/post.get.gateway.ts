@@ -53,12 +53,12 @@ export class GetPostGateway implements PostGateway.GetPostGateway {
 	private transformData(data: any) {
 		if(
 			typeof data?.imageURI === "string" ||
-      !data.imageURI &&
-      typeof data?.name === "string" &&
-      typeof data?.description === "string" &&
-      data?.content instanceof Array &&
-      data?.createdAt instanceof Timestamp &&
-      data?.updatedAt instanceof Timestamp
+      			!data.imageURI &&
+      			typeof data?.name === "string" &&
+      			typeof data?.description === "string" &&
+      			data?.content instanceof Array &&
+      			data?.createdAt instanceof Timestamp &&
+      			data?.updatedAt instanceof Timestamp
 		)
 			return FirestorePostMapper.format(data);
 
