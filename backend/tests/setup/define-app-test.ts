@@ -55,29 +55,29 @@ container.bind(controllerIds.deletePost).to(DeletePostController);
 container.bind(serverIds.server).to(CustomServer);
 
 const appTest = {
-  storages: {
-    cache: {
-      manager: container.get<CacheManager>(storageIds.cache.manager),
-      token: container.get<InMemoryTokensCache>(storageIds.cache.tokenEntitie)
-    }
-  },
-  middlewares: {
-    error: container.get<ErrorMiddleware>(midIds.error),
-    auth: container.get<AuthMiddleware>(midIds.auth.mid),
-    fingerprint: container.get<FingerprintMiddleware>(midIds.fingerprint.mid),
-    admin: container.get<AdminMiddleware>(midIds.admin.mid),
-    DTO: {
-      createPost: container.get<CreatePostDTO>(midIds.DTO.createPost),
-      updatePost: container.get<UpdatePostDTO>(midIds.DTO.updatePost)
-    }
-  },
-  controllers: {
-    createPost: container.get<CreatePostController>(controllerIds.createPost),
-    updatePost: container.get<UpdatePostController>(controllerIds.updatePost),
-    uploadImage: container.get<UploadImagePostController>(controllerIds.uploadImagePost),
-    deletePost: container.get<DeletePostController>(controllerIds.deletePost)
-  },
-  server: container.get<CustomServer>(serverIds.server)
-}
+	storages: {
+		cache: {
+			manager: container.get<CacheManager>(storageIds.cache.manager),
+			token: container.get<InMemoryTokensCache>(storageIds.cache.tokenEntitie)
+		}
+	},
+	middlewares: {
+		error: container.get<ErrorMiddleware>(midIds.error),
+		auth: container.get<AuthMiddleware>(midIds.auth.mid),
+		fingerprint: container.get<FingerprintMiddleware>(midIds.fingerprint.mid),
+		admin: container.get<AdminMiddleware>(midIds.admin.mid),
+		DTO: {
+			createPost: container.get<CreatePostDTO>(midIds.DTO.createPost),
+			updatePost: container.get<UpdatePostDTO>(midIds.DTO.updatePost)
+		}
+	},
+	controllers: {
+		createPost: container.get<CreatePostController>(controllerIds.createPost),
+		updatePost: container.get<UpdatePostController>(controllerIds.updatePost),
+		uploadImage: container.get<UploadImagePostController>(controllerIds.uploadImagePost),
+		deletePost: container.get<DeletePostController>(controllerIds.deletePost)
+	},
+	server: container.get<CustomServer>(serverIds.server)
+};
 
-export { appTest }
+export { appTest };

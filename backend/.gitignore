@@ -5,3 +5,4 @@ dist/
 .env.dev
 .env.prod
 .env.local
+.vercel

@@ -6,49 +6,49 @@ import { inject, injectable } from "inversify";
 import { CacheManager } from "../storages/cache/manager";
 
 export const serverIds = {
-  server: Symbol.for("Server")
-}
+	server: Symbol.for("Server")
+};
 
 @injectable()
 export class CustomServer {
-  private readonly server: Server;
-  private readonly _expressApp: express.Express;
+	private readonly server: Server;
+	private readonly _expressApp: express.Express;
 
-  constructor(
+	constructor(
     @inject(storageIds.cache.manager)
     private readonly cache: CacheManager
-  ) {
-    this._expressApp = express();
-    this.server = createServer(this._expressApp);
+	) {
+		this._expressApp = express();
+		this.server = createServer(this._expressApp);
 
-    if(process.env.NODE_ENV !== "test")
-      logger.info("Http server conected.");
-  }
+		if(process.env.NODE_ENV !== "test")
+			logger.info("Http server conected.");
+	}
 
-  get http(): Server {
-    return this.server;
-  }
+	get http(): Server {
+		return this.server;
+	}
 
-  get expressApp() {
-    return this._expressApp;
-  }
+	get expressApp() {
+		return this._expressApp;
+	}
 
-  async stopInSilence() {
-    this.server.close();
-    await this.cache.close();
-  }
+	async stopInSilence() {
+		this.server.close();
+		await this.cache.close();
+	}
 
-  async stop() {
-    this.server.close();
+	async stop() {
+		this.server.close();
 
-    if(process.env.NODE_ENV === "test")
-      return;
+		if(process.env.NODE_ENV === "test")
+			return;
 
-    logger.info("Http server closed.")
+		logger.info("Http server closed.");
     
-    await this.cache.close()
-      .then(() => logger.info("Cache database closed."))
+		await this.cache.close()
+			.then(() => logger.info("Cache database closed."));
 
-    logger.info("\nEverything was closed gracefully!");
-  }
+		logger.info("\nEverything was closed gracefully!");
+	}
 }

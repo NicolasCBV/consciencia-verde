@@ -4,6 +4,8 @@ import Image from "next/image";
 import { Camera } from "phosphor-react";
 
 type TClassName = ComponentProps<"label">["className"];
+type TSvgClassName = ComponentProps<"svg">["className"];
+type TImgClassName = ComponentProps<"img">["className"];
 
 interface IActionArguments {
   image: string | null;
@@ -13,14 +15,20 @@ interface IActionArguments {
 interface IProps {
   image: string | null;
   action: (args: IActionArguments) => void;
-  icon: ElementType
+  icon: ElementType;
   className?: TClassName;
+  emptyImageClassName?: TSvgClassName;
+  imageClassName?: TImgClassName;
+  cameraClassName?: TSvgClassName;
 }
 
 export function ImageUpdate({
 	image,
 	action,
 	className,
+	emptyImageClassName,
+	imageClassName,
+	cameraClassName,
 	icon: Icon
 }: IProps) {
 	const [ objectURL, setObjectURL ] = useState<string | null>(null);
@@ -40,17 +48,18 @@ export function ImageUpdate({
 								width={200}
 								height={200}
 								weight="thin"
-								className="bg-zinc-800 circle text-white p-8"
+								className={`bg-zinc-800 circle text-white p-8 ${emptyImageClassName ?? ""}`}
 							/>
 							<Camera
 								width={50}
 								height={50}
-								className="bg-zinc-300 text-zinc-800 circle p-2 absolute z-[2]"
+								className={`bg-zinc-300 text-zinc-800 circle p-2 absolute z-[2] ${cameraClassName ?? ""}`}
 							/>
 						</div>
 						: <Image
-							key={uuid()} 
-							className="object-cover relative rounded-[2px] w-[60vw] max-w-[15rem] h-[60vh] max-h-[15rem] circle object-fit"  
+							key={uuid()}
+							priority={true}
+							className={`object-cover relative w-[60vw] max-w-[15rem] h-[60vh] max-h-[15rem] circle object-fit ${imageClassName ?? ""}`}
 							width={300}
 							height={300}
 							src={image}

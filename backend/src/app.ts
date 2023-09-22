@@ -27,9 +27,9 @@ import { RedisTokenEntitie } from "./infra/storages/cache/redis/entities/token.e
 export const container = new Container();
 
 container.bind(storageIds.cache.manager).to(RedisService);
-container.bind(storageIds.cache.tokenEntitie).to(RedisTokenEntitie)
+container.bind(storageIds.cache.tokenEntitie).to(RedisTokenEntitie);
 
-container.bind(storageIds.external.postRepo).to(FirebaseHandler)
+container.bind(storageIds.external.postRepo).to(FirebaseHandler);
 
 container.bind(adapterIds.crypt).to(BcryptAdapter);
 container.bind(adapterIds.token).to(JwtAdapter);
@@ -43,33 +43,33 @@ container.bind(midIds.DTO.createPost).to(CreatePostDTO);
 container.bind(midIds.DTO.updatePost).to(UpdatePostDTO);
 
 container.bind(useCaseIds.post.create).to(SetPostUseCase);
-container.bind(useCaseIds.post.uploadImage).to(UploadImagePostUseCase)
-container.bind(useCaseIds.post.delete).to(DeletePostUseCase)
+container.bind(useCaseIds.post.uploadImage).to(UploadImagePostUseCase);
+container.bind(useCaseIds.post.delete).to(DeletePostUseCase);
 
 container.bind(controllerIds.createPost).to(CreatePostController);
-container.bind(controllerIds.updatePost).to(UpdatePostController)
-container.bind(controllerIds.uploadImagePost).to(UploadImagePostController)
-container.bind(controllerIds.deletePost).to(DeletePostController)
+container.bind(controllerIds.updatePost).to(UpdatePostController);
+container.bind(controllerIds.uploadImagePost).to(UploadImagePostController);
+container.bind(controllerIds.deletePost).to(DeletePostController);
 
 container.bind(serverIds.server).to(CustomServer);
 
 export const application = {
-  middlewares: {
-    error: container.get<ErrorMiddleware>(midIds.error),
-    auth: container.get<AuthMiddleware>(midIds.auth.mid),
-    fingerprint: container.get<FingerprintMiddleware>(midIds.fingerprint.mid),
-    admin: container.get<AdminMiddleware>(midIds.admin.mid),
-    DTO: {
-      createPost: container.get<CreatePostDTO>(midIds.DTO.createPost),
-      updatePost: container.get<UpdatePostDTO>(midIds.DTO.updatePost)
-    }
-  },
-  controllers: {
-    createPost: container.get<CreatePostController>(controllerIds.createPost),
-    updatePost: container.get<UpdatePostController>(controllerIds.updatePost),
-    uploadImage: container.get<UploadImagePostController>(controllerIds.uploadImagePost),
-    deletePost: container.get<DeletePostController>(controllerIds.deletePost)
-  },
-  server: container.get<CustomServer>(serverIds.server)
-}
+	middlewares: {
+		error: container.get<ErrorMiddleware>(midIds.error),
+		auth: container.get<AuthMiddleware>(midIds.auth.mid),
+		fingerprint: container.get<FingerprintMiddleware>(midIds.fingerprint.mid),
+		admin: container.get<AdminMiddleware>(midIds.admin.mid),
+		DTO: {
+			createPost: container.get<CreatePostDTO>(midIds.DTO.createPost),
+			updatePost: container.get<UpdatePostDTO>(midIds.DTO.updatePost)
+		}
+	},
+	controllers: {
+		createPost: container.get<CreatePostController>(controllerIds.createPost),
+		updatePost: container.get<UpdatePostController>(controllerIds.updatePost),
+		uploadImage: container.get<UploadImagePostController>(controllerIds.uploadImagePost),
+		deletePost: container.get<DeletePostController>(controllerIds.deletePost)
+	},
+	server: container.get<CustomServer>(serverIds.server)
+};
 

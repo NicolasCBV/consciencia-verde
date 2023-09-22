@@ -1,4 +1,10 @@
 export const useCasesIds = {
+	image: {
+		process: Symbol.for("ProcessImageUseCase")
+	},
+	cookie: {
+		makeRefreshCookie: Symbol.for("MakeRefreshCookieUseCase")
+	},
 	post: {
 		create: Symbol.for("CreatePostUseCase"),
 		delete: Symbol.for("DeletePostUseCase"),

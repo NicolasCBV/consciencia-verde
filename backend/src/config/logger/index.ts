@@ -2,9 +2,9 @@ import pino from "pino";
 import pretty from "pino-pretty";
 
 const logger = pino({
-  transport: {
-    target: "pino-pretty"
-  }
+	transport: {
+		target: "pino-pretty"
+	}
 });
 
 const loggerTest = pino(pretty({ sync: true }));

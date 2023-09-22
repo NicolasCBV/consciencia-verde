@@ -2,7 +2,6 @@ import { Editor } from "@tiptap/react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { MenuOption } from "./MenuOption";
 import { 
-	Code, 
 	Gear, 
 	ListBullets, 
 	ListNumbers, 
@@ -105,17 +104,6 @@ export function OptionsMenu({ editor }: IProps) {
 							icon={Quotes}
 							onClick={() => {
 								editor.chain().focus().toggleBlockquote().run();
-							}}
-						/>
-					</DropdownMenu.Item>
-
-					<DropdownMenu.Item className="outline-none">
-						<MenuOption
-							name="Código"
-							description="Adicione código."
-							icon={Code}
-							onClick={() => {
-								editor.chain().focus().toggleCode().run();
 							}}
 						/>
 					</DropdownMenu.Item>

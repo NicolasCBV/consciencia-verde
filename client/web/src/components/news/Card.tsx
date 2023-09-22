@@ -27,8 +27,8 @@ export function Card({ post, id }: IProps) {
 						: <Image
 							key={`${uuid()}-image`}
 							className="grid h-[11.5rem] w-full object-cover relative object-fit place-self-center self-start"  
-							width={100}
-							height={100}
+							width={500}
+							height={500}
 							src={post.image.URI}
 							alt="Imagem do post."
 						/>

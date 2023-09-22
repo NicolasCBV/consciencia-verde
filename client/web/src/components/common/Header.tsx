@@ -6,10 +6,11 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { Leaf, List, X } from "phosphor-react";
+import { List, X } from "phosphor-react";
 
 import { useSpring, animated, useTransition } from "react-spring";
 import { useStoreHook } from "../../hooks";
+import Image from "next/image";
 
 export function Header(){
 	const routes = useRouter();
@@ -32,21 +33,22 @@ export function Header(){
 		<animated.header 
 			id="header"
 			style={headerStyle}
-			className={"grid grid- grid-rows-[5vh,1fr] items-center pt-4 pb-2 bg-primaryColor-600 fixed w-[100vw] z-[10000]"}
+			className="grid grid- grid-rows-[5vh,1fr] items-center pt-4 pb-2 bg-primaryColor-600 fixed w-[100vw] z-[10000]"
 		>
 			<div 
 				id="menu"
-				className={"flex justify-between px-8 py-2 bg-primaryColor-600 w-[100vw] mini:px-2"}
+				className="flex justify-between px-8 py-2 bg-primaryColor-600 w-[100vw] mini:px-2"
 			>
 				<Link data-test="menu-link-home" href="/" className="flex gap-2">
-					<h1 className="bigTitle font-bold text-3xl text-white micro:text-xl">
-            ConSciência
+					<h1 className="bigTitle text-3xl text-white micro:text-xl">
+						ConSciência
 					</h1>
-					<Leaf
-						className="text-white"
-						weight="bold"
-						width={30}
-						height={30}
+					<Image
+						src="/consciencia.svg"
+						alt="Logo do site"
+						className="w-[20vw] max-w-[2rem] micro:w-[1.5rem]"
+						width={35}
+						height={35}
 					/>
 				</Link>
 				{

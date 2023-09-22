@@ -1,5 +1,5 @@
+import { Application } from "@/@core/application/container";
 import { HttpError } from "@/@core/errors/HttpError";
-import { serialize, parse } from "cookie";
 
 interface IRefreshTokenServerOnlyResponse {
   access_token: string;
@@ -20,9 +20,7 @@ export async function refreshTokenServerOnly({
 		{
 			method: "POST",
 			credentials: "include",
-			headers: {
-				cookie
-			},
+			headers: { cookie },
 		})
 		.then(async (result) => {
 			const resHeaders = result.headers;
@@ -38,22 +36,10 @@ export async function refreshTokenServerOnly({
 					code: 401
 				});
 
-			const cookie = parse(resHeaders.get("set-cookie") as string);
-			cookie["Domain"] = process.env.NEXT_PUBLIC_DOMAIN as string;
-
 			headers.set(
 				"set-cookie", 
-				serialize(
-					"refresh-cookie", 
-					cookie["refresh-cookie"], {
-						maxAge: parseInt(cookie["Max-Age"]),
-						httpOnly: true,
-						secure: false,
-						domain: cookie["Domain"],
-						path: cookie["Path"],
-						expires: new Date(cookie["Expires"]),
-						sameSite: "strict"
-					}
+				Application.cookieFlow.createRefreshCookie.exec(
+					resHeaders.get("set-cookie") as string
 				)
 			);
 			return result.json();

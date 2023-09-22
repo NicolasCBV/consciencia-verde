@@ -1,4 +1,4 @@
 import { Redis } from "ioredis";
 
-const url = `redis://:${process.env.CACHE_PASSWORD}@${process.env.CACHE_HOSTNAME}:6379`;
+const url = `${process.env.CACHE_URL}`;
 export const redisClient = new Redis(url);

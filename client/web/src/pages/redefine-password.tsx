@@ -63,9 +63,9 @@ function Reset() {
 				<main className="flex flex-col text-center justify-center min-h-screen prose prose-slate">
 					{
 						time > 0 &&
-            <p className="place-self-center w-[70vw] max-w-[20rem]">
-              Um email foi enviado para você. Aguarde {time} segundos para reenviar um email novamente. Você tem até 2 minutos após o envio para trocar a sua senha.
-            </p>
+						<p className="place-self-center w-[70vw] max-w-[20rem]">
+							Um email foi enviado para você. Aguarde {time} segundos para reenviar um email novamente. Você tem até 2 minutos após o envio para trocar a sua senha.
+						</p>
 					}
 					<form className="grid place-items-center place-self-center bg-primaryColor-550 py-8 px-4 text-center relative rounded-md shadow-2xl duration-200 h-[15rem] w-[70vw] max-w-[20rem] mini:h-[15.5rem] mini:w-full">
 						<h1 className="text-2xl text-white mb-4">
@@ -105,7 +105,7 @@ function Reset() {
 								name="Voltar"
 								href="/login"
 								type="button"
-								className="not-prose grid text-slate-900 place-self-center h-[1.2rem] place-content-center rounded-md bg-white/[0] hover:bg-white/[0] hover:text-slate-700 duration-200"
+								className="not-prose grid text-slate-900 place-self-center h-[1.2rem] place-content-center rounded-md bg-opacity-0 hover:bg-opacity-0 hover:text-slate-700 duration-200"
 							/> 
 						</div>
 					</form>

@@ -7,7 +7,7 @@ export function Start() {
 	function scroll() {
 		const windowHeight = window.innerHeight;
 		window.scrollTo({
-			top: windowHeight <= 1600 ? windowHeight : 1600,
+			top: windowHeight <= 1600 ? windowHeight + 100 : 1600 + 100,
 			behavior: "smooth"
 		});
 	}

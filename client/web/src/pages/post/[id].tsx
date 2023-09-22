@@ -8,19 +8,13 @@ import { Application } from "@/@core/application/container";
 import { PostMapper } from "@/@core/infra/mappers/post";
 
 import { generateHTML } from "@tiptap/html";
+import StarterKit from "@tiptap/starter-kit";
 
-import Bold from "@tiptap/extension-bold";
-import Document from "@tiptap/extension-document";
-import Paragraph from "@tiptap/extension-paragraph";
-import Text from "@tiptap/extension-text";
-import Heading from "@tiptap/extension-heading";
-import Code from "@tiptap/extension-code";
 import { useEffect, useMemo } from "react";
 import { ContentContainer } from "@/components/post/contentContainer";
 import Image from "next/image";
-import CodeBlock from "@tiptap/extension-code-block";
 import Head from "next/head";
-import { getTokens } from "../api/serverFunctions/getTokens";
+import { getTokens, ITokens } from "../api/serverFunctions/getTokens";
 import { useDispatch } from "react-redux";
 import { CHANGE_AUTH_TOKEN, IUserContainerData } from "@/features/auth/auth.slice";
 import { Button } from "@/components/common/Button";
@@ -36,13 +30,7 @@ export default function Post({
 
 	const output = useMemo(() => {
 		const dirtyHtml = generateHTML(post.content, [
-			Document,
-			Paragraph,
-			Heading,
-			Code,
-			CodeBlock,
-			Text,
-			Bold
+			StarterKit	
 		]);
 
 		const html = sanitizeHtml(dirtyHtml);
@@ -105,29 +93,30 @@ export default function Post({
 								/>
 								: <Image
 									className="object-cover relative rounded-lg w-[80vw] max-w-[35rem] h-[57vh] max-h-[20rem] object-fit"
-									width={300}
-									height={300}
+									width={500}
+									height={500}
 									src={post.image.URI}
 									alt="Foto do post."
+									priority={true}
 								/>
 						}
 					</div>
           
 					<div className="w-[80vw] max-w-[45rem] flex flex-col my-8 prose prose-slate prose-a:text-blue-600 place-self-start place-content-start prose-sm break-all mt-24 mb-16">
 						<h1>{post.name}</h1>
-						<small>{post.createdAt}</small>
+						<small>Criado em: {post.createdAt}</small>
 						{
 							userContainerData 
-              && userContainerData?.userData.level > 0 &&
-				<Button
-					name="Editar"
-					className="self-start mt-8"
-					href={`/editor/${post.id}`}
-					iconData={{
-						pos: "right",
-						Icon: PencilCircle
-					}}
-				/>
+							&& userContainerData?.userData.level > 0 &&
+								<Button
+									name="Editar"
+									className="self-start mt-8"
+									href={`/editor/${post.id}`}
+									iconData={{
+										pos: "right",
+										Icon: PencilCircle
+									}}
+								/>
 						}
 					</div>
 					<ContentContainer output={output}/>
@@ -142,18 +131,22 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 	try {
 		const refreshCookie = ctx.req.headers["cookie"];
 
-		let tokens = undefined;
+		let tokens: ITokens | undefined;
 		if(refreshCookie) {
 			const headers = new Headers();
-			const { access_token } = await refreshTokenServerOnly({
+			await refreshTokenServerOnly({
 				cookie: refreshCookie,
 				headers
-			});
-			ctx.req.headers.authorization = access_token;
-			tokens = getTokens(ctx);
-			ctx.res.setHeader("set-cookie", String(
-				headers.get("set-cookie")
-			));
+			})
+				.then(({ access_token }) => {
+					ctx.req.headers.authorization = access_token;
+					tokens = getTokens(ctx);
+					ctx.res.setHeader("set-cookie", String(
+						headers.get("set-cookie")
+					));
+					return access_token;
+				})
+				.catch(() => {});
 		}
 
 		const postId = String(ctx?.params?.id) ?? "";
@@ -166,7 +159,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 			return {
 				redirect: {
 					permanent: false,
-					destination: "/"
+					destination: "/news"
 				}
 			};
 
@@ -186,11 +179,17 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 			content
 		};
 
+		const createdAt = new Date(post.createdAt).toLocaleString();
+		const hours = createdAt.split(",")[1];
+		const [ month, day, year ] = createdAt.split(",")[0].split("/");
+		
 		return {
 			props: {
-				...tokens,
+				rawToken: tokens ? tokens.rawToken : null,
+				userContainerData: tokens ? tokens.userContainerData : null,
 				post: {
 					...post,
+					createdAt: `${day}/${month}/${year} às ${hours}`,
 					id: postId,
 					name,
 					content: json

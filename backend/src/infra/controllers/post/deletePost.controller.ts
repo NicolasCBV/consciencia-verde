@@ -6,25 +6,25 @@ import { inject, injectable } from "inversify";
 
 @injectable()
 export class DeletePostController {
-  constructor(
+	constructor(
     @inject(useCaseIds.post.delete)
     private readonly deletePostUseCase: DeletePostUseCase
-  ) {
-    this.exec = this.exec.bind(this);
-  }
+	) {
+		this.exec = this.exec.bind(this);
+	}
 
-  async exec(req: Request, res: Response, next: NextFunction) {
-    const postId  = req.params?.postId;
+	async exec(req: Request, res: Response, next: NextFunction) {
+		const postId  = req.params?.postId;
 
-    if(typeof postId !== "string")
-      return next(new BadRequest());
+		if(typeof postId !== "string")
+			return next(new BadRequest());
 
-    await this.deletePostUseCase.exec({ id: postId })
-      .then(() => {
-        res.status(200).end();
-      })
-      .catch((err) => {
-        next(err);
-      })
-  }
+		await this.deletePostUseCase.exec({ id: postId })
+			.then(() => {
+				res.status(200).end();
+			})
+			.catch((err) => {
+				next(err);
+			});
+	}
 }

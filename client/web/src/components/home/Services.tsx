@@ -32,7 +32,7 @@ export function Services() {
 			<ul className="grid w-[80vw] max-w-[50rem] gap-8 desktop:grid-cols-3 tablet:grid-cols-2 place-items-center mt-8 desktop:max-w-[70rem] micro:w-screen">
 				{
 					servicesContent.map((item) => (
-						<li key={`${uuid()}-card`} id="services-card" className="flex flex-col gap-2 justify-center items-center p-8 bg-slate-100 w-[80vw] max-w-[20rem] hover:bg-slate-200 duration-200 rounded-lg prose prose-slate micro:w-screen">
+						<li key={`${uuid()}-card`} id="services-card" className="flex flex-col gap-2 justify-center items-center p-8 bg-slate-100 w-[80vw] max-w-[20rem] h-[50vh] max-h-[20rem] hover:bg-slate-200 duration-200 rounded-lg prose prose-slate micro:w-screen">
 							<item.Icon
 								className="text-lg"
 								width={100}

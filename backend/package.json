@@ -7,6 +7,7 @@
     "start": "dotenv -e .env.prod -- node ./dist/main.js",
     "build": "rm -rf ./dist && tsup ./src/main.ts",
     "vercel-build": "echo \"using vercel build\"",
+    "lint": "eslint \"{src,tests}/**/*.ts\" --fix",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "migration:create": "pnpm typeorm migration:create",
     "migration:run": "pnpm typeorm -d ./src/infra/storages/db/typeorm/ormconfig.ts migration:run",
@@ -24,6 +25,9 @@
     "@types/multer": "^1.4.7",
     "@types/node": "^20.5.6",
     "@types/supertest": "^2.0.12",
+    "@typescript-eslint/eslint-plugin": "^6.7.2",
+    "@typescript-eslint/parser": "^6.7.2",
+    "eslint": "^8.49.0",
     "jest": "^29.6.4",
     "supertest": "^6.3.3",
     "ts-jest": "^29.1.1",
@@ -31,7 +35,8 @@
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.2.0",
     "tsup": "^7.2.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "vercel": "^32.2.3"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

@@ -1,7 +1,6 @@
 import { Application } from "@/@core/application/container";
 import { HttpError } from "@/@core/errors/HttpError";
 import { HttpErrorMapper } from "@/@core/errors/mappers/httpError";
-import { serialize, parse } from "cookie";
 import { NextApiRequest, NextApiResponse } from "next";
 import { z } from "zod";
 
@@ -45,25 +44,10 @@ export default async function validate(
 			if(typeof rawCookie !== "string")
 				return res.status(500).end();
 
-			const cookie = parse(rawCookie);
-			cookie["Domain"] = process.env.NEXT_PUBLIC_DOMAIN as string;
-
+	
 			res.setHeader(
 				"set-cookie", 
-				serialize(
-					"refresh-cookie", 
-					cookie["refresh-cookie"], {
-						maxAge: parseInt(cookie["Max-Age"]),
-						httpOnly: true,
-						secure: process.env.NODE_ENV === "production"
-							? true
-							: false,
-						domain: cookie["Domain"],
-						path: cookie["Path"],
-						expires: new Date(cookie["Expires"]),
-						sameSite: "strict"
-					}
-				)
+				Application.cookieFlow.createRefreshCookie.exec(rawCookie)
 			);
 			res.status(result.status).json(result.body);
 		})
