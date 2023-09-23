@@ -33,9 +33,9 @@ const upload = multer({
 	) => {
 		if(
 			file?.mimetype === "image/jpeg" ||
-      file?.mimetype === "image/png" ||
-      file?.mimetype === "image/gif" ||
-      file?.mimetype === "image/pjpeg"
+			file?.mimetype === "image/png" ||
+			file?.mimetype === "image/gif" ||
+			file?.mimetype === "image/pjpeg"
 		) 
 			return callback(null, true);
 		const err = new BadRequest();
