@@ -10,8 +10,8 @@ import { ValidateUserDTO } from "../../DTO/user/validateUser.DTO";
 @injectable()
 export class CreateUserGateway implements UserGateways.CreateUserGateway {
 	constructor(
-    @inject(adapterIds.http)
-    private readonly http: HttpAdapter
+		@inject(adapterIds.http)
+		private readonly http: HttpAdapter,
 	) {}
 
 	async cancelCreation(input: UserGatewaysTypes.NonAuth.ICancel) {
@@ -22,7 +22,7 @@ export class CreateUserGateway implements UserGateways.CreateUserGateway {
 			url: "/api/user/cancelKey",
 			method: "DELETE",
 			headers,
-			body: JSON.stringify(input) 
+			body: JSON.stringify(input),
 		});
 	}
 
@@ -34,7 +34,7 @@ export class CreateUserGateway implements UserGateways.CreateUserGateway {
 			url: "/api/user/sigin",
 			method: "POST",
 			headers,
-			body: JSON.stringify(input)
+			body: JSON.stringify(input),
 		});
 
 		const dto = new CreateUserDTO();
@@ -46,12 +46,12 @@ export class CreateUserGateway implements UserGateways.CreateUserGateway {
 	async launchOTP(input: UserGatewaysTypes.NonAuth.ILaunchOTP) {
 		const headers = new Headers();
 		headers.set("content-type", "application/json");
-  
+
 		const response = await this.http.call({
 			url: "/api/user/launchOTP",
 			method: "POST",
 			headers,
-			body: JSON.stringify(input)
+			body: JSON.stringify(input),
 		});
 
 		const dto = new LaunchOTPDTO();
@@ -59,7 +59,7 @@ export class CreateUserGateway implements UserGateways.CreateUserGateway {
 
 		return body;
 	}
-  
+
 	async validate(input: UserGatewaysTypes.NonAuth.IValidate) {
 		const headers = new Headers();
 		headers.set("content-type", "application/json");
@@ -68,7 +68,7 @@ export class CreateUserGateway implements UserGateways.CreateUserGateway {
 			url: "/api/user/validate",
 			method: "POST",
 			headers,
-			body: JSON.stringify(input)
+			body: JSON.stringify(input),
 		});
 
 		const dto = new ValidateUserDTO();

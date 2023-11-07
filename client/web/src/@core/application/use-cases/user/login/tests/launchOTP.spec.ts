@@ -15,9 +15,14 @@ describe("Launch OTP - login - use case test", () => {
 	container.bind(useCasesIds.user.login.launchOTP).to(LaunchOTPLoginUseCase);
 
 	it("should be able to launch OTP - login", async () => {
-		const useCase = container.get<LaunchOTPLoginUseCase>(useCasesIds.user.login.launchOTP);
+		const useCase = container.get<LaunchOTPLoginUseCase>(
+			useCasesIds.user.login.launchOTP,
+		);
 
-		const gatewaySpy = jest.spyOn(LoginUserGateway.prototype, "launchLoginOTP");
+		const gatewaySpy = jest.spyOn(
+			LoginUserGateway.prototype,
+			"launchLoginOTP",
+		);
 
 		await useCase.exec({
 			email: "default@email.com",

@@ -7,10 +7,10 @@ import { inject, injectable } from "inversify";
 @injectable()
 export class UpdateUserGateway implements UserGateways.UpdateUserGateway {
 	constructor(
-    @inject(adapterIds.http)
-    private readonly http: HttpAdapter
+		@inject(adapterIds.http)
+		private readonly http: HttpAdapter,
 	) {}
- 
+
 	private async updateImage(auth: string, file: File) {
 		const form = new FormData();
 		form.append("file", file);
@@ -19,14 +19,14 @@ export class UpdateUserGateway implements UserGateways.UpdateUserGateway {
 			url: "/api/user/uploadImage",
 			method: "PATCH",
 			headers: {
-				"authorization": `${auth}`
+				authorization: `${auth}`,
 			},
-			body: form
+			body: form,
 		});
 	}
 
 	async update(input: UserGatewaysTypes.Auth.IUpdateUser) {
-		if(input.image)
+		if (input.image)
 			await this.updateImage(input.access_token, input.image.file);
 
 		await this.http.call({
@@ -34,12 +34,12 @@ export class UpdateUserGateway implements UserGateways.UpdateUserGateway {
 			method: "PATCH",
 			headers: {
 				"content-type": "application/json",
-				"authorization": `${input.access_token}`
+				authorization: `${input.access_token}`,
 			},
 			body: JSON.stringify({
 				name: input.name,
-				description: input.description
-			})
-		}); 
+				description: input.description,
+			}),
+		});
 	}
 }

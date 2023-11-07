@@ -23,8 +23,12 @@ export function startUserContent(container: Container) {
 	container.bind(useCasesIds.user.login.end).to(LoginUseCase);
 	container.bind(useCasesIds.user.login.launchOTP).to(LaunchOTPLoginUseCase);
 
-	container.bind(useCasesIds.user.forgotPassword.start).to(StartForgotPassUseCase);
-	container.bind(useCasesIds.user.forgotPassword.end).to(EndForgotPassUseCase);
+	container
+		.bind(useCasesIds.user.forgotPassword.start)
+		.to(StartForgotPassUseCase);
+	container
+		.bind(useCasesIds.user.forgotPassword.end)
+		.to(EndForgotPassUseCase);
 
 	container.bind(useCasesIds.user.update).to(UpdateUserUseCase);
 

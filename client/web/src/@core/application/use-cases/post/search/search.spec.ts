@@ -8,7 +8,7 @@ import { SearchPostUseCase } from "./search.use-case";
 
 SearchPostGateway.prototype.search = jest.fn(async () => ({
 	posts: [],
-	pages: 0
+	pages: 0,
 }));
 
 describe("Pagination post use case test", () => {
@@ -18,12 +18,14 @@ describe("Pagination post use case test", () => {
 	container.bind(useCasesIds.post.pagination).to(SearchPostUseCase);
 
 	it("should be able to get pagination on post", async () => {
-		const useCase = container.get<SearchPostUseCase>(useCasesIds.post.pagination);
+		const useCase = container.get<SearchPostUseCase>(
+			useCasesIds.post.pagination,
+		);
 
 		const gatewaySpy = jest.spyOn(SearchPostGateway.prototype, "search");
 
-		await useCase.exec({ 
-			query: "default name"
+		await useCase.exec({
+			query: "default name",
 		});
 
 		expect(gatewaySpy).toHaveBeenCalledTimes(1);

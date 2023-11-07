@@ -9,7 +9,7 @@ import { ProcessImageUseCase } from "./processImage.use-case";
 ImageGateway.prototype.process = jest.fn(async () => ({
 	name: "",
 	buffer: Buffer.from([]),
-	mimeType: ""
+	mimeType: "",
 }));
 
 describe("Process image use case test", () => {
@@ -19,13 +19,13 @@ describe("Process image use case test", () => {
 
 	it("should be able to process image use case", async () => {
 		const useCase = container.get<ProcessImageUseCase>(
-			useCasesIds.image.process
+			useCasesIds.image.process,
 		);
 
 		const gatewaySpy = jest.spyOn(ImageGateway.prototype, "process");
 
 		useCase.exec({
-			request: new IncomingMessage(new Socket())
+			request: new IncomingMessage(new Socket()),
 		});
 
 		expect(gatewaySpy).toHaveBeenCalledTimes(1);

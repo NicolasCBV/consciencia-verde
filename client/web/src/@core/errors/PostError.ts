@@ -1,7 +1,7 @@
 interface IProps {
-  name: string;
-  message: string;
-  postId: string;
+	name: string;
+	message: string;
+	postId: string;
 }
 
 export class PostError extends Error {

@@ -15,11 +15,13 @@ describe("Delete user use case test", () => {
 	container.bind(useCasesIds.user.delete).to(DeleteUserUseCase);
 
 	it("should be able to delete user", async () => {
-		const useCase = container.get<DeleteUserUseCase>(useCasesIds.user.delete);
+		const useCase = container.get<DeleteUserUseCase>(
+			useCasesIds.user.delete,
+		);
 		const gatewaySpy = jest.spyOn(DeleteUserGateway.prototype, "delete");
 
 		await useCase.exec({
-			access_token: "access_token"  
+			access_token: "access_token",
 		});
 
 		expect(gatewaySpy).toHaveBeenCalledTimes(1);

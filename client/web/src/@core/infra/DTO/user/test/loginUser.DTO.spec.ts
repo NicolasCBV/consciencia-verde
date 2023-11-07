@@ -11,7 +11,6 @@ describe("Login DTO test", () => {
 		expect(loginUserDTO.exec(body)).resolves.toEqual(body);
 	});
 
-
 	it("should throw one error: wrong access_token input", async () => {
 		const loginUserDTO = new LoginUserDTO();
 

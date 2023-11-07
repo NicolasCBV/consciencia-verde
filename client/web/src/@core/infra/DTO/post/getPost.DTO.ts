@@ -20,16 +20,15 @@ export class GetPostDTO {
 			description: z.string(),
 			content: z.array(z.string()),
 			createdAt: z.date(),
-			updatedAt: z.date()
+			updatedAt: z.date(),
 		});
 
-		await expectedBody.parseAsync(body)
-			.catch(() => {
-				throw new HttpError({
-					name: "Internal Server Error",
-					message: "Unexpected content.",
-					code: 500
-				});
+		await expectedBody.parseAsync(body).catch(() => {
+			throw new HttpError({
+				name: "Internal Server Error",
+				message: "Unexpected content.",
+				code: 500,
 			});
+		});
 	}
 }

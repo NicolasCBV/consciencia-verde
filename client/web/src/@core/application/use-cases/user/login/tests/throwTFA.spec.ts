@@ -15,13 +15,15 @@ describe("Throw TFA use case test", () => {
 	container.bind(useCasesIds.user.login.end).to(ThrowTFAUseCase);
 
 	it("should be able to throw TFA", async () => {
-		const useCase = container.get<ThrowTFAUseCase>(useCasesIds.user.login.end);
+		const useCase = container.get<ThrowTFAUseCase>(
+			useCasesIds.user.login.end,
+		);
 
 		const gatewaySpy = jest.spyOn(LoginUserGateway.prototype, "throwTFA");
 
 		await useCase.exec({
 			email: "default@email.com",
-			password: "1234567"
+			password: "1234567",
 		});
 
 		expect(gatewaySpy).toHaveBeenCalledTimes(1);

@@ -45,8 +45,8 @@ export const Application = {
 
 	cookieFlow: {
 		createRefreshCookie: container.get<MakeRefreshCookieUseCase>(
-			useCasesIds.cookie.makeRefreshCookie
-		)
+			useCasesIds.cookie.makeRefreshCookie,
+		),
 	},
 
 	postFlow: {
@@ -55,39 +55,51 @@ export const Application = {
 		update: container.get<UpdatePostUseCase>(useCasesIds.post.update),
 		get: container.get<GetPostUseCase>(useCasesIds.post.get),
 		pagination: container.get<PaginationPostUseCase>(
-			useCasesIds.post.pagination
+			useCasesIds.post.pagination,
 		),
 		search: container.get<SearchPostUseCase>(useCasesIds.post.search),
-		exist: container.get<ExistPostUseCase>(useCasesIds.post.exist)
+		exist: container.get<ExistPostUseCase>(useCasesIds.post.exist),
 	},
 
 	forgotPasswordFlow: {
-		start: container.get<StartForgotPassUseCase>(useCasesIds.user.forgotPassword.start),
-		end: container.get<EndForgotPassUseCase>(useCasesIds.user.forgotPassword.end)
+		start: container.get<StartForgotPassUseCase>(
+			useCasesIds.user.forgotPassword.start,
+		),
+		end: container.get<EndForgotPassUseCase>(
+			useCasesIds.user.forgotPassword.end,
+		),
 	},
 
 	loginFlow: {
 		login: container.get<LoginUseCase>(useCasesIds.user.login.end),
 		throwTFA: container.get<ThrowTFAUseCase>(useCasesIds.user.login.start),
-		launchOTP: container.get<LaunchOTPLoginUseCase>(useCasesIds.user.login.launchOTP)
+		launchOTP: container.get<LaunchOTPLoginUseCase>(
+			useCasesIds.user.login.launchOTP,
+		),
 	},
 
 	siginFlow: {
 		start: container.get<CreateUserUseCase>(useCasesIds.user.sigin.create),
-		validate: container.get<ValidateUseCase>(useCasesIds.user.sigin.validate),
-		launchOTP: container.get<LaunchOTPUseCase>(useCasesIds.user.sigin.launchOTP),
-		cancelKey: container.get<CancelSiginKeyUseCase>(useCasesIds.user.sigin.cancelKey)
+		validate: container.get<ValidateUseCase>(
+			useCasesIds.user.sigin.validate,
+		),
+		launchOTP: container.get<LaunchOTPUseCase>(
+			useCasesIds.user.sigin.launchOTP,
+		),
+		cancelKey: container.get<CancelSiginKeyUseCase>(
+			useCasesIds.user.sigin.cancelKey,
+		),
 	},
-  
+
 	refreshTokensFlow: {
-		refresh: container.get<RefreshUseCase>(useCasesIds.user.refreshTokens)
+		refresh: container.get<RefreshUseCase>(useCasesIds.user.refreshTokens),
 	},
 
 	updateUserFlow: {
-		update: container.get<UpdateUserUseCase>(useCasesIds.user.update)
+		update: container.get<UpdateUserUseCase>(useCasesIds.user.update),
 	},
 
 	deleteUserFlow: {
-		delete: container.get<DeleteUserUseCase>(useCasesIds.user.delete)
+		delete: container.get<DeleteUserUseCase>(useCasesIds.user.delete),
 	},
 };

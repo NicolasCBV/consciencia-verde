@@ -7,7 +7,7 @@ import { useCasesIds } from "../../../useCasesId";
 import { LaunchOTPUseCase } from "../launchOTP.use-case";
 
 CreateUserGateway.prototype.launchOTP = jest.fn(async () => ({
-	cancelKey: "random uuid"
+	cancelKey: "random uuid",
 }));
 
 describe("Launch OTP use case test", () => {
@@ -17,7 +17,9 @@ describe("Launch OTP use case test", () => {
 	container.bind(useCasesIds.user.sigin.launchOTP).to(LaunchOTPUseCase);
 
 	it("should be able to launch OTP", async () => {
-		const useCase = container.get<LaunchOTPUseCase>(useCasesIds.user.sigin.launchOTP);
+		const useCase = container.get<LaunchOTPUseCase>(
+			useCasesIds.user.sigin.launchOTP,
+		);
 
 		const gatewaySpy = jest.spyOn(CreateUserGateway.prototype, "launchOTP");
 

@@ -1,9 +1,9 @@
 export interface IUser {
-  name: string;
-  description: null | string;
-  imageUrl: null | string;
-  createdAt: string;
-  updatedAt: string;
+	name: string;
+	description: null | string;
+	imageUrl: null | string;
+	createdAt: string;
+	updatedAt: string;
 }
 
 export class User {

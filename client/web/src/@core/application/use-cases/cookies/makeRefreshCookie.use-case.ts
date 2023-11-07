@@ -6,7 +6,7 @@ import { inject, injectable } from "inversify";
 export class MakeRefreshCookieUseCase {
 	constructor(
 		@inject(gateIds.cookie.refreshCookie)
-		private readonly refreshCookieGate: AbstractCookieGateway.RefreshCookieGateway
+		private readonly refreshCookieGate: AbstractCookieGateway.RefreshCookieGateway,
 	) {}
 
 	exec(input: string): string {

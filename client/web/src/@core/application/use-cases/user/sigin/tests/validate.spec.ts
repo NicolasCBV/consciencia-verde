@@ -7,7 +7,7 @@ import { useCasesIds } from "../../../useCasesId";
 import { ValidateUseCase } from "../validate.use-case";
 
 CreateUserGateway.prototype.validate = jest.fn(async () => ({
-	access_token: "access_token"
+	access_token: "access_token",
 }));
 
 describe("Validate user use case test", () => {
@@ -17,13 +17,15 @@ describe("Validate user use case test", () => {
 	container.bind(useCasesIds.user.sigin.validate).to(ValidateUseCase);
 
 	it("should be able to validate user", async () => {
-		const useCase = container.get<ValidateUseCase>(useCasesIds.user.sigin.validate);
+		const useCase = container.get<ValidateUseCase>(
+			useCasesIds.user.sigin.validate,
+		);
 
 		const gatewaySpy = jest.spyOn(CreateUserGateway.prototype, "validate");
 
 		await useCase.exec({
 			email: "default@email.com",
-			code: "1234567"
+			code: "1234567",
 		});
 
 		expect(gatewaySpy).toHaveBeenCalledTimes(1);

@@ -16,7 +16,9 @@ describe("Pagination post use case test", () => {
 	container.bind(useCasesIds.post.pagination).to(PaginationPostUseCase);
 
 	it("should be able to get pagination on post", async () => {
-		const useCase = container.get<GetPostUseCase>(useCasesIds.post.pagination);
+		const useCase = container.get<GetPostUseCase>(
+			useCasesIds.post.pagination,
+		);
 
 		const gatewaySpy = jest.spyOn(GetPostGateway.prototype, "pagination");
 

@@ -5,12 +5,14 @@ import { UserGateways } from "@/@core/domain/gateways/user.gateway";
 import { inject, injectable } from "inversify";
 
 @injectable()
-export class ForgotPasswordGateway implements UserGateways.ForgotUserPasswordGateway {
+export class ForgotPasswordGateway
+implements UserGateways.ForgotUserPasswordGateway
+{
 	constructor(
-    @inject(adapterIds.http)
-    private readonly http: HttpAdapter
+		@inject(adapterIds.http)
+		private readonly http: HttpAdapter,
 	) {}
-  
+
 	async start(input: UserGatewaysTypes.NonAuth.IStartForgotPassFlow) {
 		const headers = new Headers();
 		headers.set("content-type", "application/json");
@@ -20,8 +22,8 @@ export class ForgotPasswordGateway implements UserGateways.ForgotUserPasswordGat
 			method: "POST",
 			headers,
 			body: JSON.stringify({
-				email: input.email
-			})
+				email: input.email,
+			}),
 		});
 	}
 
@@ -35,8 +37,8 @@ export class ForgotPasswordGateway implements UserGateways.ForgotUserPasswordGat
 			method: "PATCH",
 			headers,
 			body: JSON.stringify({
-				password: input.password
-			})
+				password: input.password,
+			}),
 		});
 	}
 }

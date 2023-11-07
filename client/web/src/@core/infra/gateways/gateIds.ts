@@ -1,7 +1,7 @@
 export const gateIds = {
 	image: Symbol.for("ImageGateway"),
 	cookie: {
-		refreshCookie: Symbol.for("RefreshCookieGateway")
+		refreshCookie: Symbol.for("RefreshCookieGateway"),
 	},
 	post: {
 		create: Symbol.for("CreatePostGateway"),
@@ -9,7 +9,7 @@ export const gateIds = {
 		get: Symbol.for("GetPostGateway"),
 		search: Symbol.for("SearchPostGateway"),
 		update: Symbol.for("UpdatePostGateway"),
-		delete: Symbol.for("DeletePostGateway")
+		delete: Symbol.for("DeletePostGateway"),
 	},
 	user: {
 		create: Symbol.for("CreateUserGateway"),
@@ -17,6 +17,6 @@ export const gateIds = {
 		forgotPassword: Symbol.for("ForgotPasswordGateway"),
 		login: Symbol.for("LoginUserGateway"),
 		refreshToken: Symbol.for("RefreshUserTokenGateway"),
-		update: Symbol.for("UpdateUserGateway")
-	}
+		update: Symbol.for("UpdateUserGateway"),
+	},
 };

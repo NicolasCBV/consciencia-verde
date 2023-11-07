@@ -7,7 +7,7 @@ import { useCasesIds } from "../../useCasesId";
 import { RefreshUseCase } from "./refresh.use-case";
 
 RefreshUserTokenGateway.prototype.refresh = jest.fn(async () => ({
-	access_token: "access_token"
+	access_token: "access_token",
 }));
 
 describe("Refresh user token use case test", () => {
@@ -17,9 +17,14 @@ describe("Refresh user token use case test", () => {
 	container.bind(useCasesIds.user.refreshTokens).to(RefreshUseCase);
 
 	it("should be able to update user", async () => {
-		const useCase = container.get<RefreshUseCase>(useCasesIds.user.refreshTokens);
+		const useCase = container.get<RefreshUseCase>(
+			useCasesIds.user.refreshTokens,
+		);
 
-		const gatewaySpy = jest.spyOn(RefreshUserTokenGateway.prototype, "refresh");
+		const gatewaySpy = jest.spyOn(
+			RefreshUserTokenGateway.prototype,
+			"refresh",
+		);
 
 		await useCase.exec();
 

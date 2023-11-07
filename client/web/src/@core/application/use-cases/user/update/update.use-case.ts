@@ -6,8 +6,8 @@ import { inject, injectable } from "inversify";
 @injectable()
 export class UpdateUserUseCase {
 	constructor(
-    @inject(gateIds.user.update)
-	private readonly updateUserGate: UserGateways.UpdateUserGateway
+		@inject(gateIds.user.update)
+		private readonly updateUserGate: UserGateways.UpdateUserGateway,
 	) {}
 
 	async exec(input: UserGatewaysTypes.Auth.IUpdateUser) {

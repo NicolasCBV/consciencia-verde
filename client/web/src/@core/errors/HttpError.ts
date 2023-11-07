@@ -1,9 +1,9 @@
 interface IProps {
-  name: string;
-  message: string;
-  code?: number;
-  body?: string;
-  headers?: Headers;
+	name: string;
+	message: string;
+	code?: number;
+	body?: string;
+	headers?: Headers;
 }
 
 export class HttpError extends Error {

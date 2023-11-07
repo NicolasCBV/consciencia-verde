@@ -1,15 +1,15 @@
 import { Post } from "@/@core/domain/entities/post";
 
 export interface IPostObject {
-  name: string;
-  image: { 
-    URI?: string;
-    file?: File | null;
-  };
-  description: string;
-  content: string[];
-  createdAt: string;
-  updatedAt: string;
+	name: string;
+	image: {
+		URI?: string;
+		file?: File | null;
+	};
+	description: string;
+	content: string[];
+	createdAt: string;
+	updatedAt: string;
 }
 
 export class PostMapper {
@@ -23,7 +23,7 @@ export class PostMapper {
 			},
 			content: input.content,
 			createdAt: new Date(input.createdAt).toUTCString(),
-			updatedAt: new Date(input.updatedAt).toUTCString()
+			updatedAt: new Date(input.updatedAt).toUTCString(),
 		};
 	}
 
@@ -31,7 +31,7 @@ export class PostMapper {
 		return new Post({
 			...input,
 			createdAt: new Date(input.createdAt),
-			updatedAt: new Date(input.updatedAt)
+			updatedAt: new Date(input.updatedAt),
 		});
 	}
 }

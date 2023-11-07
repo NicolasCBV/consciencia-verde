@@ -1,13 +1,13 @@
 import { User } from "./user";
 
 export interface IAccessToken {
-  deviceId: string | null;
-  email: string;
-  exp: number;
-  iat: number;
-  sub: string;
-  type: "access_token",
-  userData: User;
+	deviceId: string | null;
+	email: string;
+	exp: number;
+	iat: number;
+	sub: string;
+	type: "access_token";
+	userData: User;
 }
 
 export class AccessToken {
