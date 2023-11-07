@@ -14,22 +14,21 @@ export class ImageGateway implements AbstractImageGateway {
 		maxFieldsSize: 4 * 1024 * 1024,
 		maxFields: 1,
 		allowEmptyFiles: false,
-		multiples: false
+		multiples: false,
 	};
 
 	private async formidablePromise(
 		req: IncomingMessage,
-		opts?: Parameters<typeof formidable>[0]
+		opts?: Parameters<typeof formidable>[0],
 	): Promise<{
-		fields: formidable.Fields; 
+		fields: formidable.Fields;
 		files: formidable.Files;
 	}> {
 		return new Promise((accept, reject) => {
 			const form = formidable(opts);
 
 			form.parse(req, (err, fields, files) => {
-				if(err)
-					return reject(err);
+				if (err) return reject(err);
 				return accept({ fields, files });
 			});
 		});
@@ -40,34 +39,34 @@ export class ImageGateway implements AbstractImageGateway {
 			write: (chunk, _enc, next) => {
 				acc.push(chunk);
 				next();
-			}
+			},
 		});
 		return writable;
 	}
 
 	async process(
-		input: ImageGatewayTypes.IPropsProcessImage
+		input: ImageGatewayTypes.IPropsProcessImage,
 	): Promise<ImageGatewayTypes.IProcessImage> {
 		const chunks: never[] = [];
 
 		const { files } = await this.formidablePromise(input.request, {
 			...this.formidableConfig,
-			fileWriteStreamHandler: () => this.fileConsumer(chunks)
+			fileWriteStreamHandler: () => this.fileConsumer(chunks),
 		});
 
 		const { file } = files;
 
-		if(!file || !file[0] || !file[0].mimetype || !file[0].originalFilename)
+		if (!file || !file[0] || !file[0].mimetype || !file[0].originalFilename)
 			throw new HttpError({
 				name: "Bad Request",
 				message: "File doesn't exist",
-				code: 400
+				code: 400,
 			});
 
-		return { 
+		return {
 			buffer: Buffer.concat(chunks),
 			mimeType: file[0].mimetype,
-			name: file[0].originalFilename
+			name: file[0].originalFilename,
 		};
-	}	
-} 
+	}
+}

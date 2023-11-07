@@ -12,8 +12,6 @@ startImageContent(container);
 
 export const ServerOnlyApplication = {
 	imageFlow: {
-		process: container.get<ProcessImageUseCase>(
-			useCasesIds.image.process
-		)
+		process: container.get<ProcessImageUseCase>(useCasesIds.image.process),
 	},
 };

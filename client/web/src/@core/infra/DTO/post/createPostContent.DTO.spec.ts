@@ -5,7 +5,7 @@ describe("Create post content DTO test", () => {
 		const createUserDTO = new CreatePostContentDTO();
 
 		const body = {
-			id: "cancelKey"
+			id: "cancelKey",
 		};
 
 		expect(createUserDTO.exec(body)).resolves.toEqual(body);
@@ -15,7 +15,7 @@ describe("Create post content DTO test", () => {
 		const createUserDTO = new CreatePostContentDTO();
 
 		const body = {
-			id: 0
+			id: 0,
 		};
 
 		expect(createUserDTO.exec(body)).rejects.toThrow();

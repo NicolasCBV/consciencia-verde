@@ -7,8 +7,8 @@ import { Container } from "inversify";
 import { useCasesIds } from "../../useCasesId";
 import { CreatePostUseCase } from "./create.use-case";
 
-CreatePostGateway.prototype.create = jest.fn(async () => ({ 
-	id: "default_id" 
+CreatePostGateway.prototype.create = jest.fn(async () => ({
+	id: "default_id",
 }));
 
 describe("Create post use case test", () => {
@@ -18,14 +18,16 @@ describe("Create post use case test", () => {
 	container.bind(useCasesIds.post.create).to(CreatePostUseCase);
 
 	it("should be able to create post", async () => {
-		const useCase = container.get<CreatePostUseCase>(useCasesIds.post.create);
+		const useCase = container.get<CreatePostUseCase>(
+			useCasesIds.post.create,
+		);
 
 		const gatewaySpy = jest.spyOn(CreatePostGateway.prototype, "create");
 		const post = postFactory();
 
-		await useCase.exec({ 
+		await useCase.exec({
 			access_token: "access_token",
-			post 
+			post,
 		});
 
 		expect(gatewaySpy).toHaveBeenCalledTimes(1);

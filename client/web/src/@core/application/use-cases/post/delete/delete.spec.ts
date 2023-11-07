@@ -15,13 +15,15 @@ describe("Delete post use case test", () => {
 	container.bind(useCasesIds.post.delete).to(DeletePostUseCase);
 
 	it("should be able to delete post", async () => {
-		const useCase = container.get<DeletePostUseCase>(useCasesIds.post.delete);
+		const useCase = container.get<DeletePostUseCase>(
+			useCasesIds.post.delete,
+		);
 
 		const gatewaySpy = jest.spyOn(DeletePostGateway.prototype, "remove");
 
-		await useCase.exec({ 
+		await useCase.exec({
 			access_token: "access_token",
-			id: "default_id"
+			id: "default_id",
 		});
 
 		expect(gatewaySpy).toHaveBeenCalledTimes(1);

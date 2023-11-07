@@ -7,7 +7,7 @@ import { useCasesIds } from "../../../useCasesId";
 import { CreateUserUseCase } from "../create.use-case";
 
 CreateUserGateway.prototype.create = jest.fn(async () => ({
-	cancelKey: "random uuid" 
+	cancelKey: "random uuid",
 }));
 
 describe("Create user use case test", () => {
@@ -17,14 +17,16 @@ describe("Create user use case test", () => {
 	container.bind(useCasesIds.user.sigin.create).to(CreateUserUseCase);
 
 	it("should be able to create user", async () => {
-		const useCase = container.get<CreateUserUseCase>(useCasesIds.user.sigin.create);
+		const useCase = container.get<CreateUserUseCase>(
+			useCasesIds.user.sigin.create,
+		);
 
 		const gatewaySpy = jest.spyOn(CreateUserGateway.prototype, "create");
 
 		await useCase.exec({
 			name: "default name",
 			email: "default@email.com",
-			password: "123456"
+			password: "123456",
 		});
 
 		expect(gatewaySpy).toHaveBeenCalledTimes(1);

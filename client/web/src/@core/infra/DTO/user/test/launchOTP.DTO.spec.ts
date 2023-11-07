@@ -5,7 +5,7 @@ describe("Launch OTP DTO test", () => {
 		const launchOTPDTO = new LaunchOTPDTO();
 
 		const body = {
-			cancelKey: "cancelKey"
+			cancelKey: "cancelKey",
 		};
 
 		expect(launchOTPDTO.exec(body)).resolves.toEqual(body);
@@ -15,7 +15,7 @@ describe("Launch OTP DTO test", () => {
 		const launchOTPDTO = new LaunchOTPDTO();
 
 		const body = {
-			cancelKey: 0
+			cancelKey: 0,
 		};
 
 		expect(launchOTPDTO.exec(body)).rejects.toThrow();

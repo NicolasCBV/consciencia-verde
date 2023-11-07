@@ -7,11 +7,11 @@ import { inject, injectable } from "inversify";
 export class ProcessImageUseCase {
 	constructor(
 		@inject(gateIds.image)
-		private readonly image: AbstractImageGateway
+		private readonly image: AbstractImageGateway,
 	) {}
 
 	async exec(
-		input: ImageGatewayTypes.IPropsProcessImage
+		input: ImageGatewayTypes.IPropsProcessImage,
 	): Promise<ImageGatewayTypes.IProcessImage> {
 		return await this.image.process(input);
 	}

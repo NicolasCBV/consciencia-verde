@@ -15,14 +15,16 @@ describe("Update user use case test", () => {
 	container.bind(useCasesIds.user.update).to(UpdateUserUseCase);
 
 	it("should be able to update user", async () => {
-		const useCase = container.get<UpdateUserUseCase>(useCasesIds.user.update);
+		const useCase = container.get<UpdateUserUseCase>(
+			useCasesIds.user.update,
+		);
 
 		const gatewaySpy = jest.spyOn(UpdateUserGateway.prototype, "update");
 
 		await useCase.exec({
 			access_token: "access_token",
 			name: "new name",
-			description: "new description"
+			description: "new description",
 		});
 
 		expect(gatewaySpy).toHaveBeenCalledTimes(1);

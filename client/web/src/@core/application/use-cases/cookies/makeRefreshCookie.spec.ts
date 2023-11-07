@@ -12,14 +12,19 @@ describe("Create refresh cookie use case test", () => {
 	const container = new Container();
 	container.bind(adapterIds.cookie).to(Cookie);
 	container.bind(gateIds.cookie.refreshCookie).to(RefreshCookieGateway);
-	container.bind(useCasesIds.cookie.makeRefreshCookie).to(MakeRefreshCookieUseCase);
+	container
+		.bind(useCasesIds.cookie.makeRefreshCookie)
+		.to(MakeRefreshCookieUseCase);
 
 	it("should be able to create refresh cookie", async () => {
 		const useCase = container.get<MakeRefreshCookieUseCase>(
-			useCasesIds.cookie.makeRefreshCookie
+			useCasesIds.cookie.makeRefreshCookie,
 		);
 
-		const gatewaySpy = jest.spyOn(RefreshCookieGateway.prototype, "makeRefreshCookie");
+		const gatewaySpy = jest.spyOn(
+			RefreshCookieGateway.prototype,
+			"makeRefreshCookie",
+		);
 
 		useCase.exec("fake_cookie");
 

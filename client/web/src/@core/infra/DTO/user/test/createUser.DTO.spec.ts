@@ -5,7 +5,7 @@ describe("Create user DTO test", () => {
 		const createUserDTO = new CreateUserDTO();
 
 		const body = {
-			cancelKey: "cancelKey"
+			cancelKey: "cancelKey",
 		};
 
 		expect(createUserDTO.exec(body)).resolves.toEqual(body);
@@ -15,7 +15,7 @@ describe("Create user DTO test", () => {
 		const createUserDTO = new CreateUserDTO();
 
 		const body = {
-			cancelKey: 0
+			cancelKey: 0,
 		};
 
 		expect(createUserDTO.exec(body)).rejects.toThrow();

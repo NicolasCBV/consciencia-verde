@@ -11,7 +11,6 @@ describe("Refresh user token DTO test", () => {
 		expect(refreshUserTokenDTO.exec(body)).resolves.toEqual(body);
 	});
 
-
 	it("should throw one error: wrong access_token input", async () => {
 		const refreshUserTokenDTO = new RefreshUserTokenDTO();
 

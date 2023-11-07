@@ -15,13 +15,18 @@ describe("Cancel user key use case test", () => {
 	container.bind(useCasesIds.user.sigin.cancelKey).to(CancelSiginKeyUseCase);
 
 	it("should be able to cancel user key", async () => {
-		const useCase = container.get<CancelSiginKeyUseCase>(useCasesIds.user.sigin.cancelKey);
+		const useCase = container.get<CancelSiginKeyUseCase>(
+			useCasesIds.user.sigin.cancelKey,
+		);
 
-		const gatewaySpy = jest.spyOn(CreateUserGateway.prototype, "cancelCreation");
+		const gatewaySpy = jest.spyOn(
+			CreateUserGateway.prototype,
+			"cancelCreation",
+		);
 
 		await useCase.exec({
 			email: "default@email.com",
-			key: "random uuid"
+			key: "random uuid",
 		});
 
 		expect(gatewaySpy).toHaveBeenCalledTimes(1);

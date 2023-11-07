@@ -6,8 +6,8 @@ import { inject, injectable } from "inversify";
 @injectable()
 export class DeleteUserUseCase {
 	constructor(
-    @inject(gateIds.user.delete)
-	private readonly deleteUserGate: UserGateways.DeleteUserGateway
+		@inject(gateIds.user.delete)
+		private readonly deleteUserGate: UserGateways.DeleteUserGateway,
 	) {}
 
 	async exec(input: UserGatewaysTypes.Auth.IDelete) {

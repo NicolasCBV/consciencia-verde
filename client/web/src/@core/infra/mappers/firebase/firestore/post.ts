@@ -2,21 +2,21 @@ import { Post } from "@/@core/domain/entities/post";
 import { Timestamp } from "firebase/firestore";
 
 export interface IFirestorePostObject {
-  name: string;
-  imageURI?: string;
-  description: string;
-  content: string[];
-  createdAt: Date;
-  updatedAt: Date;
+	name: string;
+	imageURI?: string;
+	description: string;
+	content: string[];
+	createdAt: Date;
+	updatedAt: Date;
 }
 
 export interface IIncomingFirebasePostData {
-  imageURI?: string;
-  name: string;
-  description: string;
-  content: string[];
-  createdAt: Timestamp;
-  updatedAt: Timestamp;
+	imageURI?: string;
+	name: string;
+	description: string;
+	content: string[];
+	createdAt: Timestamp;
+	updatedAt: Timestamp;
 }
 
 export class FirestorePostMapper {
@@ -27,7 +27,7 @@ export class FirestorePostMapper {
 			imageURI: input.imageURI,
 			content: input.content,
 			createdAt: input.createdAt.toDate(),
-			updatedAt: input.updatedAt.toDate()
+			updatedAt: input.updatedAt.toDate(),
 		};
 	}
 
@@ -38,7 +38,7 @@ export class FirestorePostMapper {
 			description: input.description,
 			content: input.content,
 			createdAt: input.createdAt,
-			updatedAt: input.updatedAt
+			updatedAt: input.updatedAt,
 		};
 	}
 
@@ -48,10 +48,10 @@ export class FirestorePostMapper {
 			description: input.description,
 			content: input.content,
 			image: {
-				URI: input.imageURI
+				URI: input.imageURI,
 			},
 			createdAt: input.createdAt,
-			updatedAt: input.updatedAt
+			updatedAt: input.updatedAt,
 		});
 	}
 }

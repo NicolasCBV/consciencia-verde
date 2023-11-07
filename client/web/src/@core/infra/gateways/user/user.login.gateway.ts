@@ -8,22 +8,21 @@ import { LoginUserDTO } from "../../DTO/user/loginUser.DTO";
 @injectable()
 export class LoginUserGateway implements UserGateways.LoginUserGateway {
 	constructor(
-    @inject(adapterIds.http)
-    private readonly http: HttpAdapter
+		@inject(adapterIds.http)
+		private readonly http: HttpAdapter,
 	) {}
 
 	async launchLoginOTP(input: UserGatewaysTypes.NonAuth.ILaunchOTP) {
 		const headers = new Headers();
 		headers.set("content-type", "application/json");
-  
+
 		await this.http.call({
 			url: "/api/user/launchOTPLogin",
 			method: "POST",
 			headers,
-			body: JSON.stringify(input)
+			body: JSON.stringify(input),
 		});
 	}
-  
 
 	async throwTFA(input: UserGatewaysTypes.NonAuth.IThrowTFA) {
 		const headers = new Headers();
@@ -33,7 +32,7 @@ export class LoginUserGateway implements UserGateways.LoginUserGateway {
 			url: "/api/user/throwTFA",
 			method: "POST",
 			headers,
-			body: JSON.stringify(input)
+			body: JSON.stringify(input),
 		});
 	}
 
@@ -45,7 +44,7 @@ export class LoginUserGateway implements UserGateways.LoginUserGateway {
 			url: "/api/user/login",
 			method: "POST",
 			headers,
-			body: JSON.stringify(input)
+			body: JSON.stringify(input),
 		});
 
 		const dto = new LoginUserDTO();
@@ -53,5 +52,4 @@ export class LoginUserGateway implements UserGateways.LoginUserGateway {
 
 		return body;
 	}
-
 }

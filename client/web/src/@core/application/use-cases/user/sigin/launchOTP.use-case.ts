@@ -6,8 +6,8 @@ import { inject, injectable } from "inversify";
 @injectable()
 export class LaunchOTPUseCase {
 	constructor(
-    @inject(gateIds.user.create)
-    private readonly createUserGate: UserGateways.CreateUserGateway
+		@inject(gateIds.user.create)
+		private readonly createUserGate: UserGateways.CreateUserGateway,
 	) {}
 
 	async exec(input: UserGatewaysTypes.NonAuth.ILaunchOTP) {

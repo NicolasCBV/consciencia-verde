@@ -16,15 +16,17 @@ describe("Update post use case test", () => {
 	container.bind(useCasesIds.post.update).to(UpdatePostUseCase);
 
 	it("should be able to update post", async () => {
-		const useCase = container.get<UpdatePostUseCase>(useCasesIds.post.update);
+		const useCase = container.get<UpdatePostUseCase>(
+			useCasesIds.post.update,
+		);
 
 		const gatewaySpy = jest.spyOn(UpdatePostGateway.prototype, "update");
 		const post = postFactory();
 
-		await useCase.exec({ 
+		await useCase.exec({
 			id: "default_id",
 			access_token: "access_token",
-			post 
+			post,
 		});
 
 		expect(gatewaySpy).toHaveBeenCalledTimes(1);

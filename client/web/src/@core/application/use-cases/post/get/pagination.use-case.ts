@@ -6,8 +6,8 @@ import { inject, injectable } from "inversify";
 @injectable()
 export class PaginationPostUseCase {
 	constructor(
-    @inject(gateIds.post.get)
-    private readonly postGate: PostGateway.GetPostGateway
+		@inject(gateIds.post.get)
+		private readonly postGate: PostGateway.GetPostGateway,
 	) {}
 
 	async exec(input: PostGatewayTypes.IPagination) {

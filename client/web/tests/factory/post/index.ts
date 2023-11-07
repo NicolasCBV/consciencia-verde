@@ -8,11 +8,11 @@ export function postFactory(input?: TOverride) {
 		description: "default post description",
 		content: ["default content"],
 		image: {
-		  URI: "default URI",
-		  file: new File(["foo"], "foo.txt", {
-			type: "text/plain"
-		  })
+			URI: "default URI",
+			file: new File(["foo"], "foo.txt", {
+				type: "text/plain",
+			}),
 		},
-		...input
-	})
+		...input,
+	});
 }

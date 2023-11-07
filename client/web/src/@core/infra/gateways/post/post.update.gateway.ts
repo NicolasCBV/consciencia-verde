@@ -8,8 +8,8 @@ import { inject, injectable } from "inversify";
 @injectable()
 export class UpdatePostGateway implements PostGateway.UpdatePostGateway {
 	constructor(
-    @inject(adapterIds.http)
-    private readonly http: HttpAdapter
+		@inject(adapterIds.http)
+		private readonly http: HttpAdapter,
 	) {}
 
 	private async sendContent(input: PostGatewayTypes.Server.IUpdatePost) {
@@ -18,16 +18,16 @@ export class UpdatePostGateway implements PostGateway.UpdatePostGateway {
 			method: "PUT",
 			headers: {
 				"content-type": "application/json",
-				"authorization": String(input.access_token)
+				authorization: String(input.access_token),
 			},
 			body: JSON.stringify({
 				id: input.id,
 				name: input.post.name,
 				description: input.post.description,
-				content: input.post.content
-			})
+				content: input.post.content,
+			}),
 		});
-	} 
+	}
 
 	private async sendImage(input: PostGatewayTypes.Server.IUploadImagePost) {
 		const form = new FormData();
@@ -37,36 +37,31 @@ export class UpdatePostGateway implements PostGateway.UpdatePostGateway {
 			url: `/api/posts/uploadImage?postId=${input.id}`,
 			method: "POST",
 			headers: {
-				"authorization": String(input.access_token)
+				authorization: String(input.access_token),
 			},
-			body: form
+			body: form,
 		});
 	}
 
 	async update(input: PostGatewayTypes.Server.IUpdatePost) {
-		if(
-			!input.post.image.file 
-      && input.post.image.file
-		)
+		if (!input.post.image.file && input.post.image.file)
 			throw new HttpError({
 				name: "Bad Request",
 				code: 400,
-				message: "File field empty."
+				message: "File field empty.",
 			});
-
 
 		await this.sendContent({
 			id: input.id,
 			access_token: input.access_token,
-			post: input.post
+			post: input.post,
 		});
 
-		if(input.post.image.file)
+		if (input.post.image.file)
 			await this.sendImage({
 				id: input.id,
 				access_token: input.access_token,
-				file: input.post.image.file
+				file: input.post.image.file,
 			});
 	}
 }
-

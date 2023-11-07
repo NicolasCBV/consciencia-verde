@@ -5,10 +5,12 @@ import { inject, injectable } from "inversify";
 import { RefreshUserTokenDTO } from "../../DTO/user/refreshUserToken.DTO";
 
 @injectable()
-export class RefreshUserTokenGateway implements UserGateways.RefreshUserTokenGateway {
+export class RefreshUserTokenGateway
+implements UserGateways.RefreshUserTokenGateway
+{
 	constructor(
-    @inject(adapterIds.http)
-    private readonly http: HttpAdapter
+		@inject(adapterIds.http)
+		private readonly http: HttpAdapter,
 	) {}
 
 	async refresh() {
@@ -18,7 +20,7 @@ export class RefreshUserTokenGateway implements UserGateways.RefreshUserTokenGat
 		const response = await this.http.call({
 			url: "/api/user/refreshToken",
 			method: "POST",
-			headers
+			headers,
 		});
 
 		const dto = new RefreshUserTokenDTO();

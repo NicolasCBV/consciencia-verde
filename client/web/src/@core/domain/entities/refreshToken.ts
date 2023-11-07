@@ -1,10 +1,10 @@
 export interface IRefreshToken {
-  deviceId: string | null;
-  email: string;
-  exp: number;
-  iat: number;
-  sub: string;
-  type: "refresh_token",
+	deviceId: string | null;
+	email: string;
+	exp: number;
+	iat: number;
+	sub: string;
+	type: "refresh_token";
 }
 
 export class RefreshToken {

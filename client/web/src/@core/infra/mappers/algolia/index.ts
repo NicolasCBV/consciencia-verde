@@ -1,12 +1,12 @@
 import { IPostObject } from "../post";
 
 export interface IAlgoliaHitObject {
-  name: string;
-  content: string[];
-  description: string;
-  imageURI: string;
-  objectID: string;
-  path: string;
+	name: string;
+	content: string[];
+	description: string;
+	imageURI: string;
+	objectID: string;
+	path: string;
 }
 
 export class AlgoliaHitMapper {
@@ -16,10 +16,10 @@ export class AlgoliaHitMapper {
 			description: input.description,
 			content: input.content,
 			image: {
-				URI: input.imageURI
+				URI: input.imageURI,
 			},
 			createdAt: new Date(0).toUTCString(),
-			updatedAt: new Date(0).toUTCString()
+			updatedAt: new Date(0).toUTCString(),
 		};
 	}
 }

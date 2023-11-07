@@ -14,7 +14,7 @@ export class ExistentPostGateway implements PostGateway.ExistentPostGateway {
 
 	private async checkIfExist(input: string): Promise<boolean> {
 		const postCollections = collection(firestore, "posts");
-    
+
 		const ref = doc(postCollections, input);
 		return await getDoc(ref)
 			.then((snapshot) => {
@@ -24,7 +24,7 @@ export class ExistentPostGateway implements PostGateway.ExistentPostGateway {
 				throw new HttpError({
 					name: "Unauthorized",
 					code: 401,
-					message: "Could not send image"
+					message: "Could not send image",
 				});
 			});
 	}
@@ -32,7 +32,6 @@ export class ExistentPostGateway implements PostGateway.ExistentPostGateway {
 	async exist(input: PostGatewayTypes.IExistPost) {
 		const name = this.formatData(input.name);
 		const data = await this.checkIfExist(name);
-		return data; 
+		return data;
 	}
 }
-

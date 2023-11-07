@@ -1,21 +1,21 @@
 import { Replace } from "@/utils/replace";
 
 interface IImage {
-  URI?: string;
-  file?: File | null;
+	URI?: string;
+	file?: File | null;
 }
 export interface IPost {
-  name: string;
-  image: IImage;
-  description: string;
-  content: string[];
-  createdAt: Date;
-  updatedAt: Date;
+	name: string;
+	image: IImage;
+	description: string;
+	content: string[];
+	createdAt: Date;
+	updatedAt: Date;
 }
 
 type TInput = Replace<
-  Replace<Post, { createdAt?: Date }>,
-  { updatedAt?: Date }
+	Replace<Post, { createdAt?: Date }>,
+	{ updatedAt?: Date }
 >;
 
 export class Post {
@@ -25,7 +25,7 @@ export class Post {
 		this.props = {
 			...input,
 			createdAt: input.createdAt ?? new Date(),
-			updatedAt: input.updatedAt ?? new Date()
+			updatedAt: input.updatedAt ?? new Date(),
 		};
 	}
 
@@ -69,7 +69,7 @@ export class Post {
 	get createdAt(): Date {
 		return this.props.createdAt;
 	}
-  
+
 	// updatedAt
 	get updatedAt(): Date {
 		return this.props.updatedAt;

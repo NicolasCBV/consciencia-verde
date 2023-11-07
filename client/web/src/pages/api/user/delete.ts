@@ -5,31 +5,27 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function deleteUser(
 	req: NextApiRequest,
-	res: NextApiResponse
+	res: NextApiResponse,
 ) {
 	const { method, headers } = req;
-	if (method !== "DELETE") 
-		return res.status(404).end();
+	if (method !== "DELETE") return res.status(404).end();
 
 	const serverURL = process.env.SERVER_URL;
-	return await Application
-		.httpClient
+	return await Application.httpClient
 		.call({
 			url: `${serverURL}/users/delete`,
 			method: "DELETE",
 			headers: {
-				authorization: `${headers.authorization}`
-			}
+				authorization: `${headers.authorization}`,
+			},
 		})
 		.then((result) => {
 			res.status(result.status).end();
 		})
 		.catch((err) => {
-			if(err instanceof HttpError) {
+			if (err instanceof HttpError) {
 				const httpError = HttpErrorMapper.toObject(err);
 				res.status(httpError.code ?? 500).json(httpError);
-			} else
-				res.status(500).end();
+			} else res.status(500).end();
 		});
 }
-

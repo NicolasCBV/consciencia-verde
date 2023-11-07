@@ -7,7 +7,7 @@ import { useCasesIds } from "../../../useCasesId";
 import { LoginUseCase } from "../login.use-case";
 
 LoginUserGateway.prototype.login = jest.fn(async () => ({
-	access_token: "access_token"
+	access_token: "access_token",
 }));
 
 describe("Login use case test", () => {
@@ -17,13 +17,15 @@ describe("Login use case test", () => {
 	container.bind(useCasesIds.user.login.start).to(LoginUseCase);
 
 	it("should be able to login", async () => {
-		const useCase = container.get<LoginUseCase>(useCasesIds.user.login.start);
+		const useCase = container.get<LoginUseCase>(
+			useCasesIds.user.login.start,
+		);
 
 		const gatewaySpy = jest.spyOn(LoginUserGateway.prototype, "login");
 
 		await useCase.exec({
 			email: "default@email.com",
-			code: "123456"
+			code: "123456",
 		});
 
 		expect(gatewaySpy).toHaveBeenCalledTimes(1);
