@@ -34,7 +34,7 @@
     "inversify": "^6.0.1",
     "jsdom": "^20.0.1",
     "lowlight": "^2.9.0",
-    "next": "^13.4.13",
+    "next": "^13.5.0",
     "phosphor-react": "^1.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
